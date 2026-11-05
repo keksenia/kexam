@@ -1,2 +1,4 @@
 Pillow==12.2.0
 jsonschema==4.26.0
+# jsonschema silently omits date-time validation without this optional checker.
+rfc3339-validator==0.1.4
