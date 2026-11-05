@@ -1,5 +1,114 @@
-"""Draw editable vector artwork for the public project page. All content synthetic."""
+"""Draw synthetic artwork using the site's actual typefaces.
+
+Provide the local Stolzl fonts, MathLive symbol fonts and outlined wordmark.
+Only the resulting lettering paths are published, never font files.
+"""
+import argparse
+from io import BytesIO
 from pathlib import Path
+import xml.etree.ElementTree as ET
+
+from fontTools.pens.svgPathPen import SVGPathPen
+from fontTools.ttLib import TTFont
+import uharfbuzz as hb
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--stolzl-dir", required=True, type=Path)
+parser.add_argument("--math-font-dir", required=True, type=Path)
+parser.add_argument("--wordmark", required=True, type=Path)
+args = parser.parse_args()
+
+SVG = "http://www.w3.org/2000/svg"
+ET.register_namespace("", SVG)
+
+
+class Typeface:
+    def __init__(self, path):
+        self.tt = TTFont(path)
+        self.cmap = self.tt.getBestCmap()
+        self.glyphs = self.tt.getGlyphSet()
+        self.order = self.tt.getGlyphOrder()
+        self.units = self.tt["head"].unitsPerEm
+        self.tt.flavor = None
+        raw = BytesIO()
+        self.tt.save(raw)
+        self.hb = hb.Font(hb.Face(raw.getvalue()))
+        self.hb.scale = (self.units, self.units)
+
+    def shape(self, text, size):
+        buffer = hb.Buffer()
+        buffer.add_str(text)
+        buffer.guess_segment_properties()
+        hb.shape(self.hb, buffer, {"kern": True})
+        return [(self.order[i.codepoint], p.x_advance * size / self.units,
+                 p.x_offset * size / self.units, p.y_offset * size / self.units)
+                for i, p in zip(buffer.glyph_infos, buffer.glyph_positions)]
+
+
+stolzl = {weight: Typeface(args.stolzl_dir / f"stolzl_{name}.otf")
+          for weight, name in ((400, "regular"), (500, "medium"), (700, "bold"))}
+symbols = [Typeface(args.math_font_dir / f"KaTeX_{name}.woff2")
+           for name in ("Main-Regular", "Math-Italic", "AMS-Regular")]
+
+
+def outline(node, inherited):
+    style = {**inherited, **node.attrib}
+    if node.tag == f"{{{SVG}}}text":
+        if len(node):
+            raise ValueError("Flatten text spans before outlining")
+        text = node.text or ""
+        size = float(style.get("font-size", 16))
+        weight = int(style.get("font-weight", 400))
+        primary = stolzl[min(stolzl, key=lambda value: abs(value - weight))]
+        runs = []
+        for character in text:
+            # MathLive draws blackboard Z from the AMS Z slot.
+            rendered = "Z" if character == "ℤ" else character
+            font = symbols[-1] if character == "ℤ" else next(
+                (f for f in [primary, *symbols] if ord(character) in f.cmap), None)
+            if font is None:
+                raise ValueError(f"Unsupported glyph: U+{ord(character):04X}")
+            if not runs or runs[-1][0] is not font:
+                runs.append([font, rendered])
+            else:
+                runs[-1][1] += rendered
+        glyphs = [(font, *glyph) for font, value in runs for glyph in font.shape(value, size)]
+        tracking = float(style.get("letter-spacing", 0))
+        width = sum(g[2] for g in glyphs) + max(0, len(glyphs) - 1) * tracking
+        x, y = float(node.get("x", 0)), float(node.get("y", 0))
+        if style.get("text-anchor") == "end":
+            x -= width
+        elif style.get("text-anchor") == "middle":
+            x -= width / 2
+        group = ET.Element(f"{{{SVG}}}g", {
+            "fill": style.get("fill", "#29344f"), "aria-label": text,
+            "data-font": f"Stolzl {weight}",
+        })
+        for font, name, advance, dx, dy in glyphs:
+            pen = SVGPathPen(font.glyphs)
+            font.glyphs[name].draw(pen)
+            commands = pen.getCommands()
+            scale = size / font.units
+            if commands:
+                ET.SubElement(group, f"{{{SVG}}}path", {
+                    "d": commands,
+                    "transform": f"translate({x + dx:.5f} {y - dy:.5f}) scale({scale:.7f} {-scale:.7f})",
+                })
+            x += advance + tracking
+        return group
+    for index, child in enumerate(list(node)):
+        node.remove(child)
+        node.insert(index, outline(child, style))
+    return node
+
+
+def wordmark(x, y, width):
+    logo = ET.parse(args.wordmark).getroot()
+    logo.set("x", str(x))
+    logo.set("y", str(y))
+    logo.set("width", str(width))
+    logo.set("height", str(width * 785.8 / 4056.502))
+    return ET.tostring(logo, encoding="unicode")
 
 root = Path(__file__).resolve().parents[1] / "docs/assets"
 root.mkdir(parents=True, exist_ok=True)
@@ -49,6 +158,19 @@ product = '''<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="650" v
 <path d="M795 470H1370" stroke="#e6eaf4"/>
 <text x="795" y="508" font-size="16" fill="#66718a">КАК ИСПРАВИТЬ</text><text x="795" y="544" font-size="20">Замени [1; +∞) на (1; +∞).</text><text x="795" y="575" font-size="17" fill="#66718a">Остальную часть ответа сохрани.</text></g>
 </svg>'''
-(root / "cover.svg").write_text(cover)
-(root / "product-example.svg").write_text(product)
-print("Vector cover and synthetic example rendered")
+cover_start = cover.index('<g font-family="Arial, sans-serif">')
+cover_end = cover.index('</g>', cover_start) + len('</g>')
+cover = (cover[:cover_start] + wordmark(80, 55, 155)
+         + '<text x="260" y="81" font-size="14" fill="#77819b">ПРОВЕРКА РЕШЕНИЙ ЕГЭ</text>'
+         + cover[cover_end:])
+product_start = product.index('<text x="44" y="53"')
+product_end = product.index('</text>', product_start) + len('</text>')
+product = product[:product_start] + wordmark(44, 32, 112) + product[product_end:]
+
+for filename, source in (("cover.svg", cover), ("product-example.svg", product)):
+    source = source.replace('Arial, sans-serif', 'Stolzl').replace(
+        "Georgia, 'Times New Roman', serif", 'Stolzl').replace('Georgia, serif', 'Stolzl')
+    svg = outline(ET.fromstring(source), {})
+    assert not svg.findall(f".//{{{SVG}}}text")
+    (root / filename).write_text(ET.tostring(svg, encoding="unicode"))
+print("Stolzl lettering and the original Unbounded 600 wordmark rendered as paths")

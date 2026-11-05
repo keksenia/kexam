@@ -1,1 +1,4 @@
 matplotlib==3.11.2
+fonttools==4.66.0
+uharfbuzz==0.57.0
+brotli==1.2.1
