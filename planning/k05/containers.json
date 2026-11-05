@@ -1,0 +1,1832 @@
+{
+  "package_version": "k05-2026-1.0.0",
+  "containers": [
+    {
+      "id": "k05.core.provenance",
+      "version": "1.0.0",
+      "title": "Происхождение и действующая версия",
+      "purpose": "Проверить происхождение и действующая версия с сохранением источников, области и границ вывода.",
+      "mandatory": true,
+      "include_if": [
+        "always"
+      ],
+      "exclude_if": [],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.CORE.READING_UNCERTAIN",
+        "MECH.CORE.SUPERSEDED_SOURCE",
+        "MECH.CORE.STALE_FACT",
+        "MECH.CORE.HIDDEN_PREMISE"
+      ],
+      "operation_ids": [],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-READING-UNKNOWN"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "TR-F11"
+        },
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        },
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        }
+      ],
+      "contrast_examples": [
+        "Полное независимое доказательство делает спорную необязательную деталь несущественной",
+        "Действующая замена строки подтверждена контекстом",
+        "Правка только формулировки feedback не меняет математическое основание",
+        "Вывод сохранён только в условной ветви со всеми зависимостями"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.core.constraints",
+      "version": "1.0.0",
+      "title": "Постоянный учёт ограничений",
+      "purpose": "Проверить постоянный учёт ограничений с сохранением источников, области и границ вывода.",
+      "mandatory": true,
+      "include_if": [
+        "always"
+      ],
+      "exclude_if": [],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.CORE.BRANCH_LEAK",
+        "MECH.CORE.DOMAIN_SYSTEM_WRONG"
+      ],
+      "operation_ids": [
+        "m07.denominator_nonzero",
+        "m07.set_intersection",
+        "m07.set_membership"
+      ],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        },
+        {
+          "path": "../m03/cases.json",
+          "locator": "15.3.4"
+        },
+        {
+          "path": "../m03/cases.json",
+          "locator": "15.6.2"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F09"
+        }
+      ],
+      "contrast_examples": [
+        "Отдельные случаи с доказанным покрытием и branch_join",
+        "ОДЗ учтена позже правильным ограничением итогового множества"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "A-JUSTIFICATION",
+        "m03-domain",
+        "m03-sets",
+        "m03-transformations"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.core.completeness",
+      "version": "1.0.0",
+      "title": "Полнота решения",
+      "purpose": "Проверить полнота решения с сохранением источников, области и границ вывода.",
+      "mandatory": true,
+      "include_if": [
+        "always"
+      ],
+      "exclude_if": [],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.CORE.MISSING_JUSTIFICATION"
+      ],
+      "operation_ids": [],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../m02/rules.json",
+          "locator": "R-POSITIVE"
+        },
+        {
+          "path": "../../Материалы ЕГЭ — 13 и 15/Исследование оценивания и оформления/ФИПИ/CASE_REGISTRY.json",
+          "locator": "13.1.3"
+        },
+        {
+          "path": "../m03/rules.json",
+          "locator": "m03-method-freedom"
+        }
+      ],
+      "contrast_examples": [
+        "Краткое математически грамотное решение с достаточными связями"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "A-JUSTIFICATION",
+        "B-JUSTIFICATION",
+        "m03-transformations"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.core.consistency",
+      "version": "1.0.0",
+      "title": "Согласованность решения и ответа",
+      "purpose": "Проверить согласованность решения и ответа с сохранением источников, области и границ вывода.",
+      "mandatory": true,
+      "include_if": [
+        "always"
+      ],
+      "exclude_if": [],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.CORE.ANSWER_CHAIN_MISMATCH",
+        "MECH.CORE.SCORE_FEEDBACK_COUPLED"
+      ],
+      "operation_ids": [
+        "m07.set_equal"
+      ],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "O-F06"
+        },
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-INDEPENDENT-SCORE"
+        }
+      ],
+      "contrast_examples": [
+        "Одинаковое множество записано другой равносильной формой",
+        "Сомнение меняет балл — финальный балл действительно withheld"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "A-ANSWER",
+        "B-ANSWER",
+        "m03-answer"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.core.general_method",
+      "version": "1.0.0",
+      "title": "Общий путь неизвестного способа",
+      "purpose": "Проверить общий путь неизвестного способа с сохранением источников, области и границ вывода.",
+      "mandatory": false,
+      "include_if": [
+        "unknown_method"
+      ],
+      "exclude_if": [],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.CORE.UNKNOWN_METHOD"
+      ],
+      "operation_ids": [],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../m03/rules.json",
+          "locator": "m03-method-freedom"
+        },
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        }
+      ],
+      "contrast_examples": [
+        "Нестандартное корректное решение проверено по фактам, без совпадения с эталоном"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.div",
+      "version": "1.0.0",
+      "title": "Деление и сокращение",
+      "purpose": "Проверить деление и сокращение с сохранением источников, области и границ вывода.",
+      "mandatory": false,
+      "include_if": [
+        "division",
+        "cancellation",
+        "rational_fraction"
+      ],
+      "exclude_if": [
+        "Нет соответствующих операций/объектов после полного просмотра; неопределённый ярлык не исключает core и общий путь."
+      ],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.DIV.DIVISOR_ZERO_BRANCH_LOST",
+        "MECH.DIV.CANCELLED_HOLE_RESTORED",
+        "MECH.DIV.INEQUALITY_SIGN_LOST"
+      ],
+      "operation_ids": [
+        "m07.denominator_nonzero"
+      ],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-DIVIDE-LOSS"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-DIVIDE-VALID"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-DIVIDE-CASES"
+        },
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../../research/code_model_hybrid_2026-10-07/demonstrations.json",
+          "locator": "cancelled_domain"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        },
+        {
+          "path": "../m03/cases.json",
+          "locator": "15.1.2"
+        },
+        {
+          "path": "../m03/cases.json",
+          "locator": "15.4.4"
+        }
+      ],
+      "contrast_examples": [
+        "sin x=cos x: cos x=0 невозможно; или нулевая ветвь рассмотрена отдельно",
+        "(x²−1)/(x−1)=x+1 используется только при x≠1",
+        "Положительный квадрат знаменателя с исключёнными нулями"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "A-ANSWER",
+        "A-JUSTIFICATION",
+        "m03-critical-points",
+        "m03-domain",
+        "m03-signs",
+        "m03-transformations"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.pow_root",
+      "version": "1.0.0",
+      "title": "Степень и корень",
+      "purpose": "Проверить степень и корень с сохранением источников, области и границ вывода.",
+      "mandatory": false,
+      "include_if": [
+        "power",
+        "radical"
+      ],
+      "exclude_if": [
+        "Нет соответствующих операций/объектов после полного просмотра; неопределённый ярлык не исключает core и общий путь."
+      ],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.POW.SQUARING_EXTRANEOUS",
+        "MECH.POW.ROOT_BRANCH_LOST",
+        "MECH.POW.DOMAIN_IGNORED"
+      ],
+      "operation_ids": [],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-SQUARE-EXTRA"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-SQUARE-FILTER"
+        },
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../../research/code_model_hybrid_2026-10-07/demonstrations.json",
+          "locator": "branch_context"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "O-F09"
+        },
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        }
+      ],
+      "contrast_examples": [
+        "Квадрат как следствие с последующей полной проверкой кандидатов",
+        "В ветви x>0 при x²=1 ответ {1} полон",
+        "Область ограничена действующим условием ветви"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "A-ANSWER",
+        "A-JUSTIFICATION",
+        "m03-domain",
+        "m03-substitution",
+        "m03-transformations"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.log_exp",
+      "version": "1.0.0",
+      "title": "Логарифмы и показатели",
+      "purpose": "Проверить логарифмы и показатели с сохранением источников, области и границ вывода.",
+      "mandatory": false,
+      "include_if": [
+        "logarithm",
+        "exponential",
+        "rationalization"
+      ],
+      "exclude_if": [
+        "Нет соответствующих операций/объектов после полного просмотра; неопределённый ярлык не исключает core и общий путь."
+      ],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.LOG.DOMAIN_EXPANDED",
+        "MECH.LOG.BASE_MONOTONICITY",
+        "MECH.LOG.RATIONALIZATION_AS_IDENTITY"
+      ],
+      "operation_ids": [],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F03"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F04"
+        },
+        {
+          "path": "../../Материалы ЕГЭ — 13 и 15/Исследование оценивания и оформления/ФИПИ/CASE_REGISTRY.json",
+          "locator": "13.6.3"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F02"
+        },
+        {
+          "path": "../m03/cases.json",
+          "locator": "15.5.3"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F01"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F12"
+        }
+      ],
+      "contrast_examples": [
+        "1/log_x2=log_2x при x>0,x≠1; log_2(x²)=2log_2|x| при x≠0",
+        "Основание 1 запрещено у логарифма, но не у степени",
+        "Замена знакового множителя при сравнении произведения с нулём"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "A-JUSTIFICATION",
+        "m03-domain",
+        "m03-signs",
+        "m03-transformations"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.subst",
+      "version": "1.0.0",
+      "title": "Замена и обратный переход",
+      "purpose": "Проверить замена и обратный переход с сохранением источников, области и границ вывода.",
+      "mandatory": false,
+      "include_if": [
+        "substitution",
+        "angle_change"
+      ],
+      "exclude_if": [
+        "Нет соответствующих операций/объектов после полного просмотра; неопределённый ярлык не исключает core и общий путь."
+      ],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.SUBST.RANGE_IGNORED",
+        "MECH.SUBST.PREIMAGE_INCOMPLETE",
+        "MECH.SUBST.VARIABLE_MIXED"
+      ],
+      "operation_ids": [],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "TR-F04"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F05"
+        },
+        {
+          "path": "../l03/REPORT.md",
+          "locator": "W020-1"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F11"
+        },
+        {
+          "path": "../m03/examples.json",
+          "locator": "D07-preimages"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F06"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "O-F02"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ],
+      "contrast_examples": [
+        "sin x=4 отбрасывается при обратной замене; ранняя строка диапазона не обязательна",
+        "Для t=x² возвращены обе допустимые ветви",
+        "Формулы с x и t допустимы при явной связи и согласованных осях"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "A-ANSWER",
+        "A-JUSTIFICATION",
+        "m03-answer",
+        "m03-domain",
+        "m03-sets",
+        "m03-substitution"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.intervals",
+      "version": "1.0.0",
+      "title": "Интервалы, знаки и множества",
+      "purpose": "Проверить интервалы, знаки и множества с сохранением источников, области и границ вывода.",
+      "mandatory": false,
+      "include_if": [
+        "inequality",
+        "explicit_set",
+        "sign_chart"
+      ],
+      "exclude_if": [
+        "Нет соответствующих операций/объектов после полного просмотра; неопределённый ярлык не исключает core и общий путь."
+      ],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.INT.SIGN_WRONG",
+        "MECH.INT.MULTIPLICITY_WRONG",
+        "MECH.INT.ENDPOINT_WRONG",
+        "MECH.INT.SET_LOGIC_WRONG"
+      ],
+      "operation_ids": [
+        "m07.set_union",
+        "m07.set_intersection",
+        "m07.set_membership",
+        "m07.set_equal",
+        "m07.denominator_nonzero"
+      ],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../m03/cases.json",
+          "locator": "15.2.4"
+        },
+        {
+          "path": "../m03/cases.json",
+          "locator": "15.4.4"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F07"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F13"
+        },
+        {
+          "path": "../m03/examples.json",
+          "locator": "D08-isolated-hole"
+        },
+        {
+          "path": "../m03/cases.json",
+          "locator": "15.1.3"
+        },
+        {
+          "path": "../m03/cases.json",
+          "locator": "15.2.3"
+        },
+        {
+          "path": "../m03/cases.json",
+          "locator": "15.3.3"
+        }
+      ],
+      "contrast_examples": [
+        "Проверка ячейки после доказанной полноты нулей/разрывов",
+        "Чётный нуль не меняет знак; полюс остаётся исключённым",
+        "Запрещённая точка не является лишь ошибкой строгости",
+        "Полные альтернативы объединены; одновременные условия пересечены"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "m03-answer",
+        "m03-boundaries",
+        "m03-boundary-exception",
+        "m03-critical-points",
+        "m03-domain",
+        "m03-sets",
+        "m03-signs"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.trig",
+      "version": "1.0.0",
+      "title": "Тригонометрия и семейства",
+      "purpose": "Проверить тригонометрия и семейства с сохранением источников, области и границ вывода.",
+      "mandatory": false,
+      "include_if": [
+        "trigonometry",
+        "pi_families"
+      ],
+      "exclude_if": [
+        "Нет соответствующих операций/объектов после полного просмотра; неопределённый ярлык не исключает core и общий путь."
+      ],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.TRIG.PERIOD_WRONG",
+        "MECH.TRIG.PRODUCT_BRANCH_LOST",
+        "MECH.TRIG.INDEX_LOGIC_WRONG",
+        "MECH.TRIG.INVERSE_BRANCH"
+      ],
+      "operation_ids": [],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "TR-F10"
+        },
+        {
+          "path": "../../Материалы ЕГЭ — 13 и 15/Исследование оценивания и оформления/ФИПИ/CASE_REGISTRY.json",
+          "locator": "13.1.4"
+        },
+        {
+          "path": "../../Материалы ЕГЭ — 13 и 15/Исследование оценивания и оформления/ФИПИ/CASE_REGISTRY.json",
+          "locator": "13.5.3"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-PRODUCT-LOSS"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-PRODUCT-FULL"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "TR-F07"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-INDEX-UNION"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-INDEX-INTERSECTION"
+        }
+      ],
+      "contrast_examples": [
+        "Безвредные дубли и смена целочисленного индекса",
+        "Все множители либо доказанное отсутствие корней",
+        "В объединении локальные индексы независимы; пересечение решается отдельно",
+        "Несводимый точный arcsin/arccos допустим"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "A-ANSWER",
+        "A-JUSTIFICATION",
+        "B-ANSWER"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.selection",
+      "version": "1.0.0",
+      "title": "Отбор корней",
+      "purpose": "Проверить отбор корней с сохранением источников, области и границ вывода.",
+      "mandatory": false,
+      "include_if": [
+        "pi_families",
+        "explicit_interval",
+        "explicit_root_list"
+      ],
+      "exclude_if": [
+        "Нет соответствующих операций/объектов после полного просмотра; неопределённый ярлык не исключает core и общий путь."
+      ],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.SEL.INDEX_RANGE_WRONG",
+        "MECH.SEL.SERIES_OMITTED",
+        "MECH.SEL.ENDPOINT_WRONG",
+        "MECH.SEL.SELECTION_UNJUSTIFIED"
+      ],
+      "operation_ids": [
+        "m06.pi_interval_membership",
+        "m06.select_pi_roots"
+      ],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../../Материалы ЕГЭ — 13 и 15/Исследование оценивания и оформления/ФИПИ/CASE_REGISTRY.json",
+          "locator": "13.2.2"
+        },
+        {
+          "path": "../../Материалы ЕГЭ — 13 и 15/Исследование оценивания и оформления/ФИПИ/CASE_REGISTRY.json",
+          "locator": "13.3.2"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "TR-F03"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "O-F03"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-EMPTY-SERIES"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-EMPTY-SERIES-COUNTER"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-BOUNDARY-EXTRA"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-BOUNDARY-VALID"
+        }
+      ],
+      "contrast_examples": [
+        "Полное двойное неравенство не требует соседних проб",
+        "Серия не даёт корней и это следует из полного диапазона",
+        "Закрытая граница включена, открытая исключена",
+        "Любой один полный способ достаточен; второй для самопроверки необязателен"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "B-ANSWER",
+        "B-JUSTIFICATION"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.circle",
+      "version": "1.0.0",
+      "title": "Окружность и обороты",
+      "purpose": "Проверить окружность и обороты с сохранением источников, области и границ вывода.",
+      "mandatory": false,
+      "include_if": [
+        "circle"
+      ],
+      "exclude_if": [
+        "Нет соответствующих операций/объектов после полного просмотра; неопределённый ярлык не исключает core и общий путь."
+      ],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.CIRC.RESIDUE_AS_REAL",
+        "MECH.CIRC.MULTITURN_LOSS",
+        "MECH.CIRC.ANGLE_VARIABLE",
+        "MECH.CIRC.PERIOD_PROJECTION",
+        "MECH.CIRC.SELF_CONFIRMATION",
+        "MECH.CIRC.LINK_MISSING"
+      ],
+      "operation_ids": [
+        "m06.circle_point_equal",
+        "m06.pi_interval_membership",
+        "m06.select_pi_roots"
+      ],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-TURN-WRONG"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "TR-F09"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-MULTITURN-LOSS"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "TR-F14"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "TR-F06"
+        },
+        {
+          "path": "../m02/synthetic_cases.json",
+          "locator": "S-ANGLE-NEGATIVE"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "TR-F05"
+        }
+      ],
+      "contrast_examples": [
+        "−19π/4 и 5π/4 — одна точка, но разные числа",
+        "На [0,4π] для sin x=0 пять чисел, даже при двух точках",
+        "Преобразованный промежуток и полный обратный переход сохранены",
+        "При периоде 3π/2 проекция не заменяет множество действительных корней",
+        "Точный угол независимо получен из формул; пиксельной близости недостаточно",
+        "Связанные x1/x2 рядом с вычислениями достаточны, идеальный масштаб не нужен"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "B-ANSWER",
+        "B-JUSTIFICATION"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "k05.algebra",
+      "version": "1.0.0",
+      "title": "Алгебра, формулы и арифметика",
+      "purpose": "Проверить алгебра, формулы и арифметика с сохранением источников, области и границ вывода.",
+      "mandatory": false,
+      "include_if": [
+        "algebraic_transition",
+        "factorization",
+        "arithmetic"
+      ],
+      "exclude_if": [
+        "Нет соответствующих операций/объектов после полного просмотра; неопределённый ярлык не исключает core и общий путь."
+      ],
+      "input_fields": [
+        "units",
+        "interpretations",
+        "branches",
+        "assumptions",
+        "relations",
+        "facts",
+        "coverage"
+      ],
+      "input_provenance": [
+        "anchors исходных выбранных страниц",
+        "действующее reading_version",
+        "literal unit отдельно от interpretation",
+        "цепочка depends_on_fact_ids и assumption_ids"
+      ],
+      "scope_fields": [
+        "variable_id",
+        "branch_id",
+        "reading_version",
+        "context_digest"
+      ],
+      "premises": [
+        "Актуальность и полнота релевантного контекста",
+        "Соответствие аргументов буквальной записи",
+        "Действующая область и ветвь"
+      ],
+      "mechanism_ids": [
+        "MECH.ALG.CALCULATION",
+        "MECH.ALG.FORMULA_WRONG"
+      ],
+      "operation_ids": [],
+      "operation_status": "Только перечисленные K01 операции реализованы exact-checks-1.1.0; вызов через защищённый Pipeline. Контейнер как планировщик ещё не реализован.",
+      "model_instructions": [
+        "Сначала установить сделанное по действующей записи; использовать контекст всей ветви.",
+        "Разделять факт, полноту, ученическое обоснование и критерий.",
+        "Не превращать успешный расчёт в подтверждение чтения; не чинить математику ученика через OCR.",
+        "При неопределённости хранить конкретную незакрытую предпосылку; готовый независимый балл сохранять."
+      ],
+      "applicable_examples": [
+        {
+          "path": "../../Материалы ЕГЭ — 13 и 15/Исследование оценивания и оформления/ФИПИ/CASE_REGISTRY.json",
+          "locator": "13.6.1"
+        },
+        {
+          "path": "../../Материалы ЕГЭ — 13 и 15/Исследование оценивания и оформления/ФИПИ/CASE_REGISTRY.json",
+          "locator": "13.6.2"
+        },
+        {
+          "path": "../../research/methodology_2026-10-07/FINDINGS.json",
+          "locator": "I15-F10"
+        },
+        {
+          "path": "../../Материалы ЕГЭ — 13 и 15/Исследование оценивания и оформления/ФИПИ/CASE_REGISTRY.json",
+          "locator": "13.4.4"
+        },
+        {
+          "path": "../../Материалы ЕГЭ — 13 и 15/Исследование оценивания и оформления/ФИПИ/CASE_REGISTRY.json",
+          "locator": "13.6.2"
+        },
+        {
+          "path": "../m02/historical_cases.json",
+          "locator": "H-R11"
+        }
+      ],
+      "contrast_examples": [
+        "Неправильная формула — другой механизм",
+        "Правильная формула с локальным числовым сбоем"
+      ],
+      "output_fields": [
+        "facts",
+        "findings",
+        "requirements",
+        "case_checks",
+        "feedback",
+        "issues"
+      ],
+      "output_statuses": {
+        "K01": [
+          "verified",
+          "contradicted",
+          "unknown"
+        ],
+        "M01": [
+          "supported",
+          "contradicted",
+          "unknown"
+        ]
+      },
+      "output_evidence": [
+        "Точное утверждение, происхождение, предпосылки, ветвь и domain",
+        "Прямые и транзитивные зависимости",
+        "code_check с полным конвертом и компактной ссылкой на журнал"
+      ],
+      "limits": [
+        "Контейнер не назначает балл и не является реализованным универсальным решателем.",
+        "Неизвестный кодовый результат не доказывает невыполнение требования."
+      ],
+      "requirement_ids": [
+        "A-JUSTIFICATION",
+        "CALC-ONLY",
+        "m03-calculation-exception",
+        "m03-transformations"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    }
+  ]
+}

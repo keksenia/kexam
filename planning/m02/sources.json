@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-07",
+  "sources": [
+    {
+      "id": "fipi_expert_2026",
+      "path": "references/fipi/2026/matematika_mr_ege_2026.pdf",
+      "sha256": "29ef295aab4db2b9efa82b54d2c3d77511e2f9ef4721ae3dd41a3c93c262f1e8",
+      "pdf_page_count": 259,
+      "official_url": "https://doc.fipi.ru/ege/dlya-predmetnyh-komissiy-subektov-rf/2026/matematika_mr_ege_2026.pdf",
+      "authority": "official",
+      "locators": {
+        "rubric": {
+          "pdf_page": 5,
+          "printed_page": 5
+        },
+        "cases": {
+          "pdf_pages": [
+            14,
+            15,
+            16,
+            27,
+            28,
+            30,
+            32,
+            34,
+            35
+          ]
+        }
+      }
+    },
+    {
+      "id": "fipi_teacher_2026",
+      "path": "references/fipi/2026/ma_mr_2026.pdf",
+      "sha256": "3919b9799968c272d6d00c00b708fd5f369c581fea95d815a0fd6188c06ce7c3",
+      "pdf_page_count": 47,
+      "official_url": "https://doc.fipi.ru/ege/analiticheskie-i-metodicheskie-materialy/2026/ma_mr_2026.pdf",
+      "authority": "official",
+      "locators": {
+        "selection_justification": {
+          "pdf_page": 15,
+          "printed_page": 15
+        }
+      }
+    },
+    {
+      "id": "existing_case_registry",
+      "path": "Материалы ЕГЭ — 13 и 15/Исследование оценивания и оформления/ФИПИ/CASE_REGISTRY.json",
+      "sha256": "0ca2e5c335b06ff9859c9f2c223a207d192fff67fa6beb62537075f4a30619ea",
+      "authority": "project_index_not_primary_source"
+    },
+    {
+      "id": "regional-krasnodar-2025",
+      "path": "research/methodology_2026-10-07/official/evidence/krasnodar_2025.pdf",
+      "authority": "regional_advisory_not_federal_rubric",
+      "locators": [
+        81,
+        82
+      ],
+      "sha256": "214720165b8345b0c4ee016b42a71156eba9920ad17ac37312150f4a9760ac78"
+    },
+    {
+      "id": "profimatika-advice",
+      "path": "Материалы ЕГЭ — 13 и 15/Общее — Критерии и методички/13рек м.pdf",
+      "authority": "author_advice_not_scoring_rubric",
+      "locators": [
+        2,
+        4
+      ],
+      "sha256": "d9ff42eeee85b93c070c5afaccd2eaf0cc72065f91725bdb9579135f3803455b"
+    },
+    {
+      "id": "selfprep-quarantine",
+      "path": "research/methodology_2026-10-07/official/evidence/fipi_selfprep_2026.pdf",
+      "authority": "official_advisory_example_2_p75_quarantined",
+      "locators": [
+        75
+      ],
+      "sha256": "1396168fc39be36d34b12ea32afe78fe4171265d0d9a960532f5d66aa67bb099"
+    }
+  ],
+  "source_verification": "Повторная проверка локальных первичных PDF и SHA-256; URL взяты из проверенного существующего SOURCE_REGISTRY. Нового широкого интернет-поиска не было.",
+  "visual_review_pages": [
+    5,
+    14,
+    15,
+    16,
+    27,
+    28,
+    30,
+    32,
+    34,
+    35
+  ],
+  "input_hashes": {
+    "AGENTS.md": "3c18f9b448555ad751b9cbde474054ada8472e7a4caf0f374da81d2b1bb206f4",
+    "PROJECT.md": "2319adbdd789581533057b2748d8936a17c2621b5926a925fdad4a636369765e",
+    "TECHNICAL_CONTEXT.md": "dece58d75a59b397e0ddfcf0d0a75d85720d29544286e788a47a9426cefbf821",
+    "planning/CHECKING_PRINCIPLES.md": "1719c67040420c0d2f1c01cb44c0ce8e3a28e0aa339bb2b817c3b91acdae122c",
+    "planning/TECHNICAL_STRATEGY.md": "4df05debe8d59b67a0e769ecb36eca8f6eac8ef8b35250ebb427c53b5d31fea8",
+    "contracts/ege_v1/README.md": "1fcb639dccb17fc4fe453071f1c4017759130dacc8d87ab9e79827fcdfc2b95b",
+    "contracts/ege_v1/schema.json": "9e4626b1b88e7cdabbe197a4deafc0d46ed90fa0ea75c26f73c1de75c8fb19a5",
+    "planning/dispatcher/inputs/M02_notion_2026-10-07.json": "f087ddbdd88ee0cc8d1e91457699dcd5f8894843d9ddb3b29147cfeb84cad43c"
+  },
+  "review_version": "m02-2026-1.1.0",
+  "new_validation_ref": "planning/methodology_review_2026-10-07/source-validation.json"
+}

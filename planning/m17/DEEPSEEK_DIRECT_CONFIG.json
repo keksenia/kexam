@@ -1,0 +1,27 @@
+{
+  "version": "deepseek-direct-config-1.0.0",
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash",
+  "endpoint": "https://api.deepseek.com/chat/completions",
+  "credential_file": "/var/empty/kexam-not-configured.env",
+  "credential_variable": "DEPSEEK_API_KEY",
+  "reasoning_effort": "high",
+  "timeout_seconds": 300,
+  "max_tokens": 64000,
+  "automatic_retries": 0,
+  "pricing": {
+    "model": "deepseek-flash",
+    "input_usd_per_million": "0.3",
+    "cached_input_usd_per_million": "0.006",
+    "output_usd_per_million": "1.2",
+    "usd_to_rub": "85.4173",
+    "fx_source": "https://cbr.ru/currency_base/dynamics/?UniDbQuery.Posted=True&UniDbQuery.VAL_NM_RQ=R01235&UniDbQuery.mode=1",
+    "fx_date": "2026-10-09",
+    "source": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "valid_until": "2027-01-01T00:00:00Z",
+    "tariff_ref": "planning/m17/DEEPSEEK_DIRECT_CONFIG.json#/pricing",
+    "cost_basis": "token_estimate",
+    "note": "Conservative peak tariff estimate; off-peak actual deduction may be lower. Uses reported completion tokens once, including reasoning."
+  }
+}

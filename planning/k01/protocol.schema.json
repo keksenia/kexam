@@ -1,0 +1,1250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:egechecker:k01:1.0.0",
+  "title": "K01 proposed exact-operation protocol, not an implementation",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/request"
+    },
+    {
+      "$ref": "#/$defs/response"
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rational": {
+      "type": "object",
+      "properties": {
+        "numerator": {
+          "type": "string",
+          "pattern": "^-?(0|[1-9][0-9]{0,39})$"
+        },
+        "denominator": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]{0,39}$"
+        }
+      },
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "additionalProperties": false
+    },
+    "exact": {
+      "type": "object",
+      "properties": {
+        "basis": {
+          "enum": [
+            "rational",
+            "pi"
+          ]
+        },
+        "coefficient": {
+          "$ref": "#/$defs/rational"
+        }
+      },
+      "required": [
+        "basis",
+        "coefficient"
+      ],
+      "additionalProperties": false
+    },
+    "interval": {
+      "type": "object",
+      "properties": {
+        "left": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/exact"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "right": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/exact"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "left_closed": {
+          "type": "boolean"
+        },
+        "right_closed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "left",
+        "right",
+        "left_closed",
+        "right_closed"
+      ],
+      "additionalProperties": false
+    },
+    "input_ref": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/hash"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "pi": {
+      "type": "object",
+      "properties": {
+        "basis": {
+          "const": "pi"
+        },
+        "coefficient": {
+          "$ref": "#/$defs/rational"
+        }
+      },
+      "required": [
+        "basis",
+        "coefficient"
+      ],
+      "additionalProperties": false
+    },
+    "real": {
+      "type": "object",
+      "properties": {
+        "basis": {
+          "const": "rational"
+        },
+        "coefficient": {
+          "$ref": "#/$defs/rational"
+        }
+      },
+      "required": [
+        "basis",
+        "coefficient"
+      ],
+      "additionalProperties": false
+    },
+    "pi_interval": {
+      "type": "object",
+      "properties": {
+        "left": {
+          "$ref": "#/$defs/pi"
+        },
+        "right": {
+          "$ref": "#/$defs/pi"
+        },
+        "left_closed": {
+          "type": "boolean"
+        },
+        "right_closed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "left",
+        "right",
+        "left_closed",
+        "right_closed"
+      ],
+      "additionalProperties": false
+    },
+    "real_interval": {
+      "type": "object",
+      "properties": {
+        "left": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/real"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "right": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/real"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "left_closed": {
+          "type": "boolean"
+        },
+        "right_closed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "left",
+        "right",
+        "left_closed",
+        "right_closed"
+      ],
+      "additionalProperties": false
+    },
+    "set": {
+      "type": "object",
+      "properties": {
+        "intervals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/real_interval"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/real"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "intervals",
+        "points"
+      ],
+      "additionalProperties": false
+    },
+    "family": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "$ref": "#/$defs/rational"
+        },
+        "period": {
+          "$ref": "#/$defs/rational"
+        }
+      },
+      "required": [
+        "offset",
+        "period"
+      ],
+      "additionalProperties": false
+    },
+    "binding": {
+      "type": "object",
+      "properties": {
+        "argument_pointer": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "source_kind": {
+          "enum": [
+            "unit",
+            "interpretation",
+            "input_pointer",
+            "fact"
+          ]
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      },
+      "required": [
+        "argument_pointer",
+        "source_kind",
+        "source_ref"
+      ],
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        },
+        "interpretation_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "branch_id": {
+          "$ref": "#/$defs/id"
+        },
+        "assumption_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "context_unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "depends_on_fact_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "maxItems": 128
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/binding"
+          },
+          "minItems": 1,
+          "maxItems": 128
+        }
+      },
+      "required": [
+        "unit_ids",
+        "interpretation_ids",
+        "branch_id",
+        "assumption_ids",
+        "context_unit_ids",
+        "depends_on_fact_ids",
+        "bindings"
+      ],
+      "additionalProperties": false
+    },
+    "polynomial": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rational"
+      },
+      "minItems": 1,
+      "maxItems": 17
+    },
+    "quotient": {
+      "type": "object",
+      "properties": {
+        "representation": {
+          "const": "original_polynomial_quotient"
+        },
+        "variable": {
+          "enum": [
+            "x",
+            "t"
+          ]
+        },
+        "numerator": {
+          "$ref": "#/$defs/polynomial"
+        },
+        "denominator": {
+          "$ref": "#/$defs/polynomial"
+        }
+      },
+      "required": [
+        "representation",
+        "variable",
+        "numerator",
+        "denominator"
+      ],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "protocol_version": {
+          "const": "1.0.0"
+        },
+        "m01_version": {
+          "const": "2.0.0"
+        },
+        "request_id": {
+          "$ref": "#/$defs/id"
+        },
+        "input_ref": {
+          "$ref": "#/$defs/input_ref"
+        },
+        "reading_sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "operation": {
+          "enum": [
+            "m06.pi_interval_membership",
+            "m06.select_pi_roots",
+            "m06.circle_point_equal",
+            "m07.set_union",
+            "m07.set_intersection",
+            "m07.set_membership",
+            "m07.set_equal",
+            "m07.denominator_nonzero"
+          ]
+        },
+        "operation_version": {
+          "const": "1.0.0"
+        },
+        "limits_profile": {
+          "const": "k01-default-1"
+        },
+        "context": {
+          "$ref": "#/$defs/context"
+        },
+        "arguments": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "m01_version",
+        "request_id",
+        "input_ref",
+        "reading_sha256",
+        "operation",
+        "operation_version",
+        "limits_profile",
+        "context",
+        "arguments"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m06.pi_interval_membership"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "arguments": {
+                "$ref": "#/$defs/m06_pi_interval_membership_args"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m06.select_pi_roots"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "arguments": {
+                "$ref": "#/$defs/m06_select_pi_roots_args"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m06.circle_point_equal"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "arguments": {
+                "$ref": "#/$defs/m06_circle_point_equal_args"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m07.set_union"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "arguments": {
+                "$ref": "#/$defs/m07_set_union_args"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m07.set_intersection"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "arguments": {
+                "$ref": "#/$defs/m07_set_intersection_args"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m07.set_membership"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "arguments": {
+                "$ref": "#/$defs/m07_set_membership_args"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m07.set_equal"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "arguments": {
+                "$ref": "#/$defs/m07_set_equal_args"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m07.denominator_nonzero"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "arguments": {
+                "$ref": "#/$defs/m07_denominator_nonzero_args"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "protocol_version": {
+          "const": "1.0.0"
+        },
+        "request_id": {
+          "$ref": "#/$defs/id"
+        },
+        "request_sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "operation": {
+          "$ref": "#/$defs/id"
+        },
+        "operation_version": {
+          "const": "1.0.0"
+        },
+        "tool_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "contradicted",
+            "unknown"
+          ]
+        },
+        "reason_code": {
+          "enum": [
+            "exact_true",
+            "exact_false",
+            "invalid_input",
+            "unsupported_operation",
+            "unsupported_shape",
+            "unresolved_reading",
+            "unresolved_premise",
+            "source_mismatch",
+            "stale_input",
+            "resource_limit",
+            "timeout",
+            "internal_error"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "computed": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "minItems": 1,
+          "maxItems": 40
+        }
+      },
+      "required": [
+        "protocol_version",
+        "request_id",
+        "request_sha256",
+        "operation",
+        "operation_version",
+        "tool_version",
+        "status",
+        "reason_code",
+        "summary",
+        "computed",
+        "evidence"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m06.pi_interval_membership"
+              },
+              "status": {
+                "enum": [
+                  "verified",
+                  "contradicted"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "computed": {
+                "$ref": "#/$defs/m06_pi_interval_membership_computed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m06.select_pi_roots"
+              },
+              "status": {
+                "enum": [
+                  "verified",
+                  "contradicted"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "computed": {
+                "$ref": "#/$defs/m06_select_pi_roots_computed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m06.circle_point_equal"
+              },
+              "status": {
+                "enum": [
+                  "verified",
+                  "contradicted"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "computed": {
+                "$ref": "#/$defs/m06_circle_point_equal_computed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m07.set_union"
+              },
+              "status": {
+                "enum": [
+                  "verified",
+                  "contradicted"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "computed": {
+                "$ref": "#/$defs/m07_set_union_computed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m07.set_intersection"
+              },
+              "status": {
+                "enum": [
+                  "verified",
+                  "contradicted"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "computed": {
+                "$ref": "#/$defs/m07_set_intersection_computed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m07.set_membership"
+              },
+              "status": {
+                "enum": [
+                  "verified",
+                  "contradicted"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "computed": {
+                "$ref": "#/$defs/m07_set_membership_computed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m07.set_equal"
+              },
+              "status": {
+                "enum": [
+                  "verified",
+                  "contradicted"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "computed": {
+                "$ref": "#/$defs/m07_set_equal_computed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "m07.denominator_nonzero"
+              },
+              "status": {
+                "enum": [
+                  "verified",
+                  "contradicted"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "computed": {
+                "$ref": "#/$defs/m07_denominator_nonzero_computed"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unknown"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "computed": {
+                "type": "null"
+              },
+              "reason_code": {
+                "not": {
+                  "enum": [
+                    "exact_true",
+                    "exact_false"
+                  ]
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "reason_code": {
+                "enum": [
+                  "exact_true",
+                  "exact_false"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason_code": {
+                "const": "exact_true"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "contradicted"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason_code": {
+                "const": "exact_false"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "not": {
+                  "enum": [
+                    "m06.select_pi_roots",
+                    "m06.select_pi_roots",
+                    "m06.select_pi_roots",
+                    "m06.select_pi_roots",
+                    "m06.pi_interval_membership",
+                    "m06.circle_point_equal",
+                    "m07.set_union",
+                    "m07.set_intersection",
+                    "m07.set_membership",
+                    "m07.set_equal",
+                    "m07.denominator_nonzero",
+                    "m07.denominator_nonzero",
+                    "m07.denominator_nonzero"
+                  ]
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "unknown"
+              },
+              "reason_code": {
+                "const": "unsupported_operation"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "m06_pi_interval_membership_args": {
+      "type": "object",
+      "properties": {
+        "point": {
+          "$ref": "#/$defs/pi"
+        },
+        "interval": {
+          "$ref": "#/$defs/pi_interval"
+        },
+        "expected_member": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "point",
+        "interval",
+        "expected_member"
+      ],
+      "additionalProperties": false
+    },
+    "m06_pi_interval_membership_computed": {
+      "type": "object",
+      "properties": {
+        "member": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "member"
+      ],
+      "additionalProperties": false
+    },
+    "m06_select_pi_roots_args": {
+      "type": "object",
+      "properties": {
+        "families": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/family"
+          },
+          "minItems": 1,
+          "maxItems": 32
+        },
+        "interval": {
+          "$ref": "#/$defs/pi_interval"
+        },
+        "claimed_roots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pi"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        }
+      },
+      "required": [
+        "families",
+        "interval",
+        "claimed_roots"
+      ],
+      "additionalProperties": false
+    },
+    "m06_select_pi_roots_computed": {
+      "type": "object",
+      "properties": {
+        "selected_roots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pi"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        },
+        "missing_roots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pi"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        },
+        "extra_roots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pi"
+          },
+          "minItems": 0,
+          "maxItems": 256
+        },
+        "duplicate_claim_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        }
+      },
+      "required": [
+        "selected_roots",
+        "missing_roots",
+        "extra_roots",
+        "duplicate_claim_count"
+      ],
+      "additionalProperties": false
+    },
+    "m06_circle_point_equal_args": {
+      "type": "object",
+      "properties": {
+        "angle": {
+          "$ref": "#/$defs/pi"
+        },
+        "independent_point_angle": {
+          "$ref": "#/$defs/pi"
+        }
+      },
+      "required": [
+        "angle",
+        "independent_point_angle"
+      ],
+      "additionalProperties": false
+    },
+    "m06_circle_point_equal_computed": {
+      "type": "object",
+      "properties": {
+        "same_point": {
+          "type": "boolean"
+        },
+        "same_real_number": {
+          "type": "boolean"
+        },
+        "difference_over_two_pi": {
+          "$ref": "#/$defs/rational"
+        },
+        "angle_residue": {
+          "$ref": "#/$defs/pi"
+        },
+        "point_residue": {
+          "$ref": "#/$defs/pi"
+        }
+      },
+      "required": [
+        "same_point",
+        "same_real_number",
+        "difference_over_two_pi",
+        "angle_residue",
+        "point_residue"
+      ],
+      "additionalProperties": false
+    },
+    "m07_set_union_args": {
+      "type": "object",
+      "properties": {
+        "sets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/set"
+          },
+          "minItems": 1,
+          "maxItems": 16
+        },
+        "claimed_set": {
+          "$ref": "#/$defs/set"
+        }
+      },
+      "required": [
+        "sets",
+        "claimed_set"
+      ],
+      "additionalProperties": false
+    },
+    "m07_set_union_computed": {
+      "type": "object",
+      "properties": {
+        "computed_set": {
+          "$ref": "#/$defs/set"
+        },
+        "symmetric_difference": {
+          "$ref": "#/$defs/set"
+        }
+      },
+      "required": [
+        "computed_set",
+        "symmetric_difference"
+      ],
+      "additionalProperties": false
+    },
+    "m07_set_intersection_args": {
+      "type": "object",
+      "properties": {
+        "sets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/set"
+          },
+          "minItems": 1,
+          "maxItems": 16
+        },
+        "claimed_set": {
+          "$ref": "#/$defs/set"
+        }
+      },
+      "required": [
+        "sets",
+        "claimed_set"
+      ],
+      "additionalProperties": false
+    },
+    "m07_set_intersection_computed": {
+      "type": "object",
+      "properties": {
+        "computed_set": {
+          "$ref": "#/$defs/set"
+        },
+        "symmetric_difference": {
+          "$ref": "#/$defs/set"
+        }
+      },
+      "required": [
+        "computed_set",
+        "symmetric_difference"
+      ],
+      "additionalProperties": false
+    },
+    "m07_set_membership_args": {
+      "type": "object",
+      "properties": {
+        "set": {
+          "$ref": "#/$defs/set"
+        },
+        "point": {
+          "$ref": "#/$defs/real"
+        },
+        "expected_member": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "set",
+        "point",
+        "expected_member"
+      ],
+      "additionalProperties": false
+    },
+    "m07_set_membership_computed": {
+      "type": "object",
+      "properties": {
+        "member": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "member"
+      ],
+      "additionalProperties": false
+    },
+    "m07_set_equal_args": {
+      "type": "object",
+      "properties": {
+        "left": {
+          "$ref": "#/$defs/set"
+        },
+        "right": {
+          "$ref": "#/$defs/set"
+        }
+      },
+      "required": [
+        "left",
+        "right"
+      ],
+      "additionalProperties": false
+    },
+    "m07_set_equal_computed": {
+      "type": "object",
+      "properties": {
+        "equal": {
+          "type": "boolean"
+        },
+        "symmetric_difference": {
+          "$ref": "#/$defs/set"
+        }
+      },
+      "required": [
+        "equal",
+        "symmetric_difference"
+      ],
+      "additionalProperties": false
+    },
+    "m07_denominator_nonzero_args": {
+      "type": "object",
+      "properties": {
+        "expression": {
+          "$ref": "#/$defs/quotient"
+        },
+        "point": {
+          "$ref": "#/$defs/real"
+        }
+      },
+      "required": [
+        "expression",
+        "point"
+      ],
+      "additionalProperties": false
+    },
+    "m07_denominator_nonzero_computed": {
+      "type": "object",
+      "properties": {
+        "denominator_value": {
+          "$ref": "#/$defs/rational"
+        },
+        "nonzero": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "denominator_value",
+        "nonzero"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

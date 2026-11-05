@@ -1,0 +1,39 @@
+{
+  "version": "m05-prompts-1.1.0",
+  "contract": "2.0.0",
+  "pipeline": "m04-offline-3",
+  "methodology": [
+    "m02-2026-1.1.0",
+    "M03-2026-1.1.0"
+  ],
+  "k05": "k05-2026-1.0.0",
+  "exact_checks": "exact-checks-1.1.0",
+  "files": {
+    "app/m05/__init__.py": "660fcf7ce1dd39e48bfc951f6a57a99dd01e477c184aa608da0ac2338e42aba2",
+    "app/m05/assess.schema.json": "3ea9bfcb2cc8bb07c903014f35ee2b9d0b889e5d01600ea22fa79f2553c55bbf",
+    "app/m05/instructions.json": "3054fa60e076669ee750ec05689ec615dc70fb898b0afaa1103e02758b2bb718",
+    "app/m05/l04.py": "79b731b75179981858f020a6cd23e302e72904a2a71d44a924b16e181855dd44",
+    "app/m05/read.schema.json": "efbeec44475149cf594e68433e332430280acc057fc169cc00ad50dc3aa0aba6",
+    "app/m05/result_boundary.py": "1c7cddf26658ba1733c0a552da857340977df078c7c5843d7ea4843cf9900cd7",
+    "app/m05/runtime.py": "ed48a6a34bf56b72b69d507dd1f75b0b997a6702a2f033a9ae79a3fc420040a4",
+    "app/pipeline.py": "b6f12575329ee240f71072af944ca8f384141cd0a16d45add745af4b51514008",
+    "app/tests/test_m05.py": "6b048637e30ba01a59b34ad2a3fc834c5c7e218cb49e7f6fc84e9a73b2e634a8",
+    "contracts/ege_v1/schema.json": "9e4626b1b88e7cdabbe197a4deafc0d46ed90fa0ea75c26f73c1de75c8fb19a5",
+    "contracts/ege_v1/validate.py": "56b00a18401e00180e3106bc28ccbf316fee06f8a5c953c5103a41119e4478c5",
+    "planning/k05/catalog.json": "5083e286223258415110a883cd73c7674cbdb41cb7d296c3e9e5c6cbc36f7e61",
+    "planning/k05/constraints.json": "17d9789b1616c46af4c5750f988d2c2e0706f78b0d10d5afe82b66453a377b7e",
+    "planning/k05/containers.json": "a0ce8c6afa4352be252ce96c9160dbbc1dd208dc3ad0fb7a4fd055c5a337cfbd",
+    "planning/k05/routing.json": "82987dac094fd1f0cd33431977d3158c526da2deae7cc75ec4f7802df646a7d5",
+    "planning/m02/case_rules.json": "b75bcb04e1c3e45b4555b5a27aed1472a938121f5d73ee7b4b94068607f1daf9",
+    "planning/m02/criteria.json": "cc81ed55b504b82a619b288f0a6c84a263de91539643f13bb2f35ca197b80700",
+    "planning/m02/requirements.json": "3983aa91dfaad846ba5f5ad30998d48daabeb2d31ab84dbda576ce636050c3b6",
+    "planning/m02/rules.json": "9ece6ed1602007e526700f8ea7ea93375c5c37f354dbb71e14cc03fffd2d3dd9",
+    "planning/m02/sources.json": "9164ed6bd8f23e758008e11fd6602134214a30af058b8fcaf57707ef8480b343",
+    "planning/m03/cases.json": "098367ae0054fc12f2a8a92761bf0880943fdd7bf043cfb032dbe28ad3fa6a79",
+    "planning/m03/rules.json": "93a07f3fc16f6c79ed2f84f690289282c68c982eb863a48fe4991c114f2895b9",
+    "planning/m05/examples/synthetic_13.json": "e737784f7ecc62b59b91dc9956ecc9ee7a5678b2602ab24c7212986353726854",
+    "planning/m05/examples/synthetic_15.json": "69ccc1d6557dac388497cc64157c3a0fa14e748cd455d45c8ae4d9fb639a3119",
+    "planning/m05/l03_freeze.json": "a158b33f25be371b26e4ae4aa04b655096ee0af2d129fd47dbda63ccbf5707f4",
+    "planning/m05/reference_keys.json": "b5409e6dd4225e3c71009ba960b894ad7f55048f4c9f9dbe2e261f520407da1e"
+  }
+}

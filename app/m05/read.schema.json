@@ -1,0 +1,375 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M05 read compact response 1.0.0",
+  "type": "object",
+  "properties": {
+    "units": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unit"
+      }
+    },
+    "interpretations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/interpretation"
+      }
+    },
+    "branches": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/branch"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/assumption"
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relation"
+      }
+    },
+    "coverage": {
+      "$ref": "#/$defs/coverage"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 80
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "coverage",
+    "units",
+    "interpretations",
+    "features"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "anchor": {
+      "type": "object",
+      "properties": {
+        "page_id": {
+          "$ref": "#/$defs/id"
+        },
+        "box": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/box"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "page_id",
+        "box"
+      ],
+      "additionalProperties": false
+    },
+    "assumption": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin": {
+          "enum": [
+            "task_statement",
+            "student_unit",
+            "derived_fact",
+            "hypothesis"
+          ]
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "established",
+            "conditional",
+            "unknown"
+          ]
+        },
+        "branch_id": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "required": [
+        "id",
+        "claim",
+        "origin",
+        "source_ref",
+        "status",
+        "branch_id"
+      ],
+      "additionalProperties": false
+    },
+    "box": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "minItems": 4,
+      "maxItems": 4,
+      "description": "[left,top,right,bottom] on EXIF-oriented stored image; null means no localization, never fabricate a box."
+    },
+    "branch": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "parent_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "assumption_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "active",
+            "superseded"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "parent_id",
+        "label",
+        "unit_ids",
+        "assumption_ids",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "page_id": {
+          "$ref": "#/$defs/id"
+        },
+        "status": {
+          "enum": [
+            "complete",
+            "partial",
+            "unreadable",
+            "not_processed"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "score_scope": {
+          "enum": [
+            "accounted",
+            "unresolved"
+          ]
+        },
+        "score_scope_reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "page_id",
+        "status",
+        "reason",
+        "score_scope",
+        "score_scope_reason"
+      ],
+      "additionalProperties": false
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "interpretation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "const": "proposed"
+        },
+        "branch_id": {
+          "$ref": "#/$defs/id"
+        },
+        "assumption_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "context_unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "unit_ids",
+        "meaning",
+        "status",
+        "branch_id",
+        "assumption_ids",
+        "context_unit_ids"
+      ],
+      "additionalProperties": false
+    },
+    "relation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "from_unit_id": {
+          "$ref": "#/$defs/id"
+        },
+        "to_unit_id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "continues",
+            "case_of",
+            "joins",
+            "corrects",
+            "supports"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "from_unit_id",
+        "to_unit_id",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "unit": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "math",
+            "text",
+            "diagram"
+          ]
+        },
+        "literal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reading_status": {
+          "enum": [
+            "clear",
+            "ambiguous",
+            "unreadable"
+          ]
+        },
+        "activity": {
+          "enum": [
+            "active",
+            "crossed_out",
+            "uncertain"
+          ]
+        },
+        "anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          },
+          "minItems": 1
+        },
+        "author": {
+          "enum": [
+            "student",
+            "teacher",
+            "template",
+            "system",
+            "unknown"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "literal",
+        "reading_status",
+        "activity",
+        "anchors",
+        "author"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

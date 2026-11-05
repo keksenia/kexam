@@ -1,0 +1,484 @@
+{
+  "package_version": "k05-2026-1.0.0",
+  "status": "proposed_sidecar_for_K03_not_new_M01_schema",
+  "kinds": [
+    {
+      "id": "CK.ORIGINAL_DOMAIN",
+      "meaning": "исходная область"
+    },
+    {
+      "id": "CK.BRANCH",
+      "meaning": "условие случая"
+    },
+    {
+      "id": "CK.TRANSITION",
+      "meaning": "условие допустимости перехода"
+    },
+    {
+      "id": "CK.SUBSTITUTION_RANGE",
+      "meaning": "область значений новой переменной"
+    },
+    {
+      "id": "CK.EXCLUDED_POINT",
+      "meaning": "исключённая точка"
+    },
+    {
+      "id": "CK.FINAL_ANSWER",
+      "meaning": "проверка итогового множества"
+    }
+  ],
+  "ledger_required_fields": [
+    "id",
+    "kind",
+    "expression_ref",
+    "predicate",
+    "variable_id",
+    "branch_id",
+    "reading_version",
+    "context_digest",
+    "origin",
+    "source_refs",
+    "assumption_ids",
+    "depends_on_fact_ids",
+    "dependent_fact_ids",
+    "status",
+    "student_accounting",
+    "valid_from_step",
+    "valid_until",
+    "mapped_to_m01"
+  ],
+  "ledger_example": {
+    "id": "lc-1",
+    "kind": "CK.EXCLUDED_POINT",
+    "expression_ref": "original-unit-1",
+    "predicate": "x≠1",
+    "variable_id": "x",
+    "branch_id": "b-root",
+    "reading_version": "r1",
+    "context_digest": "sha256 полного существенного контекста",
+    "origin": "task_statement",
+    "source_refs": [
+      "unit-1"
+    ],
+    "assumption_ids": [
+      "assumption-original-hole"
+    ],
+    "depends_on_fact_ids": [
+      "fact-original-denominator"
+    ],
+    "dependent_fact_ids": [
+      "fact-final-admissibility"
+    ],
+    "status": "established",
+    "student_accounting": "unknown",
+    "valid_from_step": "step-1",
+    "valid_until": "original-domain-persistent",
+    "mapped_to_m01": {
+      "assumption": "assumption-original-hole",
+      "fact": "fact-original-denominator",
+      "branch": "b-root"
+    }
+  },
+  "field_semantics": {
+    "status": "established/conditional/unknown — установлено ли само ограничение; не выполнение учеником.",
+    "student_accounting": "established/not_established/unknown — проектное состояние проверки учёта; not_established допустимо лишь при полном покрытии. В M01 выводить конкретное requirement со свидетельством.",
+    "variable_id": "Идентификатор координаты; новая замена — новая переменная, не переименование.",
+    "valid_until": "Исходная ОДЗ действует до финального ответа; условие ветви — в этой ветви; изменение записи создаёт новую версию, не стирает историю."
+  },
+  "consequences": [
+    {
+      "id": "ODZ.FORBIDDEN_INCLUDED",
+      "meaning": "Итог содержит запрещённое исходным выражением значение."
+    },
+    {
+      "id": "ODZ.ADMISSIBLE_LOST",
+      "meaning": "Потеряно допустимое решение вследствие лишнего ограничения."
+    },
+    {
+      "id": "ODZ.TRANSITION_UNJUSTIFIED",
+      "meaning": "Действующий переход не обоснован на заявленной области; класс зависит от установленной ложности либо доказанного отсутствия."
+    },
+    {
+      "id": "ODZ.IMPLICIT_CORRECT",
+      "meaning": "Ограничение учтено позже или внутри рассуждения; это не finding."
+    },
+    {
+      "id": "ODZ.READING_AMBIGUOUS",
+      "meaning": "Ограничение существенно неоднозначно; system_uncertainty, без штрафа."
+    }
+  ],
+  "constraints": [
+    {
+      "id": "GUARD.ORIGINAL",
+      "title": "Исходная область неизменна",
+      "rule": "Сохранить исходные выражения и ограничения до преобразований. Сокращение/рационализация/обратная замена не удаляют исходный запрет; новое условие добавляется, старое только получает доказанное состояние.",
+      "applies_to": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "verification_case_ids": [
+        "C01.CANCEL",
+        "C02.LATE_DOMAIN"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.SEMANTICS",
+      "title": "Содержательная привязка каждого аргумента",
+      "rule": "Сверять оба конца, обе скобки, все семейства, коэффициенты, исходный знаменатель, логический оператор и переменную с источником. Существующий ID источника не доказывает совпадение значения.",
+      "applies_to": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "verification_case_ids": [
+        "C11.AMBIGUOUS"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.VARIABLE",
+      "title": "Одна координатная переменная",
+      "rule": "Для множеств x и t требуется отдельно установленный прообраз/образ; K01 1.0.0 не содержит переменную generic-set, поэтому сборщик записывает M01 предпосылку.",
+      "applies_to": [
+        "k05.subst",
+        "k05.intervals"
+      ],
+      "verification_case_ids": [
+        "C06.VARIABLE"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.TRANSITIVE",
+      "title": "Замыкание предпосылок",
+      "rule": "Проверить предпосылки через interpretation/context units/assumptions/dependent facts до исходных листьев; цикл или неизвестный лист запрещают безусловный вывод. Conditional остаётся в условной ветви.",
+      "applies_to": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "verification_case_ids": [
+        "C05.HIDDEN_PREMISE"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.BRANCH",
+      "title": "Область действия ограничения",
+      "rule": "Наследовать ограничение родителя в ребёнке; условие ребёнка не переносить в родителя и соседей. Для объединения нужен coverage_fact_id всех применимых ветвей.",
+      "applies_to": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "verification_case_ids": [
+        "C07.BRANCH"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.LATE_DOMAIN",
+      "title": "Поздний учёт ОДЗ",
+      "rule": "Нет отдельной строки ОДЗ → проверить фактическое выполнение ограничения по всей цепочке/обратному переходу. Вычисление ОДЗ системой не доказывает, что ученик её учёл.",
+      "applies_to": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "verification_case_ids": [
+        "C02.LATE_DOMAIN"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.DENOMINATOR",
+      "title": "Исходность знаменателя",
+      "rule": "denominator_nonzero проверяет один указанный полином в одной точке; не полную ОДЗ, не подстановку в исходное уравнение, не логарифмическую область.",
+      "applies_to": [
+        "k05.div",
+        "k05.intervals",
+        "k05.core.constraints"
+      ],
+      "verification_case_ids": [
+        "C01.CANCEL"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.CIRCLE",
+      "title": "Независимый угол",
+      "rule": "Запрет самоподтверждения транзитивный: удаление прямой ссылки на подпись недостаточно. Пиксельная близость не задаёт точное число. Обороты сохранять.",
+      "applies_to": [
+        "k05.circle"
+      ],
+      "verification_case_ids": [
+        "C04.CIRCLE",
+        "C12.SELF_CIRCLE"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.FRESHNESS",
+      "title": "Действующее основание",
+      "rule": "Каждый факт связан с reading_version/context_digest и полными существенными зависимостями. После смысловой правки старое основание не обслуживает текущий балл.",
+      "applies_to": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "verification_case_ids": [
+        "C08.STALE"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.STATUS",
+      "title": "Три состояния и точное утверждение",
+      "rule": "verified→supported, contradicted→contradicted, unknown→unknown. Условный результат не становится безусловным; ни один кодовый статус сам по себе не определяет category/requirement/score.",
+      "applies_to": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "verification_case_ids": [
+        "C05.HIDDEN_PREMISE"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.CAUSE",
+      "title": "Одна причина и её последствия",
+      "rule": "Создать primary finding и связать последствия primary_finding_id; независимое нарушение остаётся отдельным. Техническое сомнение не является обвинением ученика.",
+      "applies_to": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "verification_case_ids": [
+        "C14.PRIMARY"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.READINESS",
+      "title": "Независимая готовность",
+      "rule": "Не задерживать обоснованный балл из-за независимого learning_note; при изменении основания балла применить сценарии M01 либо withheld/null.",
+      "applies_to": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "verification_case_ids": [
+        "C15.READINESS"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "GUARD.RESOURCES",
+      "title": "Общий ограниченный точный этап",
+      "rule": "Использовать защищённый Pipeline, K01 лимиты, общий срок стадии, дедупликацию в запуске, компактный контекст и полный журнал. direct protocol.execute только диагностика без изоляции.",
+      "applies_to": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "verification_case_ids": [],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ],
+      "verification_scope": "Гарантия текущего exact-checks/M04 по исходному отчёту; новых runtime тестов K05 нет."
+    },
+    {
+      "id": "GUARD.NO_DYNAMIC_CODE",
+      "title": "Только реестр",
+      "rule": "Только восемь ID K01 исполняемы; все остальные proposed. Не исполнять eval/sympify/произвольные программы из ответа модели.",
+      "applies_to": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "verification_case_ids": [],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ],
+      "verification_scope": "Гарантия текущего exact-checks/M04 по исходному отчёту; новых runtime тестов K05 нет."
+    }
+  ],
+  "transfer_rules": [
+    {
+      "id": "TRANSFER.CANCEL",
+      "input": "Исходная дробь и активные ограничения",
+      "action": "Перенести все исходные запреты; сокращённое выражение добавить отдельным фактом равенства на прежней области.",
+      "output": "Новое выражение плюс неизменённая исходная область."
+    },
+    {
+      "id": "TRANSFER.LOG",
+      "input": "Аргументы/основания до преобразования",
+      "action": "Сохранить исходные ограничения, проверить область новой формы и характер утверждения: равенство, знак, равносильность.",
+      "output": "Оба набора ограничений и установленная связь областей."
+    },
+    {
+      "id": "TRANSFER.SUBST",
+      "input": "Определение t=f(x), область x и диапазон t",
+      "action": "Решить в t с ограничениями; построить все допустимые прообразы в x; только затем пересечь с исходной областью x.",
+      "output": "Множество x с доказанным возвратом и ссылками на все ветви."
+    },
+    {
+      "id": "TRANSFER.JOIN",
+      "input": "Результаты детей с областями",
+      "action": "Отдельно доказать полноту разбиения; объединить результаты альтернатив, пересечь одновременные условия.",
+      "output": "Родительский fact с branch_join и coverage_fact_id."
+    },
+    {
+      "id": "TRANSFER.FINAL",
+      "input": "Конечное множество и сохранённые исходные ограничения",
+      "action": "Проверить недопустимые/пропущенные значения, полноту и ученическое основание независимо.",
+      "output": "Узкие facts; findings и requirements только после смыслового сопоставления."
+    }
+  ],
+  "sources": [
+    {
+      "path": "../CHECKING_PRINCIPLES.md",
+      "locator": "U01–U12; §§2–5"
+    },
+    {
+      "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+      "locator": "До реального оценивания; Планирование проверок"
+    }
+  ]
+}

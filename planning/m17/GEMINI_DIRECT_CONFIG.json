@@ -1,0 +1,28 @@
+{
+  "version": "gemini-direct-config-1.0.0",
+  "provider": "google",
+  "model": "gemini-3.8-flash",
+  "base_url": "https://generativelanguage.googleapis.com/v1beta",
+  "credential_file": "/var/empty/kexam-not-configured.env",
+  "credential_variable": "GEMINI_API_KEY",
+  "automatic_retries": 0,
+  "service_tier": "standard",
+  "network": {
+    "mode": "system_vpn",
+    "allow_direct_fallback": false
+  },
+  "pricing": {
+    "model": "gemini-3.8-flash",
+    "input_usd_per_million": "0.75",
+    "output_usd_per_million": "3.75",
+    "cached_input_usd_per_million": "0.075",
+    "usd_to_rub": "85.4173",
+    "source": "https://ai.google.dev/gemini-api/docs/pricing",
+    "fx_source": "https://cbr.ru/currency_base/dynamics/?UniDbQuery.Posted=True&UniDbQuery.VAL_NM_RQ=R01235&UniDbQuery.mode=1",
+    "fx_date": "2026-10-09",
+    "valid_until": "2027-01-01T00:00:00Z",
+    "tariff_ref": "planning/m17/GEMINI_DIRECT_CONFIG.json#/pricing",
+    "cost_basis": "token_estimate",
+    "note": "Budget estimate at Standard paid-tier list tariff and fixed CBR rate; not a Google invoice or proof of paid-tier activation. Free-tier credits/quotas and card conversion can differ. Output includes thinking; cached input billed separately."
+  }
+}

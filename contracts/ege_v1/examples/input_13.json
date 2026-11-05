@@ -1,0 +1,52 @@
+{
+  "schema_version": "2.0.0",
+  "kind": "input",
+  "id": "synthetic-input",
+  "revision": 1,
+  "created_at": "2026-10-07T00:00:00+03:00",
+  "task": {
+    "exam_year": 2026,
+    "exam_number": 13,
+    "task_type": "trigonometric_equation",
+    "source_label": "SYNTHETIC — not a student work",
+    "statement": {
+      "text": "а) Решите sin x = 0. б) Найдите корни на [0; π].",
+      "format": "plain_latex",
+      "source": {
+        "kind": "synthetic",
+        "ref": "fixture:statement"
+      },
+      "completeness": "confirmed",
+      "missing": []
+    }
+  },
+  "pages": [
+    {
+      "id": "page-1",
+      "role": "solution",
+      "order": 1,
+      "asset_id": "synthetic-image",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "width": 1000,
+      "height": 1400,
+      "region": null,
+      "selection_note": "Synthetic page; no student photograph exists"
+    }
+  ],
+  "capture": {
+    "pages_complete": "confirmed",
+    "student_attempt": "finished"
+  },
+  "privacy": {
+    "status": "unchecked",
+    "reviewer_ref": null
+  },
+  "provenance": {
+    "source": {
+      "kind": "synthetic",
+      "ref": "fixture:transport"
+    },
+    "dataset_role": "synthetic",
+    "duplicate_group": null
+  }
+}

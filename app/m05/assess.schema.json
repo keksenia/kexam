@@ -1,0 +1,901 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M05 assess compact response 1.0.0",
+  "type": "object",
+  "properties": {
+    "facts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/fact"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "clarifications": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/clarification"
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/requirement"
+      }
+    },
+    "case_checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/case_check"
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/scenario"
+      }
+    },
+    "ambiguity_groups": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ambiguity_group"
+      }
+    },
+    "feedback": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/feedback"
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/issue"
+      }
+    },
+    "score": {
+      "$ref": "#/$defs/score"
+    }
+  },
+  "required": [
+    "facts",
+    "findings",
+    "clarifications",
+    "requirements",
+    "case_checks",
+    "scenarios",
+    "ambiguity_groups",
+    "feedback",
+    "score",
+    "issues"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ambiguity_group": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "scenario_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 2,
+          "uniqueItems": true
+        },
+        "exhaustive": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "unit_ids",
+        "scenario_ids",
+        "exhaustive",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "anchor": {
+      "type": "object",
+      "properties": {
+        "page_id": {
+          "$ref": "#/$defs/id"
+        },
+        "box": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/box"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "page_id",
+        "box"
+      ],
+      "additionalProperties": false
+    },
+    "box": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "minItems": 4,
+      "maxItems": 4,
+      "description": "[left,top,right,bottom] on EXIF-oriented stored image; null means no localization, never fabricate a box."
+    },
+    "case_check": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exam_year": {
+          "const": 2026
+        },
+        "status": {
+          "enum": [
+            "applicable",
+            "not_applicable",
+            "unknown"
+          ]
+        },
+        "fact_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "matches": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "contrast_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "requirement_ids",
+        "source_ref",
+        "source_sha256",
+        "locator",
+        "exam_year",
+        "status",
+        "fact_ids",
+        "matches",
+        "exclusions",
+        "contrast_ref",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "clarification": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/anchor"
+          },
+          "minItems": 1
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "impact": {
+          "enum": [
+            "score",
+            "substantive_feedback",
+            "both",
+            "score_basis"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "open",
+            "unresolved"
+          ]
+        },
+        "response": {
+          "type": "null"
+        },
+        "actor_ref": {
+          "type": "null"
+        },
+        "ambiguity_group_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "unit_ids",
+        "anchors",
+        "question",
+        "options",
+        "impact",
+        "reason",
+        "status",
+        "response",
+        "actor_ref",
+        "ambiguity_group_id"
+      ],
+      "additionalProperties": false
+    },
+    "fact": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "interpretation_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "const": "model"
+        },
+        "status": {
+          "enum": [
+            "supported",
+            "contradicted",
+            "unknown"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tool_version": {
+          "type": "null"
+        },
+        "depends_on_fact_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "branch_id": {
+          "$ref": "#/$defs/id"
+        },
+        "assumption_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "context_unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "claim_kind": {
+          "enum": [
+            "identity",
+            "equivalence",
+            "implication",
+            "membership",
+            "completeness",
+            "observation",
+            "other"
+          ]
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "branch_join": {
+          "type": "object",
+          "properties": {
+            "branch_ids": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              },
+              "minItems": 2,
+              "uniqueItems": true
+            },
+            "coverage_fact_id": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "required": [
+            "branch_ids",
+            "coverage_fact_id"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "unit_ids",
+        "interpretation_ids",
+        "claim",
+        "method",
+        "status",
+        "reason",
+        "tool_version",
+        "branch_id",
+        "assumption_ids",
+        "context_unit_ids",
+        "claim_kind",
+        "domain",
+        "depends_on_fact_ids"
+      ],
+      "additionalProperties": false
+    },
+    "feedback": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "finding_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "ready",
+            "pending",
+            "stale"
+          ]
+        },
+        "audience": {
+          "enum": [
+            "student",
+            "teacher"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "explanation",
+            "learning_note",
+            "clarification"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "finding_ids",
+        "unit_ids",
+        "text",
+        "status",
+        "audience",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "finding": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "category": {
+          "enum": [
+            "mathematical_error",
+            "solution_deficiency",
+            "system_uncertainty"
+          ]
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "fact_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "affects_score": {
+          "enum": [
+            "yes",
+            "no",
+            "unresolved"
+          ]
+        },
+        "criterion_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "primary_finding_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "established",
+            "pending"
+          ]
+        },
+        "evidence_assertions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fact_id": {
+                "$ref": "#/$defs/id"
+              },
+              "expected_status": {
+                "enum": [
+                  "supported",
+                  "contradicted"
+                ]
+              },
+              "connection": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "fact_id",
+              "expected_status",
+              "connection"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "category",
+        "unit_ids",
+        "fact_ids",
+        "description",
+        "reason",
+        "affects_score",
+        "criterion_ids",
+        "primary_finding_id",
+        "status",
+        "evidence_assertions",
+        "requirement_ids"
+      ],
+      "additionalProperties": false
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "issue": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "enum": [
+            "missing_statement",
+            "missing_page",
+            "statement_conflict",
+            "unreadable_fragment",
+            "methodological_dispute",
+            "invalid_model_json",
+            "timeout",
+            "provider_error",
+            "budget_blocked",
+            "cost_unknown",
+            "unsupported_math",
+            "unsupported_input",
+            "not_run",
+            "other"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "blocks": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "score",
+              "feedback"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "retryable",
+        "blocks"
+      ],
+      "additionalProperties": false
+    },
+    "requirement": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "criterion_id": {
+          "$ref": "#/$defs/id"
+        },
+        "branch_id": {
+          "$ref": "#/$defs/id"
+        },
+        "requirement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "fulfilled",
+            "not_fulfilled",
+            "unknown"
+          ]
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "fact_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "coverage_page_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "criterion_id",
+        "branch_id",
+        "requirement",
+        "status",
+        "unit_ids",
+        "fact_ids",
+        "coverage_page_ids",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "scenario": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "branch_id": {
+          "$ref": "#/$defs/id"
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "established",
+            "unknown",
+            "excluded"
+          ]
+        },
+        "score_value": {
+          "anyOf": [
+            {
+              "enum": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "criterion_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "branch_id",
+        "unit_ids",
+        "condition",
+        "status",
+        "score_value",
+        "requirement_ids",
+        "criterion_ids",
+        "rationale"
+      ],
+      "additionalProperties": false
+    },
+    "score": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "proposed",
+            "withheld"
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "enum": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "criterion_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_unit_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "finding_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "case_check_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "ambiguity_group_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "status",
+        "value",
+        "criterion_ids",
+        "rationale",
+        "evidence_unit_ids",
+        "finding_ids",
+        "requirement_ids",
+        "case_check_ids",
+        "ambiguity_group_ids"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

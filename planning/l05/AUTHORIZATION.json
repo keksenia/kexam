@@ -1,0 +1,9 @@
+{
+  "id": "PUBLIC-NO-PAID-AUTHORIZATION",
+  "budget_approved": false,
+  "budget_rub": 0,
+  "primary_calls": 0,
+  "technical_retry_reserve": 4,
+  "max_total_calls": 0,
+  "public_placeholder": true
+}

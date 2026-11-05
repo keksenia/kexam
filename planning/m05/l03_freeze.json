@@ -1,0 +1,27 @@
+{
+  "L03-13-01": {
+    "condition.png": "c3ca514f6338559c963c5e908b9408841680fdd24e692c27436b6cd85ec3af9a",
+    "input.json": "614ef7e80aa056f14675617f077943af90cb41593014002693c9a699b90fe981",
+    "shared_transcript.json": "6a8d6e16914797220a1d97700e2d20ba7964af116aea20cee8d63e2112492e22",
+    "solution-01.png": "0226c97353b165764862ca6b16630c849f453358cff762b1fe9f2ebe6d5d8a92"
+  },
+  "L03-13-02": {
+    "condition.png": "cc484bd6e2e8fbe1149da4cf33bc72a1f6b6e81242f6ce9d779aa6d97c29f037",
+    "input.json": "f288378cc6d31f984afef89909bce861de9ef9e7e94437e20163c605e37099e3",
+    "shared_transcript.json": "9699458926a58c108bfb57c14fc6831fb80e5fae04c70298df1f7ebd5edd58c2",
+    "solution-01.png": "b5ae7e1857eda89eb081fd011ce08cb97c6fd1d36fc644a1065e29680b0f338f"
+  },
+  "L03-15-01": {
+    "condition.png": "b9cefc67341dfc83de6aeadb9bf52e3377a3bab61757064063cd8718a8ed9359",
+    "input.json": "2b6d7eb8f48752f4f3cd2ae1cdaa33940516c37fad3274de4b74a312d01c7cb1",
+    "shared_transcript.json": "cc4de4c12b4fe5054f102229a123e261d1e993ad879b401ee6bc9790d7a1df20",
+    "solution-01.png": "d1bb914700e582978603ae964b58192acdd607e4c9a8d2bc4cb15f9567316dfa"
+  },
+  "L03-15-02": {
+    "condition.png": "aa37028a9a88dec9cbfac83c6a771f3346dca2a064a8ac4990fb044993b8bbf6",
+    "input.json": "f4e685cc8bd210e018a0d0b9568d279d5a9d2f482d3c49d1b381256d8a0dbe0f",
+    "shared_transcript.json": "1a5fbe70b837616ff0d225c4545f3e2e9fc23098dda155a57f2a5cf0235e5499",
+    "solution-01.png": "f1bc23858af782a08f18473c715032a7e2b9b8eecf718494aa3a1fed4c1d0e68",
+    "solution-02.png": "93a104704a9deb60f3f0b7cb4c281587e8f15c07318175a3f959b995306bbecc"
+  }
+}

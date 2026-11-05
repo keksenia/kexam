@@ -1,0 +1,4 @@
+# Version verified locally for M16. No model SDK is needed at this stage.
+Pillow==12.2.0
+# M01 2.0.0 schema and cross-reference validation used by M04.
+jsonschema>=4.26,<5

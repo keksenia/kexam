@@ -1,0 +1,64 @@
+{
+  "dataset": {
+    "description": "Known development set of handwritten EGE inequality solutions",
+    "exam_year": 2026,
+    "exam_number": 15,
+    "works": 82,
+    "photos": 93,
+    "reference_authority": "Founder-accepted final scores, with her corrections",
+    "reference_distribution": {"0": 28, "1": 1, "2": 53},
+    "eligible_as_unseen_test": false,
+    "independent_exam_expert_acceptance": false
+  },
+  "baseline": {
+    "snapshot_date": "2026-10-27",
+    "description": "DeepSeek independent solution, Gemini reading, DeepSeek assessment",
+    "state_includes_addressed_continuations": true,
+    "scored": 75,
+    "matches": 61,
+    "higher": 4,
+    "lower": 10,
+    "unscored": 7,
+    "unscored_reasons": {"assessment_questions": 5, "reading_scope_stop": 1, "solver_format_failure": 1},
+    "full_review": {
+      "works_reviewed": 82,
+      "photos_reviewed": 93,
+      "equal_score_with_other_observations": 13,
+      "no_material_discrepancy_observed": 48,
+      "observations_include_uncertain_glyphs_and_reference_text": true,
+      "independent_solver_every_step_audit_claimed": false
+    }
+  },
+  "deepseek_reader_experiment": {
+    "snapshot_date": "2026-11-04",
+    "description": "Fresh independent solution, DeepSeek reading, DeepSeek assessment",
+    "reader_thinking": false,
+    "reader_temperature": 0.67,
+    "scored": 45,
+    "matches": 35,
+    "higher": 3,
+    "lower": 7,
+    "unscored": 37,
+    "unscored_reasons": {"reading_rejected": 21, "assessment_not_json": 1, "reading_completeness_question": 5, "assessment_uncertain": 10},
+    "paired_scored": 42,
+    "paired_improved": 5,
+    "paired_regressed": 5,
+    "newly_scored": 3,
+    "model_calls": 220,
+    "automatic_retries": 0,
+    "known_cost_micro_rub": 91709251,
+    "cost_basis": "Historical token estimate with fixed tariff and FX snapshot; not a provider invoice",
+    "cost_per_attempt_denominator": 82,
+    "unknown_calls": 0,
+    "solver_output_wrapper_changed": true,
+    "structured_output_mechanism_changed": true
+  },
+  "limitations": [
+    "Known development material; no independent held-out estimate",
+    "Only task 15; results do not measure task 13",
+    "Strong score imbalance and one reference score of 1",
+    "Score agreement is not complete feedback correctness",
+    "Historical runs do not measure later source changes",
+    "Private per-work records are not distributed"
+  ]
+}

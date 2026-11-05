@@ -1,0 +1,35 @@
+[
+  {
+    "id": "M02-FIPI13-2",
+    "package_version": "m02-2026-1.1.0",
+    "exam_year": 2026,
+    "exam_number": 13,
+    "source_ref": "references/fipi/2026/matematika_mr_ege_2026.pdf",
+    "source_sha256": "29ef295aab4db2b9efa82b54d2c3d77511e2f9ef4721ae3dd41a3c93c262f1e8",
+    "locator": "PDF page 5; printed page 5; глава 1, таблица «Критерии оценивания выполнения задания»",
+    "rule_text": "Обоснованно получены верные ответы в обоих пунктах",
+    "authority": "official"
+  },
+  {
+    "id": "M02-FIPI13-1",
+    "package_version": "m02-2026-1.1.0",
+    "exam_year": 2026,
+    "exam_number": 13,
+    "source_ref": "references/fipi/2026/matematika_mr_ege_2026.pdf",
+    "source_sha256": "29ef295aab4db2b9efa82b54d2c3d77511e2f9ef4721ae3dd41a3c93c262f1e8",
+    "locator": "PDF page 5; printed page 5; глава 1, таблица «Критерии оценивания выполнения задания»",
+    "rule_text": "Обоснованно получен верный ответ в пункте а ИЛИ получены неверные ответы из-за вычислительной ошибки, но при этом имеется верная последовательность всех шагов решения обоих пунктов: пункта а и пункта б",
+    "authority": "official"
+  },
+  {
+    "id": "M02-FIPI13-0",
+    "package_version": "m02-2026-1.1.0",
+    "exam_year": 2026,
+    "exam_number": 13,
+    "source_ref": "references/fipi/2026/matematika_mr_ege_2026.pdf",
+    "source_sha256": "29ef295aab4db2b9efa82b54d2c3d77511e2f9ef4721ae3dd41a3c93c262f1e8",
+    "locator": "PDF page 5; printed page 5; глава 1, таблица «Критерии оценивания выполнения задания»",
+    "rule_text": "Решение не соответствует ни одному из критериев, перечисленных выше",
+    "authority": "official"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-05",
+  "kind": "aggregate_extraction_provenance",
+  "individual_records_public": false,
+  "sources": [
+    {
+      "id": "baseline",
+      "source_document_sha256": "640143c47cf1b54c3fe9cd77f36703739ecf9fe109ba8f1d78b0a26c7e77e2da",
+      "source_access": "Internal aggregate evidence; no student records exported"
+    },
+    {
+      "id": "full_review",
+      "source_document_sha256": "605d7eb1754de1276cc3c708697d858f397068244064e9e41e54d240f0431acc",
+      "source_access": "Internal aggregate evidence; no student records exported"
+    },
+    {
+      "id": "reader_experiment",
+      "source_document_sha256": "afa2375fc4b8607cf441f8b52cb49fc34e41401cbae9630ae3a3b5103a126509",
+      "source_access": "Internal aggregate evidence; no student records exported"
+    }
+  ]
+}

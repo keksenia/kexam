@@ -1,0 +1,182 @@
+{
+  "protocol_version": "1.0.0",
+  "m01_version": "2.0.0",
+  "m01_schema_sha256": "9e4626b1b88e7cdabbe197a4deafc0d46ed90fa0ea75c26f73c1de75c8fb19a5",
+  "implementation_status": "specified_not_implemented",
+  "limits": {
+    "id": "k01-default-1",
+    "request_bytes": 65536,
+    "response_bytes": 65536,
+    "families": 32,
+    "enumerated_root_candidates_before_dedup": 256,
+    "claimed_roots": 256,
+    "sets_per_operation": 16,
+    "total_input_set_components": 128,
+    "output_set_components": 128,
+    "polynomial_degree": 16,
+    "integer_input_digits": 40,
+    "intermediate_integer_bits": 4096,
+    "wall_ms_per_operation": 250,
+    "wall_ms_per_work": 5000,
+    "memory_mib_worker": 64,
+    "automatic_retries": 0,
+    "integer_output_digits": 40,
+    "output_integer_policy": "Every normalized numerator/denominator in computed, including denominator_value and angle differences, must fit40 digits. Otherwise unknown/resource_limit with computed=null; intermediate4096-bit limit alone does not imply representable output."
+  },
+  "operations": [
+    {
+      "id": "m06.pi_interval_membership",
+      "version": "1.0.0",
+      "task": "M06",
+      "claim_kind": "membership",
+      "arguments_ref": "#/$defs/m06_pi_interval_membership_args",
+      "computed_ref": "#/$defs/m06_pi_interval_membership_computed"
+    },
+    {
+      "id": "m06.select_pi_roots",
+      "version": "1.0.0",
+      "task": "M06",
+      "claim_kind": "completeness",
+      "arguments_ref": "#/$defs/m06_select_pi_roots_args",
+      "computed_ref": "#/$defs/m06_select_pi_roots_computed"
+    },
+    {
+      "id": "m06.circle_point_equal",
+      "version": "1.0.0",
+      "task": "M06",
+      "claim_kind": "other",
+      "arguments_ref": "#/$defs/m06_circle_point_equal_args",
+      "computed_ref": "#/$defs/m06_circle_point_equal_computed"
+    },
+    {
+      "id": "m07.set_union",
+      "version": "1.0.0",
+      "task": "M07",
+      "claim_kind": "equivalence",
+      "arguments_ref": "#/$defs/m07_set_union_args",
+      "computed_ref": "#/$defs/m07_set_union_computed"
+    },
+    {
+      "id": "m07.set_intersection",
+      "version": "1.0.0",
+      "task": "M07",
+      "claim_kind": "equivalence",
+      "arguments_ref": "#/$defs/m07_set_intersection_args",
+      "computed_ref": "#/$defs/m07_set_intersection_computed"
+    },
+    {
+      "id": "m07.set_membership",
+      "version": "1.0.0",
+      "task": "M07",
+      "claim_kind": "membership",
+      "arguments_ref": "#/$defs/m07_set_membership_args",
+      "computed_ref": "#/$defs/m07_set_membership_computed"
+    },
+    {
+      "id": "m07.set_equal",
+      "version": "1.0.0",
+      "task": "M07",
+      "claim_kind": "equivalence",
+      "arguments_ref": "#/$defs/m07_set_equal_args",
+      "computed_ref": "#/$defs/m07_set_equal_computed"
+    },
+    {
+      "id": "m07.denominator_nonzero",
+      "version": "1.0.0",
+      "task": "M07",
+      "claim_kind": "other",
+      "arguments_ref": "#/$defs/m07_denominator_nonzero_args",
+      "computed_ref": "#/$defs/m07_denominator_nonzero_computed"
+    }
+  ],
+  "package_version": "K01-2026-1.1.0",
+  "semantic_handoff_guards": [
+    {
+      "id": "G-UNION",
+      "operations": [
+        "m06.select_pi_roots"
+      ],
+      "requirement": "families means union of independently parameterized families in the same variable. It never means an intersection or a shared integer index. Establish the logical operator from active evidence; unresolved AND/OR produces unknown/unresolved_premise before mathematics.",
+      "finding_ids": [
+        "TR-F07"
+      ],
+      "counterexample": "2πZ∩3πZ=6πZ, while union on[0,6π]={0,2π,3π,4π,6π}. A correct union calculation cannot certify the intersection."
+    },
+    {
+      "id": "G-ANGLE",
+      "operations": [
+        "m06.select_pi_roots",
+        "m06.circle_point_equal",
+        "m06.pi_interval_membership"
+      ],
+      "requirement": "All angles, interval endpoints and claimed roots must denote the same real variable. For θ=ax+b, first establish the transformation and complete inverse mapping as separate supported facts; preserve real values, turns and endpoint flags. Unsupported mapping is unknown, not an implicit division or angle rename.",
+      "finding_ids": [
+        "TR-F05",
+        "TR-F06",
+        "TR-F14"
+      ],
+      "counterexample": "θ=2x needs θ∈[0,4π] for x∈[0,2π]; two residuesθ are not two x-roots. Mod2π equality cannot deduplicate0 and4π as real roots."
+    },
+    {
+      "id": "G-VARIABLE",
+      "operations": [
+        "m07.set_union",
+        "m07.set_intersection",
+        "m07.set_equal",
+        "m07.set_membership",
+        "m07.denominator_nonzero"
+      ],
+      "requirement": "Assembler establishes one coordinate variable and domain for every set/point; sets from x and t require a supported preimage/image mapping. The v1.0 payload contains no variable tag for generic sets, so typed schema alone cannot certify this condition. Bind to existing M01 interpretations/facts/assumptions and reject unresolved mapping.",
+      "finding_ids": [
+        "O-F02",
+        "I15-F06",
+        "I15-F11"
+      ],
+      "counterexample": "t=4 with t=2^x maps to x=2; intersecting t≥4 with x≤3 as sets of numbers silently changes the problem."
+    },
+    {
+      "id": "G-CLAIM",
+      "operations": [
+        "m07.denominator_nonzero",
+        "m07.set_equal",
+        "m07.set_intersection"
+      ],
+      "requirement": "No current operation proves logarithmic rationalization, constant signs, a substitution preimage, or the complete original domain. Preserve sign equivalence as an explicitly scoped other fact (M01 has no sign_equivalence enum), with the compared expressions, domain and justification. Use equivalence only for a separately established inequality solution-set equivalence on that domain; never identity.",
+      "finding_ids": [
+        "I15-F01",
+        "I15-F02",
+        "I15-F03",
+        "I15-F04",
+        "I15-F07"
+      ],
+      "counterexample": "Atx4 log₂x=2≠3=x−1; replacing this summand in log₂x−5/2≥0 reverses truth. Denominator of a rationalized expression cannot certify original logarithmic domain."
+    },
+    {
+      "id": "G-SCORE",
+      "operations": [
+        "m07.set_equal",
+        "m07.set_membership",
+        "m07.denominator_nonzero"
+      ],
+      "requirement": "A singleton symmetric difference or a denominator fact does not select the rubric. Classify original admissibility, cause and all other requirements in M03; retain unknown independently of ready unrelated facts.",
+      "finding_ids": [
+        "I15-F08",
+        "I15-F13"
+      ],
+      "counterexample": "Lost admissible−1 and included forbidden1 can both be singleton differences but have different mathematical causes; incomplete source scan cannot assign either score."
+    },
+    {
+      "id": "G-SOURCE",
+      "operations": [],
+      "requirement": "Exact facts depend on verified problem inputs, not on source prestige. Quarantine selfprep2026 p75 example2; do not copy unsupported author grades, unavailable Ilyich scans or navigation-only videos into verified rule premises.",
+      "finding_ids": [
+        "O-F01",
+        "O-F08",
+        "I15-F08",
+        "I15-F10"
+      ],
+      "counterexample": "Printed selfprep answer includesx1, whereas printed original evaluates3/4>0 under≤0."
+    }
+  ],
+  "enforcement_status": "Specification for M04/K03/M06/M07 assemblers; verify.py exercises synthetic unknown-premise propagation and exact fixture consistency. No production assembler or mathematical module implemented."
+}

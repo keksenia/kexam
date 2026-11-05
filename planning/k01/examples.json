@@ -1,0 +1,1427 @@
+{
+  "kind": "synthetic_expected_contract_examples",
+  "not_module_execution": true,
+  "examples": [
+    {
+      "id": "negative-period",
+      "exam_number": 13,
+      "operation": "m06.select_pi_roots",
+      "arguments": {
+        "families": [
+          {
+            "offset": {
+              "numerator": "1",
+              "denominator": "3"
+            },
+            "period": {
+              "numerator": "-2",
+              "denominator": "1"
+            }
+          }
+        ],
+        "interval": {
+          "left": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "-3",
+              "denominator": "1"
+            }
+          },
+          "right": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          },
+          "left_closed": true,
+          "right_closed": false
+        },
+        "claimed_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "-5",
+              "denominator": "3"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1",
+              "denominator": "3"
+            }
+          }
+        ]
+      },
+      "expected_status": "verified",
+      "reason_code": "exact_true",
+      "expected_computed": {
+        "selected_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "-5",
+              "denominator": "3"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1",
+              "denominator": "3"
+            }
+          }
+        ],
+        "missing_roots": [],
+        "extra_roots": [],
+        "duplicate_claim_count": 0
+      },
+      "evidence": [
+        "-3 <= 1/3-2k < 2 iff -5/6 < k <= 5/3; k=0,1.",
+        "The selected coefficients are -5/3 and 1/3."
+      ],
+      "claim": "Список совпадает с отбором из данного семейства на данном интервале.",
+      "gate": "resolved"
+    },
+    {
+      "id": "missing-root",
+      "exam_number": 13,
+      "operation": "m06.select_pi_roots",
+      "arguments": {
+        "families": [
+          {
+            "offset": {
+              "numerator": "1",
+              "denominator": "3"
+            },
+            "period": {
+              "numerator": "-2",
+              "denominator": "1"
+            }
+          }
+        ],
+        "interval": {
+          "left": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "-3",
+              "denominator": "1"
+            }
+          },
+          "right": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          },
+          "left_closed": true,
+          "right_closed": false
+        },
+        "claimed_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1",
+              "denominator": "3"
+            }
+          }
+        ]
+      },
+      "expected_status": "contradicted",
+      "reason_code": "exact_false",
+      "expected_computed": {
+        "selected_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "-5",
+              "denominator": "3"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1",
+              "denominator": "3"
+            }
+          }
+        ],
+        "missing_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "-5",
+              "denominator": "3"
+            }
+          }
+        ],
+        "extra_roots": [],
+        "duplicate_claim_count": 0
+      },
+      "evidence": [
+        "The same k=0,1 are admissible.",
+        "k=1 gives -5*pi/3, absent from the claimed list."
+      ],
+      "claim": "Список совпадает с отбором из данного семейства на данном интервале.",
+      "gate": "resolved"
+    },
+    {
+      "id": "constant-family",
+      "exam_number": 13,
+      "operation": "m06.select_pi_roots",
+      "arguments": {
+        "families": [
+          {
+            "offset": {
+              "numerator": "1",
+              "denominator": "1"
+            },
+            "period": {
+              "numerator": "0",
+              "denominator": "1"
+            }
+          }
+        ],
+        "interval": {
+          "left": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          },
+          "right": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          },
+          "left_closed": true,
+          "right_closed": false
+        },
+        "claimed_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          }
+        ]
+      },
+      "expected_status": "verified",
+      "reason_code": "exact_true",
+      "expected_computed": {
+        "selected_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          }
+        ],
+        "missing_roots": [],
+        "extra_roots": [],
+        "duplicate_claim_count": 1
+      },
+      "evidence": [
+        "b=0: every integer k denotes the one value pi.",
+        "The left endpoint is closed; duplicate writing does not change a set."
+      ],
+      "claim": "Список как множество совпадает с отбором из постоянного семейства.",
+      "gate": "resolved"
+    },
+    {
+      "id": "too-many-roots",
+      "exam_number": 13,
+      "operation": "m06.select_pi_roots",
+      "arguments": {
+        "families": [
+          {
+            "offset": {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            "period": {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          }
+        ],
+        "interval": {
+          "left": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "0",
+              "denominator": "1"
+            }
+          },
+          "right": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1000000",
+              "denominator": "1"
+            }
+          },
+          "left_closed": true,
+          "right_closed": true
+        },
+        "claimed_roots": []
+      },
+      "expected_status": "unknown",
+      "reason_code": "resource_limit",
+      "expected_computed": null,
+      "evidence": [
+        "The inclusive k range is 0..1000000: 1000001 candidates exceed 256 before enumeration.",
+        "No partial enumeration may be used as a complete selection."
+      ],
+      "claim": "Пустой список совпадает с отбором из данного семейства.",
+      "gate": "resolved"
+    },
+    {
+      "id": "open-end",
+      "exam_number": 13,
+      "operation": "m06.pi_interval_membership",
+      "arguments": {
+        "point": {
+          "basis": "pi",
+          "coefficient": {
+            "numerator": "2",
+            "denominator": "1"
+          }
+        },
+        "interval": {
+          "left": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "0",
+              "denominator": "1"
+            }
+          },
+          "right": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          },
+          "left_closed": true,
+          "right_closed": false
+        },
+        "expected_member": true
+      },
+      "expected_status": "contradicted",
+      "reason_code": "exact_false",
+      "expected_computed": {
+        "member": false
+      },
+      "evidence": [
+        "The point equals the open right endpoint: 2 is not less than 2."
+      ],
+      "claim": "Угол 2π принадлежит промежутку [0; 2π).",
+      "gate": "resolved"
+    },
+    {
+      "id": "circle-turns",
+      "exam_number": 13,
+      "operation": "m06.circle_point_equal",
+      "arguments": {
+        "angle": {
+          "basis": "pi",
+          "coefficient": {
+            "numerator": "-19",
+            "denominator": "4"
+          }
+        },
+        "independent_point_angle": {
+          "basis": "pi",
+          "coefficient": {
+            "numerator": "5",
+            "denominator": "4"
+          }
+        }
+      },
+      "expected_status": "verified",
+      "reason_code": "exact_true",
+      "expected_computed": {
+        "same_point": true,
+        "same_real_number": false,
+        "difference_over_two_pi": {
+          "numerator": "-3",
+          "denominator": "1"
+        },
+        "angle_residue": {
+          "basis": "pi",
+          "coefficient": {
+            "numerator": "5",
+            "denominator": "4"
+          }
+        },
+        "point_residue": {
+          "basis": "pi",
+          "coefficient": {
+            "numerator": "5",
+            "denominator": "4"
+          }
+        }
+      },
+      "evidence": [
+        "(-19/4-5/4)/2 = -3, an integer.",
+        "The real angles differ by -6*pi; this does not select a root on a real interval."
+      ],
+      "claim": "Два независимо установленных угла задают одну точку окружности modulo 2π.",
+      "gate": "resolved"
+    },
+    {
+      "id": "union-point",
+      "exam_number": 15,
+      "operation": "m07.set_union",
+      "arguments": {
+        "sets": [
+          {
+            "intervals": [
+              {
+                "left": {
+                  "basis": "rational",
+                  "coefficient": {
+                    "numerator": "0",
+                    "denominator": "1"
+                  }
+                },
+                "right": {
+                  "basis": "rational",
+                  "coefficient": {
+                    "numerator": "1",
+                    "denominator": "1"
+                  }
+                },
+                "left_closed": false,
+                "right_closed": false
+              }
+            ],
+            "points": []
+          },
+          {
+            "intervals": [],
+            "points": [
+              {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "1",
+                  "denominator": "1"
+                }
+              }
+            ]
+          }
+        ],
+        "claimed_set": {
+          "intervals": [
+            {
+              "left": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "0",
+                  "denominator": "1"
+                }
+              },
+              "right": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "1",
+                  "denominator": "1"
+                }
+              },
+              "left_closed": false,
+              "right_closed": true
+            }
+          ],
+          "points": []
+        }
+      },
+      "expected_status": "verified",
+      "reason_code": "exact_true",
+      "expected_computed": {
+        "computed_set": {
+          "intervals": [
+            {
+              "left": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "0",
+                  "denominator": "1"
+                }
+              },
+              "right": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "1",
+                  "denominator": "1"
+                }
+              },
+              "left_closed": false,
+              "right_closed": true
+            }
+          ],
+          "points": []
+        },
+        "symmetric_difference": {
+          "intervals": [],
+          "points": []
+        }
+      },
+      "evidence": [
+        "(0,1) union {1} = (0,1].",
+        "The left endpoint remains excluded; the right endpoint is included by the singleton."
+      ],
+      "claim": "Заявленное множество равно объединению данных множеств.",
+      "gate": "resolved"
+    },
+    {
+      "id": "intersection",
+      "exam_number": 15,
+      "operation": "m07.set_intersection",
+      "arguments": {
+        "sets": [
+          {
+            "intervals": [
+              {
+                "left": {
+                  "basis": "rational",
+                  "coefficient": {
+                    "numerator": "0",
+                    "denominator": "1"
+                  }
+                },
+                "right": {
+                  "basis": "rational",
+                  "coefficient": {
+                    "numerator": "2",
+                    "denominator": "1"
+                  }
+                },
+                "left_closed": true,
+                "right_closed": true
+              }
+            ],
+            "points": []
+          },
+          {
+            "intervals": [
+              {
+                "left": {
+                  "basis": "rational",
+                  "coefficient": {
+                    "numerator": "1",
+                    "denominator": "1"
+                  }
+                },
+                "right": null,
+                "left_closed": false,
+                "right_closed": false
+              }
+            ],
+            "points": []
+          }
+        ],
+        "claimed_set": {
+          "intervals": [
+            {
+              "left": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "1",
+                  "denominator": "1"
+                }
+              },
+              "right": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "2",
+                  "denominator": "1"
+                }
+              },
+              "left_closed": false,
+              "right_closed": true
+            }
+          ],
+          "points": []
+        }
+      },
+      "expected_status": "verified",
+      "reason_code": "exact_true",
+      "expected_computed": {
+        "computed_set": {
+          "intervals": [
+            {
+              "left": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "1",
+                  "denominator": "1"
+                }
+              },
+              "right": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "2",
+                  "denominator": "1"
+                }
+              },
+              "left_closed": false,
+              "right_closed": true
+            }
+          ],
+          "points": []
+        },
+        "symmetric_difference": {
+          "intervals": [],
+          "points": []
+        }
+      },
+      "evidence": [
+        "[0,2] intersection (1,+infinity) = (1,2]."
+      ],
+      "claim": "Заявленное множество равно пересечению данных множеств.",
+      "gate": "resolved"
+    },
+    {
+      "id": "singleton-member",
+      "exam_number": 15,
+      "operation": "m07.set_membership",
+      "arguments": {
+        "set": {
+          "intervals": [],
+          "points": [
+            {
+              "basis": "rational",
+              "coefficient": {
+                "numerator": "1",
+                "denominator": "1"
+              }
+            }
+          ]
+        },
+        "point": {
+          "basis": "rational",
+          "coefficient": {
+            "numerator": "1",
+            "denominator": "1"
+          }
+        },
+        "expected_member": true
+      },
+      "expected_status": "verified",
+      "reason_code": "exact_true",
+      "expected_computed": {
+        "member": true
+      },
+      "evidence": [
+        "1 equals the explicitly included singleton point 1."
+      ],
+      "claim": "Точка 1 принадлежит данному множеству.",
+      "gate": "resolved"
+    },
+    {
+      "id": "boundary-mismatch",
+      "exam_number": 15,
+      "operation": "m07.set_equal",
+      "arguments": {
+        "left": {
+          "intervals": [
+            {
+              "left": null,
+              "right": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "1",
+                  "denominator": "1"
+                }
+              },
+              "left_closed": false,
+              "right_closed": true
+            }
+          ],
+          "points": []
+        },
+        "right": {
+          "intervals": [
+            {
+              "left": null,
+              "right": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "1",
+                  "denominator": "1"
+                }
+              },
+              "left_closed": false,
+              "right_closed": false
+            }
+          ],
+          "points": []
+        }
+      },
+      "expected_status": "contradicted",
+      "reason_code": "exact_false",
+      "expected_computed": {
+        "equal": false,
+        "symmetric_difference": {
+          "intervals": [],
+          "points": [
+            {
+              "basis": "rational",
+              "coefficient": {
+                "numerator": "1",
+                "denominator": "1"
+              }
+            }
+          ]
+        }
+      },
+      "evidence": [
+        "The only difference is the point 1: it belongs to the left set, not the right set."
+      ],
+      "claim": "Данные множества равны.",
+      "gate": "resolved"
+    },
+    {
+      "id": "uncancelled-denominator",
+      "exam_number": 15,
+      "operation": "m07.denominator_nonzero",
+      "arguments": {
+        "expression": {
+          "representation": "original_polynomial_quotient",
+          "variable": "x",
+          "numerator": [
+            {
+              "numerator": "-1",
+              "denominator": "1"
+            },
+            {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          ],
+          "denominator": [
+            {
+              "numerator": "-1",
+              "denominator": "1"
+            },
+            {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          ]
+        },
+        "point": {
+          "basis": "rational",
+          "coefficient": {
+            "numerator": "1",
+            "denominator": "1"
+          }
+        }
+      },
+      "expected_status": "contradicted",
+      "reason_code": "exact_false",
+      "expected_computed": {
+        "denominator_value": {
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "nonzero": false
+      },
+      "evidence": [
+        "The original denominator Q(1)=1-1=0.",
+        "Cancellation to x+1 must not restore x=1 to the original domain."
+      ],
+      "claim": "Знаменатель исходной дроби (x²−1)/(x−1) не равен нулю при x=1.",
+      "gate": "resolved"
+    },
+    {
+      "id": "denominator-nonzero",
+      "exam_number": 15,
+      "operation": "m07.denominator_nonzero",
+      "arguments": {
+        "expression": {
+          "representation": "original_polynomial_quotient",
+          "variable": "x",
+          "numerator": [
+            {
+              "numerator": "-1",
+              "denominator": "1"
+            },
+            {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          ],
+          "denominator": [
+            {
+              "numerator": "-1",
+              "denominator": "1"
+            },
+            {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          ]
+        },
+        "point": {
+          "basis": "rational",
+          "coefficient": {
+            "numerator": "2",
+            "denominator": "1"
+          }
+        }
+      },
+      "expected_status": "verified",
+      "reason_code": "exact_true",
+      "expected_computed": {
+        "denominator_value": {
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "nonzero": true
+      },
+      "evidence": [
+        "Q(2)=2-1=1, nonzero.",
+        "This establishes only this denominator restriction, not the entire domain or inequality."
+      ],
+      "claim": "Знаменатель исходной дроби (x²−1)/(x−1) не равен нулю при x=2.",
+      "gate": "resolved"
+    },
+    {
+      "id": "unresolved-denominator-reading",
+      "exam_number": 15,
+      "operation": "m07.denominator_nonzero",
+      "arguments": {
+        "expression": {
+          "representation": "original_polynomial_quotient",
+          "variable": "x",
+          "numerator": [
+            {
+              "numerator": "-1",
+              "denominator": "1"
+            },
+            {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          ],
+          "denominator": [
+            {
+              "numerator": "-1",
+              "denominator": "1"
+            },
+            {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          ]
+        },
+        "point": {
+          "basis": "rational",
+          "coefficient": {
+            "numerator": "1",
+            "denominator": "1"
+          }
+        }
+      },
+      "expected_status": "unknown",
+      "reason_code": "unresolved_premise",
+      "expected_computed": null,
+      "evidence": [
+        "The denominator may read x-1 or x+1; the assumed reading is unresolved.",
+        "Do not convert Q(1)=0 for one reading into an accusation under all readings."
+      ],
+      "claim": "Знаменатель исходной дроби не равен нулю при x=1.",
+      "gate": "unknown_assumption"
+    },
+    {
+      "id": "union-not-intersection",
+      "exam_number": 13,
+      "operation": "m06.select_pi_roots",
+      "arguments": {
+        "families": [
+          {
+            "offset": {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            "period": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          },
+          {
+            "offset": {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            "period": {
+              "numerator": "3",
+              "denominator": "1"
+            }
+          }
+        ],
+        "interval": {
+          "left": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "0",
+              "denominator": "1"
+            }
+          },
+          "right": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "6",
+              "denominator": "1"
+            }
+          },
+          "left_closed": true,
+          "right_closed": true
+        },
+        "claimed_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "0",
+              "denominator": "1"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "6",
+              "denominator": "1"
+            }
+          }
+        ]
+      },
+      "expected_status": "contradicted",
+      "reason_code": "exact_false",
+      "expected_computed": {
+        "selected_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "0",
+              "denominator": "1"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "3",
+              "denominator": "1"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "4",
+              "denominator": "1"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "6",
+              "denominator": "1"
+            }
+          }
+        ],
+        "missing_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "3",
+              "denominator": "1"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "4",
+              "denominator": "1"
+            }
+          }
+        ],
+        "extra_roots": [],
+        "duplicate_claim_count": 0
+      },
+      "evidence": [
+        "families is a union; k ranges0..3 and0..2 yield0,2,3,4,6 timesπ.",
+        "The list0,6 would be an intersection result; operation does not change its logic."
+      ],
+      "claim": "Только утверждение зарегистрированной операции в установленном контексте.",
+      "gate": "resolved"
+    },
+    {
+      "id": "unresolved-series-operator",
+      "exam_number": 13,
+      "operation": "m06.select_pi_roots",
+      "arguments": {
+        "families": [
+          {
+            "offset": {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            "period": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          },
+          {
+            "offset": {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            "period": {
+              "numerator": "3",
+              "denominator": "1"
+            }
+          }
+        ],
+        "interval": {
+          "left": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "0",
+              "denominator": "1"
+            }
+          },
+          "right": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "6",
+              "denominator": "1"
+            }
+          },
+          "left_closed": true,
+          "right_closed": true
+        },
+        "claimed_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "0",
+              "denominator": "1"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "6",
+              "denominator": "1"
+            }
+          }
+        ]
+      },
+      "expected_status": "unknown",
+      "reason_code": "unresolved_premise",
+      "expected_computed": null,
+      "evidence": [
+        "The source bracket may mean AND or OR; do not execute union and claim it checks both interpretations."
+      ],
+      "claim": "Только утверждение зарегистрированной операции в установленном контексте.",
+      "gate": "series_operator_unresolved"
+    },
+    {
+      "id": "unmapped-angle-variable",
+      "exam_number": 13,
+      "operation": "m06.select_pi_roots",
+      "arguments": {
+        "families": [
+          {
+            "offset": {
+              "numerator": "1",
+              "denominator": "3"
+            },
+            "period": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          },
+          {
+            "offset": {
+              "numerator": "-1",
+              "denominator": "3"
+            },
+            "period": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          }
+        ],
+        "interval": {
+          "left": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "0",
+              "denominator": "1"
+            }
+          },
+          "right": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          },
+          "left_closed": true,
+          "right_closed": true
+        },
+        "claimed_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1",
+              "denominator": "3"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "5",
+              "denominator": "3"
+            }
+          }
+        ]
+      },
+      "expected_status": "unknown",
+      "reason_code": "unresolved_premise",
+      "expected_computed": null,
+      "evidence": [
+        "Families denoteθ; interval/answer refer tox. θ=2x has not been applied as a verified mapping."
+      ],
+      "claim": "Только утверждение зарегистрированной операции в установленном контексте.",
+      "gate": "angle_variable_unmapped"
+    },
+    {
+      "id": "angle-preimage-mapped",
+      "exam_number": 13,
+      "operation": "m06.select_pi_roots",
+      "arguments": {
+        "families": [
+          {
+            "offset": {
+              "numerator": "1",
+              "denominator": "6"
+            },
+            "period": {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          },
+          {
+            "offset": {
+              "numerator": "-1",
+              "denominator": "6"
+            },
+            "period": {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          }
+        ],
+        "interval": {
+          "left": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "0",
+              "denominator": "1"
+            }
+          },
+          "right": {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "2",
+              "denominator": "1"
+            }
+          },
+          "left_closed": true,
+          "right_closed": true
+        },
+        "claimed_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1",
+              "denominator": "6"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "5",
+              "denominator": "6"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "7",
+              "denominator": "6"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "11",
+              "denominator": "6"
+            }
+          }
+        ]
+      },
+      "expected_status": "verified",
+      "reason_code": "exact_true",
+      "expected_computed": {
+        "selected_roots": [
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "1",
+              "denominator": "6"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "5",
+              "denominator": "6"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "7",
+              "denominator": "6"
+            }
+          },
+          {
+            "basis": "pi",
+            "coefficient": {
+              "numerator": "11",
+              "denominator": "6"
+            }
+          }
+        ],
+        "missing_roots": [],
+        "extra_roots": [],
+        "duplicate_claim_count": 0
+      },
+      "evidence": [
+        "Fixture premise: an independently established θ=2x mapping already converted both families to x.",
+        "This operation checks selection from supplied x families only; it does not prove the mapping."
+      ],
+      "claim": "Только утверждение зарегистрированной операции в установленном контексте.",
+      "gate": "resolved"
+    },
+    {
+      "id": "unmapped-set-variables",
+      "exam_number": 15,
+      "operation": "m07.set_intersection",
+      "arguments": {
+        "sets": [
+          {
+            "intervals": [
+              {
+                "left": {
+                  "basis": "rational",
+                  "coefficient": {
+                    "numerator": "0",
+                    "denominator": "1"
+                  }
+                },
+                "right": {
+                  "basis": "rational",
+                  "coefficient": {
+                    "numerator": "2",
+                    "denominator": "1"
+                  }
+                },
+                "left_closed": true,
+                "right_closed": true
+              }
+            ],
+            "points": []
+          },
+          {
+            "intervals": [
+              {
+                "left": {
+                  "basis": "rational",
+                  "coefficient": {
+                    "numerator": "1",
+                    "denominator": "1"
+                  }
+                },
+                "right": null,
+                "left_closed": false,
+                "right_closed": false
+              }
+            ],
+            "points": []
+          }
+        ],
+        "claimed_set": {
+          "intervals": [
+            {
+              "left": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "1",
+                  "denominator": "1"
+                }
+              },
+              "right": {
+                "basis": "rational",
+                "coefficient": {
+                  "numerator": "2",
+                  "denominator": "1"
+                }
+              },
+              "left_closed": false,
+              "right_closed": true
+            }
+          ],
+          "points": []
+        }
+      },
+      "expected_status": "unknown",
+      "reason_code": "unresolved_premise",
+      "expected_computed": null,
+      "evidence": [
+        "First interval is in t, second in x; no supported mapping joins them. Numeric endpoint comparison is not applicable."
+      ],
+      "claim": "Только утверждение зарегистрированной операции в установленном контексте.",
+      "gate": "set_variables_unmapped"
+    },
+    {
+      "id": "output-too-wide",
+      "exam_number": 15,
+      "operation": "m07.denominator_nonzero",
+      "arguments": {
+        "expression": {
+          "representation": "original_polynomial_quotient",
+          "variable": "x",
+          "numerator": [
+            {
+              "numerator": "-1",
+              "denominator": "1"
+            },
+            {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          ],
+          "denominator": [
+            {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            {
+              "numerator": "0",
+              "denominator": "1"
+            },
+            {
+              "numerator": "1",
+              "denominator": "1"
+            }
+          ]
+        },
+        "point": {
+          "basis": "rational",
+          "coefficient": {
+            "numerator": "1000000000000000000000000000000000000000",
+            "denominator": "1"
+          }
+        }
+      },
+      "expected_status": "unknown",
+      "reason_code": "resource_limit",
+      "expected_computed": null,
+      "evidence": [
+        "Q(x)=x² atx=10^39 gives10^78:79decimal digits,260bits. Input40digits and intermediate4096bits pass; output40digits fails.",
+        "Return unknown/resource_limit, computed=null, never rounded or truncated exact output."
+      ],
+      "claim": "Только утверждение зарегистрированной операции в установленном контексте.",
+      "gate": "resolved"
+    },
+    {
+      "id": "circle-output-too-wide",
+      "exam_number": 13,
+      "operation": "m06.circle_point_equal",
+      "arguments": {
+        "angle": {
+          "basis": "pi",
+          "coefficient": {
+            "numerator": "1",
+            "denominator": "1000000000000000000000000000000000000007"
+          }
+        },
+        "independent_point_angle": {
+          "basis": "pi",
+          "coefficient": {
+            "numerator": "1",
+            "denominator": "1000000000000000000000000000000000000009"
+          }
+        }
+      },
+      "expected_status": "unknown",
+      "reason_code": "resource_limit",
+      "expected_computed": null,
+      "evidence": [
+        "Both angle denominators have40digits. Their difference divided by2π is1/((10^39+7)(10^39+9)), denominator79digits.",
+        "The output40digit limit is recursive across every computed rational, not denominator_nonzero alone."
+      ],
+      "claim": "Углы задают одну точку окружности; проверка ограничена форматом точного выхода.",
+      "gate": "resolved"
+    }
+  ],
+  "package_version": "K01-2026-1.1.0"
+}

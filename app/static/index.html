@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>EGEChecker — материалы работы</title>
+  <style>
+    :root { --paper:#f5f4f0; --white:#fff; --ink:#20362f; --muted:#61716b; --line:#d9e0da; --accent:#24664c; --wash:#e9f1eb; --warn:#795b1b; --danger:#a33030; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; }
+    main { max-width:1160px; margin:auto; padding:32px 24px 72px; }
+    header { margin-bottom:28px; }
+    .brand { color:var(--accent); font-size:14px; font-weight:750; letter-spacing:.11em; }
+    h1 { font-size:clamp(26px,4vw,38px); line-height:1.15; font-weight:650; letter-spacing:-.025em; margin:13px 0; }
+    h2 { margin:0 0 12px; font-size:19px; line-height:1.3; }
+    h3 { font-size:16px; margin:20px 0 8px; }
+    p { margin:8px 0; }
+    .muted,.hint { color:var(--muted); }
+    .hint { font-size:14px; }
+    .stage { display:inline-flex; align-items:center; gap:8px; border:1px solid #d9c999; padding:7px 11px; border-radius:7px; background:#faf5e6; color:#6b531e; font-size:13px; }
+    .stage::before { content:""; width:7px; height:7px; border-radius:50%; background:#ad8b37; flex-shrink:0; }
+    .layout { display:grid; grid-template-columns:minmax(0,1fr) 290px; gap:24px; align-items:start; }
+    .card { background:var(--white); border:1px solid var(--line); border-radius:14px; padding:23px; margin-bottom:18px; }
+    .step { display:inline-flex; align-items:center; justify-content:center; width:27px; height:27px; margin-right:9px; background:var(--wash); color:var(--accent); border-radius:50%; font-size:14px; vertical-align:1px; }
+    label { display:block; font-weight:550; }
+    select,textarea { width:100%; border:1px solid #becac2; border-radius:8px; background:white; color:var(--ink); padding:11px 12px; font:inherit; }
+    select { margin:7px 0 13px; }
+    textarea { min-height:130px; resize:vertical; margin-top:7px; }
+    button,.file-button { font:inherit; border:1px solid #becac2; color:var(--ink); background:white; border-radius:8px; padding:8px 12px; cursor:pointer; font-weight:550; }
+    button:hover,.file-button:hover { background:#f0f5f1; }
+    button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,input:focus-visible+span { outline:3px solid #81b49b; outline-offset:3px; }
+    button:disabled { opacity:.48; cursor:default; }
+    .primary { background:var(--accent); color:#fff; border-color:var(--accent); padding:12px 20px; }
+    .primary:hover { background:#194f39; }
+    .drop { border:1px dashed #a4b9ad; border-radius:9px; padding:18px; text-align:center; background:#fafcf9; margin:14px 0; }
+    .drop.over { background:var(--wash); outline:2px solid #81b49b; }
+    .drop p { margin:8px 0 0; }
+    .file-input { position:absolute; width:1px; height:1px; opacity:0; overflow:hidden; }
+    .editor { border:1px solid var(--line); border-radius:9px; overflow:hidden; margin-top:14px; }
+    .editor-bar { display:flex; gap:8px; justify-content:space-between; align-items:center; flex-wrap:wrap; background:#f6f8f5; padding:9px 11px; }
+    .editor-bar strong { font-size:14px; }
+    .editor-actions { display:flex; gap:5px; flex-wrap:wrap; }
+    .editor-actions button { font-size:13px; padding:5px 9px; }
+    canvas { width:100%; height:auto; display:block; cursor:crosshair; touch-action:none; }
+    .check { display:flex; align-items:flex-start; gap:10px; font-weight:400; margin:15px 0 20px; }
+    .check input { width:18px; height:18px; flex:none; margin-top:4px; accent-color:var(--accent); }
+    .status { margin:15px 0 0; padding:12px 14px; border:1px solid #a8c3b2; border-radius:8px; background:#edf5ee; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .status.error { color:var(--danger); background:#fff0ee; border-color:#e5b5ad; }
+    [hidden] { display:none !important; }
+    aside { position:sticky; top:22px; }
+    .history { list-style:none; padding:0; margin:16px 0 0; }
+    .history li+li { border-top:1px solid var(--line); }
+    .history button { text-align:left; width:100%; border:0; padding:13px 0; background:transparent; font-size:14px; font-weight:450; }
+    .history button:hover { color:var(--accent); text-decoration:underline; }
+    .history small { display:block; color:var(--muted); font-size:12px; margin-top:3px; }
+    .history strong { display:block; font-size:14px; font-weight:650; }
+    .save-state { color:var(--accent); font-size:13px; }
+    .result { margin-top:25px; }
+    .result-text { white-space:pre-wrap; overflow-wrap:anywhere; padding:13px; border:1px solid var(--line); border-radius:8px; background:#fafbf8; }
+    .result img { display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:8px; margin-top:10px; }
+    .result a { color:var(--accent); font-size:13px; }
+    .result-head { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+    .result-head h2 { margin-bottom:0; }
+    .load-state { padding:24px; text-align:center; color:var(--muted); }
+    .inline { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    @media(max-width:860px) { .layout { grid-template-columns:1fr; } aside { position:static; } }
+    @media(max-width:520px) { main { padding:20px 13px 45px; } .card { padding:17px; } .stage { font-size:12px; } .editor-actions { width:100%; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="brand">EGECHECKER</div>
+    <h1>Подготовить работу к проверке</h1>
+    <p class="muted">Добавьте условие и фотографии решения. Закройте личные данные и сохраните материалы на этом компьютере.</p>
+    <p class="stage" id="checking-stage">Уточняем доступность проверки…</p>
+  </header>
+  <div class="layout">
+    <div>
+      <form id="work-form">
+        <section class="card">
+          <h2><span class="step">1</span>Задание</h2>
+          <label for="task-type">Тип задания · ЕГЭ 2026</label>
+          <select id="task-type" name="task_type">
+            <option value="trigonometric_equation">№13 — тригонометрическое уравнение с отбором корней</option>
+            <option value="inequality">№15 — неравенство</option>
+          </select>
+          <label for="task-text">Полное условие</label>
+          <textarea id="task-text" name="task_text" placeholder="Введите условие со всеми пунктами и ограничениями или приложите его фотографию ниже." maxlength="20000"></textarea>
+          <p class="hint">Нужно само условие, а не только номер задания. Введите текст или добавьте фотографии полного условия. Чтобы сменить способ, удалите введённый текст или фото условия.</p>
+          <div class="drop" data-role="task">
+            <input class="file-input" type="file" id="task-files" accept="image/jpeg,image/png,image/webp" multiple>
+            <button type="button" class="pick" data-input="task-files">Добавить фото условия</button>
+            <p class="hint">Или перетащите сюда файлы</p>
+          </div>
+          <div id="task-editors"></div>
+        </section>
+        <section class="card">
+          <h2><span class="step">2</span>Решение ученика</h2>
+          <p class="hint">Добавьте все страницы по порядку. Порядок можно изменить стрелками.</p>
+          <div class="drop" data-role="solution">
+            <input class="file-input" type="file" id="solution-files" accept="image/jpeg,image/png,image/webp" multiple>
+            <button type="button" class="pick" data-input="solution-files">Добавить фото решения</button>
+            <p class="hint">JPEG, PNG или WebP · до 10 страниц решения и до 10 фото условия</p>
+          </div>
+          <div id="solution-editors"></div>
+        </section>
+        <section class="card">
+          <h2><span class="step">3</span>Личные данные</h2>
+          <p>На фотографиях выделите прямоугольником имена, фамилии и другие личные данные — выделенное станет чёрным.</p>
+          <p class="hint">До 35 МБ на фото и 30 мегапикселей. Сохраняем исходное разрешение; для модели готовим отдельные компактные копии.</p>
+          <label class="check"><input type="checkbox" id="redacted"><span>На фотографиях и в тексте нет личных данных: я закрыла их или их не было.</span></label>
+          <button class="primary" id="save-button" type="submit">Сохранить материалы</button>
+          <p class="hint" id="save-hint">Сохранение не запускает ИИ и не выставляет балл.</p>
+          <div id="form-status" class="status" role="status" aria-live="polite" hidden></div>
+        </section>
+      </form>
+      <section id="result" class="card result" aria-live="polite" hidden></section>
+    </div>
+    <aside class="card">
+      <div class="inline"><h2>Сохранённые работы</h2><button type="button" id="refresh" title="Обновить список" aria-label="Обновить список работ">↻</button></div>
+      <p class="hint">Каждая работа получает свой номер. Имя ученика не требуется.</p>
+      <p id="history-state" class="hint">Загружаем список…</p>
+      <ul class="history" id="history"></ul>
+    </aside>
+  </div>
+</main>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const images = {solution: [], task: []};
+const MAX_FILES = 10, MAX_FILE_BYTES = 35 * 1024 * 1024, MAX_BODY_BYTES = 20 * Math.ceil(35 * 1024 * 1024 / 3) * 4 + 1024 * 1024, MAX_PIXELS = 30000000;
+const TYPE_NAMES = {trigonometric_equation:'№13 · Уравнение с отбором корней', inequality:'№15 · Неравенство'};
+let serial = 0, loading = 0, saving = false, ready = false, historyRequest = 0, detailRequest = 0;
+
+function element(tag, text, className) {
+  const node = document.createElement(tag);
+  if (text !== undefined) node.textContent = text;
+  if (className) node.className = className;
+  return node;
+}
+function status(text, error=false) {
+  $('form-status').textContent = text;
+  $('form-status').className = 'status' + (error ? ' error' : '');
+  $('form-status').hidden = !text;
+}
+function updateControls() {
+  $('save-button').disabled = !ready || saving || loading > 0;
+  $('save-button').textContent = saving ? 'Сохраняем…' : loading ? 'Готовим фотографии…' : 'Сохранить материалы';
+  document.querySelectorAll('#work-form input, #work-form textarea, #work-form select, #work-form .pick').forEach(node => { node.disabled = saving; });
+  $('task-text').disabled = saving || images.task.length > 0;
+  $('task-files').disabled = saving || !!$('task-text').value.trim();
+  document.querySelector('[data-input="task-files"]').disabled = $('task-files').disabled;
+  document.querySelectorAll('.editor-actions button').forEach(node => { node.disabled = saving || node.dataset.unavailable === 'true'; });
+}
+async function api(path, options={}) {
+  let response;
+  try { response = await fetch(path, {cache:'no-store', ...options}); }
+  catch { throw new Error('Не удалось связаться с локальным приложением. Проверьте, что оно запущено, и попробуйте ещё раз.'); }
+  let data;
+  try { data = await response.json(); }
+  catch { throw new Error('Приложение вернуло неожиданный ответ. Обновите страницу и попробуйте ещё раз.'); }
+  if (!response.ok) throw new Error(data.error || 'Не удалось выполнить действие.');
+  return data;
+}
+function invalidateRedaction() { $('redacted').checked = false; }
+function totalImages() { return images.solution.length + images.task.length; }
+function loadImage(file) {
+  return new Promise((resolve,reject) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Фотография не открывается. Попробуйте сохранить её как JPEG, PNG или WebP.')); };
+    img.src = url;
+  });
+}
+async function addFiles(role, files) {
+  if (saving) return;
+  if (role === 'task' && $('task-text').value.trim()) { status('Чтобы добавить фото условия, сначала удалите текст условия.', true); return; }
+  const selected = Array.from(files);
+  if (!selected.length) return;
+  if (selected.length + images[role].length > MAX_FILES) { status('Можно добавить до 10 страниц решения и до 10 фото условия. Уберите лишние и повторите.', true); return; }
+  const invalid = selected.find(file => !['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > MAX_FILE_BYTES);
+  if (invalid) { status('Каждый файл должен быть JPEG, PNG или WebP размером до 35 МБ. Ни один файл из этой подборки не добавлен.', true); return; }
+  invalidateRedaction();
+  status('');
+  // Insert placeholders before decoding so asynchronous image loads cannot reorder pages.
+  const batch = selected.map(() => ({id:++serial, img:null, rects:[], canvas:null}));
+  images[role].push(...batch);
+  loading += batch.length;
+  render(role);
+  updateControls();
+  const results = await Promise.allSettled(selected.map(async(file,i) => {
+    const item = batch[i];
+    try {
+      const img = await loadImage(file);
+      if (!img.naturalWidth || !img.naturalHeight || img.naturalWidth * img.naturalHeight > MAX_PIXELS) throw new Error('Фотография слишком большая: максимум 30 мегапикселей. Разделите страницу на читаемые фрагменты.');
+      item.img = img;
+    } finally { loading -= 1; }
+  }));
+  const errors = [];
+  results.forEach((result,i) => {
+    if (result.status === 'rejected') {
+      images[role] = images[role].filter(item => item.id !== batch[i].id);
+      errors.push('Фото ' + (i+1) + ' из подборки: ' + result.reason.message);
+    }
+  });
+  render(role);
+  updateControls();
+  if (errors.length) status(errors.join('\n'),true);
+}
+function render(role) {
+  const box = $(role + '-editors');
+  box.replaceChildren();
+  images[role].forEach((item,index) => {
+    const wrapper = element('div',undefined,'editor');
+    const bar = element('div',undefined,'editor-bar');
+    bar.append(element('strong',(role === 'solution' ? 'Решение' : 'Условие') + ' · страница ' + (index+1)));
+    const actions = element('div',undefined,'editor-actions');
+    const addButton = (label,title,handler,disabled=false) => {
+      const button = element('button',label); button.type='button'; button.title=title; button.setAttribute('aria-label',title);
+      button.dataset.unavailable=String(disabled); button.disabled=disabled || saving; button.onclick=handler; actions.append(button);
+    };
+    addButton('↑','Переместить страницу выше',() => { [images[role][index-1],images[role][index]]=[item,images[role][index-1]]; render(role); },index===0);
+    addButton('↓','Переместить страницу ниже',() => { [images[role][index+1],images[role][index]]=[item,images[role][index+1]]; render(role); },index===images[role].length-1);
+    addButton('Отменить маску','Отменить последнее закрашивание',() => { item.rects.pop(); invalidateRedaction(); render(role); },!item.rects.length);
+    addButton('Убрать','Удалить страницу из этой работы',() => { images[role]=images[role].filter(other=>other!==item); invalidateRedaction(); render(role); });
+    bar.append(actions); wrapper.append(bar); box.append(wrapper);
+    if (!item.img) { wrapper.append(element('div','Открываем фотографию…','load-state')); return; }
+    const canvas = document.createElement('canvas'); item.canvas=canvas;
+    canvas.width=item.img.naturalWidth; canvas.height=item.img.naturalHeight;
+    canvas.setAttribute('aria-label','Фотография страницы. Выделите личные данные мышью или пальцем, чтобы закрасить их.');
+    const context=canvas.getContext('2d');
+    const draw = temporary => {
+      context.drawImage(item.img,0,0);
+      context.fillStyle='#000000';
+      for (const rect of item.rects.concat(temporary ? [temporary] : [])) context.fillRect(rect.x,rect.y,rect.w,rect.h);
+    };
+    const position = event => { const bounds=canvas.getBoundingClientRect(); return {x:Math.max(0,Math.min(canvas.width,(event.clientX-bounds.left)*canvas.width/bounds.width)),y:Math.max(0,Math.min(canvas.height,(event.clientY-bounds.top)*canvas.height/bounds.height))}; };
+    const rectBetween = (a,b) => ({x:Math.floor(Math.min(a.x,b.x)),y:Math.floor(Math.min(a.y,b.y)),w:Math.ceil(Math.abs(a.x-b.x)),h:Math.ceil(Math.abs(a.y-b.y))});
+    let start=null;
+    canvas.onpointerdown=event=>{ if(saving || event.button!==0) return; start=position(event); canvas.setPointerCapture(event.pointerId); };
+    canvas.onpointermove=event=>{ if(start) draw(rectBetween(start,position(event))); };
+    canvas.onpointerup=event=>{
+      if(!start) return;
+      const rect=rectBetween(start,position(event)); start=null;
+      if(rect.w>=2 && rect.h>=2) { item.rects.push(rect); invalidateRedaction(); }
+      render(role);
+    };
+    canvas.onpointercancel=()=>{ start=null; draw(); };
+    draw(); wrapper.append(canvas);
+  });
+  updateControls();
+}
+function exportImage(item) {
+  return new Promise((resolve,reject) => {
+    if (!item.canvas) { reject(new Error('Фотография ещё не подготовлена. Повторите сохранение.')); return; }
+    const accept = blob => {
+      if(!blob) { reject(new Error('Не удалось подготовить фотографию. Попробуйте добавить её заново.')); return; }
+      if(blob.size>MAX_FILE_BYTES) { reject(new Error('После подготовки одна фотография занимает больше 35 МБ. Чтобы сохранить читаемость, приложение не уменьшает её автоматически. Разделите её на читаемые фрагменты и добавьте снова.')); return; }
+      const reader=new FileReader();
+      reader.onload=()=>resolve(reader.result);
+      reader.onerror=()=>reject(new Error('Не удалось прочитать подготовленную фотографию.'));
+      reader.readAsDataURL(blob);
+    };
+    item.canvas.toBlob(blob => {
+      if (blob && blob.size > MAX_FILE_BYTES) item.canvas.toBlob(accept, 'image/jpeg', .95);
+      else accept(blob);
+    }, 'image/png');
+  });
+}
+function dateLabel(value) {
+  const date=new Date(value);
+  return Number.isNaN(date.getTime()) ? '' : date.toLocaleString('ru-RU',{day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'});
+}
+async function loadHistory() {
+  const request=++historyRequest;
+  $('refresh').disabled=true;
+  try {
+    const works=await api('/api/works');
+    if(request!==historyRequest) return;
+    $('history').replaceChildren();
+    $('history-state').textContent=works.length ? 'Материалы хранятся только в этом приложении.' : 'Пока нет сохранённых работ.';
+    for(const work of works) {
+      const li=element('li'),button=element('button'); button.type='button';
+      const state=element('span','Читаем состояние проверки…','save-state');
+      button.append(element('strong',TYPE_NAMES[work.task_type] || 'Работа'),element('small',work.id+' · '+dateLabel(work.created_at)),state);
+      api('/api/works/'+encodeURIComponent(work.id)+'/check').then(job=>{
+        if(request!==historyRequest || !state.isConnected) return;
+        const simple=job?.result?.format==='independent-1';
+        const score=job?.result?.score;
+        const value=simple?job.result.response.score:score?.value;
+        const maximum=simple?2:score?.max_value;
+        state.textContent=!job?'Материалы сохранены · проверка не запускалась':
+          value!==null && value!==undefined?value+' / '+maximum+' · оценка модели':
+          ['queued','running'].includes(job.state)?'Проверка выполняется':
+          (job.state==='needs_clarification' || simple && job.state==='completed')?'Нужно уточнение · балл не определён':'Проверка остановлена · балл не определён';
+      }).catch(()=>{if(state.isConnected) state.textContent='Материалы сохранены · состояние проверки недоступно';});
+      button.onclick=()=>openWork(work.id); li.append(button); $('history').append(li);
+    }
+  } catch(error) { if(request===historyRequest) $('history-state').textContent=error.message; }
+  finally { if(request===historyRequest) $('refresh').disabled=false; }
+}
+function safePhotoURL(value) {
+  const url=new URL(value,location.href);
+  if(url.origin!==location.origin || !['http:','https:'].includes(url.protocol)) throw new Error('Некорректный адрес сохранённой фотографии.');
+  return url.href;
+}
+function showWork(work) {
+  const result=$('result'); result.replaceChildren(); result.hidden=false;
+  const head=element('div',undefined,'result-head');
+  head.append(element('h2','Материалы сохранены'),element('span',work.id,'hint')); result.append(head);
+  result.append(element('p',TYPE_NAMES[work.task_type] || 'Работа','muted'));
+  const checking=element('section',undefined,'card'); result.append(checking);
+  showChecking(work,checking);
+  if(work.task_text) result.append(element('h3','Условие'),element('div',work.task_text,'result-text'));
+  for(const role of ['task','solution']) {
+    const pages=work[role] || [];
+    if(!pages.length) continue;
+    result.append(element('h3',role==='task'?'Фотографии условия':'Решение ученика'));
+    for(const page of pages) {
+      const link=element('a','Страница '+page.page+' · открыть в исходном размере');
+      link.href=safePhotoURL(page.url); link.target='_blank'; link.rel='noopener';
+      const img=document.createElement('img'); img.src=link.href; img.alt=(role==='task'?'Условие':'Решение')+', страница '+page.page; img.loading='lazy'; img.id='photo-'+work.id+'-'+role+'-'+page.page;
+      result.append(link,img);
+    }
+  }
+  result.scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function showContinuation(job,slot,onJob) {
+  try {
+    const plan=await api('/api/checks/'+job.id+'/continuation');
+    if(!slot.isConnected || plan.reason==='continuation_not_applicable') return;
+    slot.append(element('h3','Продолжить проверку'));
+    if(!plan.available) {
+      slot.append(element('p',plan.error || 'Продолжение сейчас недоступно.','status'));
+      if(plan.existing_job_id) {
+        const open=element('button','Открыть продолжение');open.type='button';slot.append(open);
+        open.onclick=async()=>{try{onJob(await api('/api/checks/'+plan.existing_job_id));}catch(error){slot.append(element('p',error.message,'status'));}};
+      }
+      return;
+    }
+    slot.append(element('p','Следующий этап: '+plan.stage_label+'. Новых запросов: '+plan.requests+'.','hint'));
+    if(plan.reuse.length) slot.append(element('p','Сохраняем: '+plan.reuse.join(', ')+'.','hint'));
+    slot.append(element('p',plan.local_recovery?'Исходная попытка останется в истории.':'Исходная попытка останется в истории. Стоимость продолжения заранее не гарантируется.','hint'));
+    if(plan.local_recovery) {
+      slot.append(element('p','Ответ уже принят и сохранён в журнале. Новых запросов и списаний не будет.','hint'));
+      const restore=element('button','Восстановить сохранённый ответ','primary');restore.type='button';slot.append(restore);
+      restore.onclick=async()=>{
+        restore.disabled=true;
+        try {const response=await api('/api/checks/'+job.id+'/continue',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:plan.token,confirm_paid:false,answer:'',entries:[],pages:[],condition:''})});
+          if(!response.accepted)throw new Error(response.error || 'Восстановление недоступно.');onJob(response.job);
+        }catch(error){slot.append(element('p',error.message,'status'));restore.disabled=false;}
+      };
+      return;
+    }
+    if(plan.question) slot.append(element('p',plan.question,'status'));
+    const answer=document.createElement('textarea');answer.maxLength=2000;answer.setAttribute('aria-label','Ответ на уточнение');
+    const answerLabel=element('label','Короткий ответ по указанному фрагменту');answerLabel.append(answer);slot.append(answerLabel);
+    let condition=null;
+    if(plan.condition_required) {
+      const label=element('label','Подтвердите или исправьте полное условие');condition=document.createElement('textarea');
+      condition.value=job.condition || '';condition.maxLength=20000;condition.setAttribute('aria-label','Условие для продолжения');label.append(condition);slot.append(label);
+    }
+    const edits=[],pageChecks=[];
+    const lines=plan.reading?.lines || [];
+    if(lines.length) {
+      const editBox=element('div'),add=element('button','Уточнить одну запись');add.type='button';slot.append(editBox,add);
+      add.onclick=()=>{
+        const row=element('div',undefined,'card');
+        const select=document.createElement('select');select.setAttribute('aria-label','Уточняемая запись');
+        for(const line of lines) {const option=element('option',line.line+' · '+(line.text || 'не прочитано').slice(0,90));option.value=line.line;select.append(option);}
+        const field=document.createElement('textarea');field.maxLength=2000;field.setAttribute('aria-label','Буквальная запись на фото');
+        const activity=document.createElement('select');activity.setAttribute('aria-label','Действует или зачёркнуто');
+        for(const [value,label] of [['','Статус записи не менялся'],['active','Действующая запись'],['crossed_out','Зачёркнутая запись']]) {const option=element('option',label);option.value=value;activity.append(option);}
+        const update=()=>{field.value=lines.find(l=>l.line===select.value)?.text || '';};select.onchange=update;update();
+        const remove=element('button','Убрать уточнение');remove.type='button';
+        const edit={select,field,activity,row};edits.push(edit);remove.onclick=()=>{row.remove();edits.splice(edits.indexOf(edit),1);};
+        row.append(select,field,activity,remove);editBox.append(row);
+      };
+    }
+    for(const page of plan.unresolved_pages) {
+      const label=element('label',undefined,'check'),check=document.createElement('input');check.type='checkbox';
+      label.append(check,element('span','Подтверждаю: указанные вопросы по чтению страницы '+page+' уточнены. Проверять всю расшифровку не требуется.'));
+      slot.append(label);pageChecks.push({page,check});
+    }
+    const consentLabel=element('label',undefined,'check'),consent=document.createElement('input');consent.type='checkbox';
+    consentLabel.append(consent,element('span','Разрешаю продолжение с новыми платными запросами в действующем лимите.'));slot.append(consentLabel);
+    const submit=element('button','Продолжить с этапа «'+plan.stage_label+'»','primary');submit.type='button';submit.disabled=true;slot.append(submit);
+    const status=element('p',undefined,'status');slot.append(status);consent.onchange=()=>{submit.disabled=!consent.checked;};
+    submit.onclick=async()=>{
+      submit.disabled=true;
+      try {
+        const form={token:plan.token,confirm_paid:consent.checked,answer:answer.value,condition:condition?.value || '',
+          entries:edits.map(e=>({line:e.select.value,text:e.field.value,activity:e.activity.value})),pages:pageChecks.filter(p=>p.check.checked).map(p=>p.page)};
+        const response=await api('/api/checks/'+job.id+'/continue',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(form)});
+        if(!response.accepted) throw new Error(response.error || 'Продолжение не запущено.');
+        onJob(response.job);
+      } catch(error) {status.textContent=error.message;submit.disabled=!consent.checked;}
+    };
+  } catch(error) {if(slot.isConnected) slot.append(element('p','Не удалось подготовить продолжение: '+error.message,'status'));}
+}
+async function showChecking(work,panel) {
+  panel.append(element('h3','Проверка решения'));
+  try {
+    const availability=await api('/api/checking?work_id='+encodeURIComponent(work.id));
+    if(!panel.isConnected) return;
+    panel.append(element('p','Общий лимит опыта: '+availability.budget_rub+' ₽. DeepSeek сначала решает задачу только по условию, затем проверяет решение ученика.','hint'));
+    if(availability.budget_mode==='settled_spend') panel.append(element('p','После списания '+availability.budget_rub+' ₽ новые запросы остановятся. Последний уже отправленный запрос может выйти за остаток.','hint'));
+    if(!availability.paid_api_enabled && availability.reason!=='authorized_checks_completed') panel.append(element('p',availability.error,'status'));
+    const label=element('label','Модель для этой проверки'),model=document.createElement('select');
+    model.setAttribute('aria-label','Модель для проверки');
+    for(const item of availability.models) {
+      const option=document.createElement('option'); option.value=item.id;
+      option.textContent=item.model+(item.available===false?' · недоступна':''); option.disabled=item.available===false; model.append(option);
+    }
+    model.value=availability.default_model; label.append(model); panel.append(label);
+    const confirmLabel=element('label',undefined,'check'),confirm=document.createElement('input'); confirm.type='checkbox';
+    confirmLabel.append(confirm,element('span','Здесь одна задача, полное условие и все страницы решения.')); panel.append(confirmLabel);
+    const button=element('button','Проверить решение','primary'); button.type='button'; button.disabled=true; panel.append(button);
+    const stage=element('p',availability.paid_api_enabled?'Выберите модель и подтвердите состав работы.':(availability.error || 'Новая проверка сейчас недоступна. Сохранённые результаты можно просматривать.'),'status'); panel.append(stage);
+    if(availability.provider==='google') {
+      const refreshAccess=element('button','Проверить доступ через VPN'); refreshAccess.type='button'; panel.append(refreshAccess);
+      refreshAccess.onclick=async()=>{
+        refreshAccess.disabled=true;
+        try {
+          const response=await api('/api/checking/refresh-access',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+          Object.assign(availability,response.checking);
+          stage.textContent=availability.paid_api_enabled?'Доступ к Gemini подтверждён. Можно запустить проверку решения.':availability.error;
+          updateStart();
+        } catch(error) {stage.textContent=error.message;}
+        finally {refreshAccess.disabled=false;}
+      };
+    }
+    const report=element('div'); panel.append(report);
+    const canStart=()=>availability.paid_api_enabled && availability.models.find(item=>item.id===model.value)?.available!==false;
+    const updateStart=()=>{button.disabled=!confirm.checked || !canStart();};
+    confirm.onchange=updateStart; model.onchange=updateStart;
+    const showJob=job=>{
+      if(!job || !panel.isConnected) return;
+      const diagnosis={reading_coverage_missing:'Модель не сообщила полноту чтения страницы. Это не позволяет продолжить оценку.',
+        full_m01_contract:'Оценка модели не прошла проверку связей с критериями, доказательств или существенных сомнений. Балл не опубликован.'}[job.response_validation?.code];
+      stage.textContent=(diagnosis || job.message)+' Модель: '+(availability.models.find(item=>item.id===job.model)?.model || job.model)+'.';
+      model.value=job.model;
+      report.replaceChildren();
+      const version=job.condition_versions?.at(-1), latest=version?.reading;
+      const intervalText=interval=>(interval.left_open?'(':'[')+interval.left+'; '+interval.right+(interval.right_open?')':']');
+      if(latest && Array.isArray(latest.blocks)) {
+        // condition-reading-1.2.0: template blocks with their source.
+        const details=document.createElement('details'); details.open=true;
+        details.append(element('summary','Прочитанное условие'));
+        details.append(element('p',{'ege2026-13':'Шаблон ЕГЭ-2026 №13','ege2026-15':'Шаблон ЕГЭ-2026 №15'}[latest.template_id] || 'Не совпадает со стандартным шаблоном ЕГЭ-2026','hint'));
+        const sourceNode=value=>{
+          const photo=/^photo:(\d+)$/.exec(value);
+          if(!photo) return element('span',value==='text'?'набранный текст условия':value);
+          const link=element('a','фото условия '+photo[1]); link.href='#photo-'+work.id+'-task-'+photo[1]; return link;
+        };
+        const sourceLine=(label,value)=>{const line=element('p',label+' · источник: ','hint'); line.append(sourceNode(value)); return line;};
+        const KINDS={equation:'уравнение',inequality:'неравенство',select_roots:'отбор корней'};
+        for(const block of latest.blocks) {
+          details.append(sourceLine('Пункт '+(block.id==='b'?'б':'а')+' · '+(KINDS[block.kind] || block.kind),block.source),element('div',block.literal,'result-text'));
+          details.append(element('p',block.kind==='select_roots'?'x ∈ '+intervalText(block.interval):block.lhs+' '+block.relation+' '+block.rhs,'result-text'));
+        }
+        // Same rule as live_condition.is_task_label: a bare task label does not change the condition.
+        const isLabel=text=>/^(?:(?:задание|задача|номер)\s*)?№?\s*\d{1,3}\s*[.):]?$/iu.test(text.trim());
+        const labels=latest.extra_text.filter(item=>isLabel(item.literal)), extra=latest.extra_text.filter(item=>!isLabel(item.literal));
+        for(const item of labels) details.append(sourceLine('Заголовок задания · на проверку не влияет',item.source),element('div',item.literal,'result-text'));
+        if(extra.length) {
+          details.append(element('p','Не вошло в шаблон — условие не решается как стандартное:','status'));
+          for(const item of extra) details.append(sourceLine('Дополнительный текст',item.source),element('div',item.literal,'result-text'));
+        }
+        if(latest.restrictions.length) details.append(element('p','Дополнительные ограничения: '+latest.restrictions.join('; '),'status'));
+        if(latest.uncertainties.length) details.append(element('p',latest.uncertainties.join('\n'),'status'));
+        report.append(details);
+      } else if(latest) {
+        // Jobs saved before condition-reading-1.2.0 keep their single literal format.
+        const details=document.createElement('details'); details.open=true;
+        details.append(element('summary','Прочитанное условие'),element('div',latest.literal,'result-text'));
+        const interval=latest.interval;
+        details.append(element('p',latest.lhs+' '+latest.relation+' '+latest.rhs+(interval?' · '+intervalText(interval):''),'result-text'));
+        if(latest.uncertainties.length) details.append(element('p',latest.uncertainties.join('\n'),'status'));
+        report.append(details);
+      }
+      const solverInput=version && ('solver_input' in version ? version.solver_input : latest);
+      if(job.solver?.status==='solved') report.append(element('p','Независимый ответ для прочитанного условия: '+job.solver.answer,'result-text'));
+      if(job.state==='needs_clarification' && job.error_code==='condition_suspicious' && job.solver?.empty===true && solverInput?.status==='clear') {
+        const confirmCondition=element('button','Подтверждаю: условие прочитано правильно'); confirmCondition.type='button';
+        report.append(element('p','Код доказал, что решений нет. Это может быть правильным ответом. Сверьте условие выше с оригиналом; подтверждение продолжит проверку решения.','hint'),confirmCondition);
+        confirmCondition.onclick=async()=>{
+          confirmCondition.disabled=true;
+          try {const response=await api('/api/checks/'+encodeURIComponent(job.id)+'/confirm-condition',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({literal:solverInput.literal,confirm_empty:true})});showJob(response.job);}
+          catch(error){stage.textContent=error.message;confirmCondition.disabled=false;}
+        };
+      }
+      const result=job.result;
+      if(job.condition) report.append(element('h3','Условие'),element('p',job.condition,'result-text'));
+      if(job.independent_solution) {
+        const solved=document.createElement('details'); solved.append(element('summary','Самостоятельное решение модели'),element('p',job.independent_solution,'result-text')); report.append(solved);
+      }
+      if(job.assessment_mode!=='independent-assessment-1.0.0' && job.state==='needs_clarification' && (job.error_code==='condition_precheck_question' || job.error_code==='condition_uncertain' && job.condition_precheck)) {
+        const label=element('label','Подтвердите или исправьте условие');
+        const field=document.createElement('textarea'); field.value=job.condition || ''; field.maxLength=20000;
+        label.append(field); report.append(label);
+        const confirm=element('button','Продолжить с этим условием'); confirm.type='button'; report.append(confirm);
+        confirm.onclick=async()=>{
+          confirm.disabled=true;
+          try {const response=await api('/api/checks/'+job.id+'/confirm-condition',
+            {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({literal:field.value,confirm_empty:true})});
+            if(!response.accepted) throw new Error(response.error || 'Продолжение сейчас недоступно.');
+            showJob(response.job);}
+          catch(error){stage.textContent=error.message;confirm.disabled=false;}
+        };
+      }
+      if(job.clarification) report.append(element('p',job.clarification,'status'));
+      if(result?.format==='independent-1') {
+        const assessment=result.response;
+        report.append(element('h3',assessment.score===null?'Балл пока не определён':assessment.score+' / 2 · оценка модели'),element('p',assessment.reason,'result-text'));
+        for(const item of assessment.errors) {
+          const detail=document.createElement('details');
+          const type=item.type==='typo'?'Описка':item.type==='system_uncertainty'?'Уточнение':item.type==='unclassified'?'Ошибка':item.type;
+          detail.append(element('summary',(item.line?'Строка '+item.line+' · ':'')+type),element('p',item.explanation,'result-text'),element('p',item.criterion,'result-text'),element('p',item.hint,'result-text'));
+          const line=result.reading.lines.find(value=>value.line===item.line);
+          if(line) {
+            detail.append(element('p',line.text || 'Фрагмент не прочитан','result-text'));
+            const pageNumber=Number(item.line.split(':')[0]);
+            const photo=work.solution[pageNumber-1];
+            if(photo) { const link=element('a','Открыть страницу решения');link.href=safePhotoURL(photo.url);link.rel='noopener';link.target='_blank';detail.append(link); }
+          }
+          report.append(detail);
+        }
+        const transcript=document.createElement('details');transcript.append(element('summary','Прочитанные строки решения'));
+        for(const line of result.reading.lines) transcript.append(element('p',line.line+' · '+(line.text || 'Фрагмент не прочитан'),'result-text'));
+        report.append(transcript);
+      }
+      if(result && result.format!=='independent-1') {
+        const score=result.score;
+        report.append(element('h3',score.value===null?'Балл пока не определён':score.value+' / '+score.max_value+' · оценка модели'));
+        report.append(element('p',score.rationale,'result-text'));
+        if(job.report && result.readiness.feedback!=='ready') {
+          report.append(element('p',job.report.message,'hint'));
+          if(job.report.available && job.report.state==='deferred' && score.value!==null) {
+            const prepare=element('button','Подготовить пояснения'); prepare.type='button';
+            report.append(prepare,element('p','Используются сохранённые результаты проверки; новых запросов к модели нет.','hint'));
+            prepare.onclick=async()=>{
+              prepare.disabled=true;
+              try {const response=await api('/api/checks/'+encodeURIComponent(job.id)+'/prepare-report',
+                {method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});showJob(response.job);}
+              catch(error){stage.textContent=error.message;prepare.disabled=false;}
+            };
+          }
+        }
+        for(const feedback of result.feedback || []) if(feedback.status==='ready') {
+          const detail=document.createElement('details'); detail.append(element('summary','Замечание'),element('p',feedback.text,'result-text'));
+          for(const id of feedback.unit_ids) {
+            const unit=result.units.find(value=>value.id===id);
+            if(!unit) continue;
+            detail.append(element('p',unit.literal || 'Рисунок','result-text'));
+            const page=unit.anchors[0]?.page_id;
+            if(page) {const link=element('a','Открыть фото этого фрагмента');link.href='#photo-'+work.id+'-'+page;detail.append(link);}
+          }
+          report.append(detail);
+        }
+        for(const question of result.clarifications || []) if(question.status!=='answered') report.append(element('p',question.question,'status'));
+        if(result.units.length) {
+          const transcript=document.createElement('details'); transcript.append(element('summary','Построчная расшифровка'));
+          for(const unit of result.units) {
+            const line=element('p',unit.literal || (unit.kind==='diagram'?'Рисунок':'Фрагмент не прочитан'),'result-text');
+            if(unit.reading_status!=='clear') line.append(element('span',' · требуется уточнение','hint'));
+            const pageId=unit.anchors[0]?.page_id;
+            if(pageId) { const anchor=element('a','Открыть фото'); anchor.href='#photo-'+work.id+'-'+pageId; line.append(document.createTextNode(' '),anchor); }
+            transcript.append(line);
+            if(unit.kind==='diagram') {
+              for(const meaning of result.interpretations || []) if(meaning.unit_ids.includes(unit.id)) {
+                transcript.append(element('p','Описание или интерпретация рисунка моделью: '+meaning.meaning,'result-text'));
+              }
+            }
+          }
+          report.append(transcript);
+        }
+      }
+      if(job.accounting) {
+        const cost=job.accounting.cost;
+        const estimatedCost=(job.accounting&&['token_estimate','mixed'].includes(job.accounting.cost_basis))||(result&&result.run&&result.run?.calls?.some(c=>c.cost_basis==='token_estimate'));
+        report.append(element('p',cost.status==='unknown'?'Расход уточняется; новые запросы остановлены.':(estimatedCost?'Расчётный расход этой проверки: ':'Расход этой проверки: ')+cost.rub+' ₽.','hint'));
+      }
+      if(job.continuation?.parent_id) {
+        const previous=element('a','Посмотреть исходную попытку');previous.href='#';
+        previous.onclick=async event=>{event.preventDefault();try{showJob(await api('/api/checks/'+job.continuation.parent_id));}catch(error){stage.textContent=error.message;}};
+        report.append(previous);
+      }
+      if(job.assessment_mode==='independent-assessment-1.0.0' && !['queued','running'].includes(job.state) && (!result || result.response?.score===null)) {
+        const continuation=element('section',undefined,'card');report.append(continuation);showContinuation(job,continuation,showJob);
+      }
+      if(['queued','running'].includes(job.state)) {
+        button.disabled=true; model.disabled=true; confirm.disabled=true;
+        setTimeout(async()=>{if(panel.isConnected) {try{showJob(await api('/api/checks/'+encodeURIComponent(job.id)));}catch(error){stage.textContent='Не удалось обновить состояние. Повторим чтение сохранённого статуса…'; setTimeout(()=>{if(panel.isConnected) showJob(job);},3000);}}},1500);
+      } else {
+        model.disabled=false; confirm.disabled=false;
+        button.disabled=true;
+        api('/api/checking?work_id='+encodeURIComponent(work.id)).then(fresh=>{
+          Object.assign(availability,fresh); updateStart();
+        }).catch(()=>{button.disabled=true;});
+      }
+    };
+    button.onclick=async()=>{
+      button.disabled=true; model.disabled=true; confirm.disabled=true; stage.textContent='Создаём проверку…';
+      try {
+        const response=await api('/api/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({work_id:work.id,model:model.value,complete:confirm.checked,single_task:confirm.checked})});
+        showJob(response.job);
+      } catch(error) { stage.textContent=error.message; model.disabled=false; confirm.disabled=false; button.disabled=!confirm.checked || !canStart(); }
+    };
+    showJob(await api('/api/works/'+encodeURIComponent(work.id)+'/check'));
+  } catch(error) { panel.append(element('p',error.message,'status error')); }
+}
+async function openWork(id) {
+  const request=++detailRequest;
+  $('result').hidden=false; $('result').replaceChildren(element('p','Открываем материалы…','hint'));
+  try { const work=await api('/api/works/'+encodeURIComponent(id)); if(request===detailRequest) showWork(work); }
+  catch(error) { if(request===detailRequest) $('result').replaceChildren(element('p',error.message,'status error')); }
+}
+document.querySelectorAll('.pick').forEach(button=>button.onclick=()=>$(button.dataset.input).click());
+for(const role of ['solution','task']) {
+  $(role+'-files').onchange=event=>{ addFiles(role,event.target.files); event.target.value=''; };
+}
+document.querySelectorAll('.drop').forEach(drop=>{
+  drop.ondragover=event=>{ event.preventDefault(); if(!saving && !(drop.dataset.role==='task' && $('task-text').value.trim())) drop.classList.add('over'); };
+  drop.ondragleave=()=>drop.classList.remove('over');
+  drop.ondrop=event=>{ event.preventDefault(); drop.classList.remove('over'); addFiles(drop.dataset.role,event.dataTransfer.files); };
+});
+$('task-text').oninput=()=>{ invalidateRedaction(); updateControls(); };
+$('refresh').onclick=loadHistory;
+$('work-form').onsubmit=async event=>{
+  event.preventDefault();
+  if(saving || loading || !ready) return;
+  if(!images.solution.length) { status('Добавьте хотя бы одну фотографию решения.',true); return; }
+  const taskText=$('task-text').value.trim();
+  if(!taskText && !images.task.length) { status('Добавьте полное условие текстом или фотографией.',true); $('task-text').focus(); return; }
+  if(taskText && images.task.length) { status('Оставьте один способ ввода условия: текст или фотографии.',true); return; }
+  if(!$('redacted').checked) { status('Проверьте личные данные на фотографиях и в тексте, затем поставьте галочку.',true); $('redacted').focus(); return; }
+  saving=true; updateControls(); status('Подготавливаем материалы без уменьшения фотографий…');
+  try {
+    const payload={task_type:$('task-type').value,exam_year:2026,task_text:taskText,redacted:true,solution:[],task:[]};
+    // Sequential export avoids holding ten full PNG conversions in memory at once.
+    for(const role of ['solution','task']) for(const item of images[role]) payload[role].push(await exportImage(item));
+    const body=JSON.stringify(payload);
+    if(new TextEncoder().encode(body).length>MAX_BODY_BYTES) throw new Error('Все материалы вместе превышают допустимый объём загрузки. Обрежьте лишние поля фотографий, сохранив одну задачу и все страницы её решения.');
+    status('Сохраняем материалы на этом компьютере…');
+    const response=await api('/api/works',{method:'POST',headers:{'Content-Type':'application/json'},body});
+    ++detailRequest;
+    showWork(response.work);
+    images.solution=[]; images.task=[]; render('solution'); render('task');
+    $('task-text').value=''; $('redacted').checked=false;
+    status('Готово. Материалы сохранены локально; проверка ещё не выполнялась.');
+    await loadHistory();
+  } catch(error) { status(error.message,true); }
+  finally { saving=false; updateControls(); }
+};
+async function init() {
+  updateControls();
+  try {
+    const health=await api('/api/health');
+    if(health.stage!=='foundation' || typeof health.paid_api_enabled!=='boolean') throw new Error('Настройки приложения отличаются от локальной основы. Сохранение отключено; перезапустите приложение.');
+    $('checking-stage').textContent=health.paid_api_enabled?'Проверка №13 и №15 доступна':(health.fresh_checking?.error || 'Проверка подключена · платный запуск пока закрыт');
+    ready=true;
+  } catch(error) { status(error.message,true); }
+  updateControls();
+  await loadHistory();
+}
+init();
+</script>
+</body>
+</html>

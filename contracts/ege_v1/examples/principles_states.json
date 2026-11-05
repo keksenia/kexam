@@ -1,0 +1,2089 @@
+{
+  "schema_version": "2.0.0",
+  "purpose": "Explicit synthetic transport scenarios; no real OCR/model/math-check run.",
+  "examples": [
+    {
+      "name": "base",
+      "input": {
+        "schema_version": "2.0.0",
+        "kind": "input",
+        "id": "synthetic-input",
+        "revision": 1,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "task": {
+          "exam_year": 2026,
+          "exam_number": 13,
+          "task_type": "trigonometric_equation",
+          "source_label": "SYNTHETIC — not a student work",
+          "statement": {
+            "text": "а) Решите sin x = 0. б) Найдите корни на [0; π].",
+            "format": "plain_latex",
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:statement"
+            },
+            "completeness": "confirmed",
+            "missing": []
+          }
+        },
+        "pages": [
+          {
+            "id": "page-1",
+            "role": "solution",
+            "order": 1,
+            "asset_id": "synthetic-image",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "width": 1000,
+            "height": 1400,
+            "region": null,
+            "selection_note": "Synthetic page; no student photograph exists"
+          }
+        ],
+        "capture": {
+          "pages_complete": "confirmed",
+          "student_attempt": "finished"
+        },
+        "privacy": {
+          "status": "unchecked",
+          "reviewer_ref": null
+        },
+        "provenance": {
+          "source": {
+            "kind": "synthetic",
+            "ref": "fixture:transport"
+          },
+          "dataset_role": "synthetic",
+          "duplicate_group": null
+        }
+      },
+      "result": {
+        "schema_version": "2.0.0",
+        "kind": "result",
+        "id": "synthetic-result",
+        "supersedes": null,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "input_ref": {
+          "id": "synthetic-input",
+          "revision": 1,
+          "sha256": "2e30fcfc2dbb5f5a4b6fc18de1bc483cc5f293d63a462ee301da4faed354c6f1"
+        },
+        "status": "ready",
+        "run": {
+          "id": "synthetic-run",
+          "mode": "demo",
+          "source_ref": "fixture:transport",
+          "pipeline_version": "m01-examples-2",
+          "configuration_sha256": "e2fa7c3fd08876413c7872b617136d347a402031088edaab8a9af0e889969057",
+          "configuration_ref": "contracts/ege_v1/examples/configuration.json",
+          "calls": [],
+          "cost": {
+            "status": "not_incurred",
+            "rub": "0"
+          },
+          "timing": {
+            "wall_ms": null,
+            "human_active_ms": null
+          }
+        },
+        "units": [
+          {
+            "id": "u1",
+            "kind": "math",
+            "literal": "sin x = 0",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          },
+          {
+            "id": "u2",
+            "kind": "math",
+            "literal": "x = πn, n ∈ Z",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          },
+          {
+            "id": "u3",
+            "kind": "math",
+            "literal": "0 ≤ πn ≤ π ⇒ n ∈ {0;1}; x ∈ {0;π}",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          }
+        ],
+        "corrections": [],
+        "interpretations": [],
+        "facts": [
+          {
+            "id": "fact-a",
+            "unit_ids": [
+              "u1",
+              "u2"
+            ],
+            "interpretation_ids": [],
+            "claim": "Пункт a обоснован.",
+            "method": "human",
+            "status": "supported",
+            "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "main",
+            "assumption_ids": [],
+            "context_unit_ids": [],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; отбор на [0; π]",
+            "basis_sha256": "626de2e5956e7998e42f7e6b784570a713a26b6136e02c9ea2cbe61792ee6c42"
+          },
+          {
+            "id": "fact-b",
+            "unit_ids": [
+              "u3"
+            ],
+            "interpretation_ids": [],
+            "claim": "Пункт b обоснован.",
+            "method": "human",
+            "status": "supported",
+            "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "main",
+            "assumption_ids": [],
+            "context_unit_ids": [],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; отбор на [0; π]",
+            "basis_sha256": "626de2e5956e7998e42f7e6b784570a713a26b6136e02c9ea2cbe61792ee6c42"
+          }
+        ],
+        "findings": [],
+        "clarifications": [],
+        "criteria": [
+          {
+            "id": "criterion",
+            "package_version": "synthetic-v2",
+            "exam_year": 2026,
+            "exam_number": 13,
+            "source_ref": "fixture:rubric",
+            "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "locator": "Synthetic only",
+            "rule_text": "Синтетическая шкала: обоснованы а и б — 2; только а — 1; иначе 0.",
+            "authority": "synthetic"
+          }
+        ],
+        "score": {
+          "status": "human_confirmed",
+          "value": 2,
+          "max_value": 2,
+          "criterion_ids": [
+            "criterion"
+          ],
+          "rationale": "Синтетический пример: оба пункта обоснованы.",
+          "evidence_unit_ids": [
+            "u1",
+            "u2",
+            "u3"
+          ],
+          "finding_ids": [],
+          "authority": "project_review",
+          "source_ref": "fixture:assessment",
+          "requirement_ids": [
+            "req-a",
+            "req-b"
+          ],
+          "case_check_ids": [],
+          "ambiguity_group_ids": [],
+          "basis_sha256": "8bda6913616a03d7b8e726d9bdec4c3ae4f207b3af6b1e4e152b4e489d5d4e37"
+        },
+        "feedback": [
+          {
+            "id": "feedback-1",
+            "finding_ids": [],
+            "unit_ids": [
+              "u3"
+            ],
+            "text": "Границы интервала включены.",
+            "status": "ready",
+            "audience": "student",
+            "kind": "explanation",
+            "basis_sha256": "8bda6913616a03d7b8e726d9bdec4c3ae4f207b3af6b1e4e152b4e489d5d4e37"
+          }
+        ],
+        "issues": [],
+        "coverage": [
+          {
+            "page_id": "page-1",
+            "status": "complete",
+            "reason": "Синтетическая полная страница.",
+            "score_scope": "accounted",
+            "score_scope_reason": "Весь выбранный объём учтён."
+          }
+        ],
+        "answers": [],
+        "assumptions": [],
+        "branches": [
+          {
+            "id": "main",
+            "parent_id": null,
+            "label": "Полная синтетическая попытка",
+            "unit_ids": [
+              "u1",
+              "u2",
+              "u3"
+            ],
+            "assumption_ids": [],
+            "status": "active"
+          }
+        ],
+        "relations": [],
+        "requirements": [
+          {
+            "id": "req-a",
+            "criterion_id": "criterion",
+            "branch_id": "main",
+            "requirement": "Обосновать пункт a",
+            "status": "fulfilled",
+            "unit_ids": [
+              "u1",
+              "u2"
+            ],
+            "fact_ids": [
+              "fact-a"
+            ],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Указана действующая цепочка."
+          },
+          {
+            "id": "req-b",
+            "criterion_id": "criterion",
+            "branch_id": "main",
+            "requirement": "Обосновать пункт b",
+            "status": "fulfilled",
+            "unit_ids": [
+              "u3"
+            ],
+            "fact_ids": [
+              "fact-b"
+            ],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Указана действующая цепочка."
+          }
+        ],
+        "case_checks": [],
+        "scenarios": [],
+        "ambiguity_groups": [],
+        "human_actions": [],
+        "readiness": {
+          "score": "ready",
+          "feedback": "ready"
+        }
+      }
+    },
+    {
+      "name": "feedback_pending",
+      "input": {
+        "schema_version": "2.0.0",
+        "kind": "input",
+        "id": "synthetic-input",
+        "revision": 1,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "task": {
+          "exam_year": 2026,
+          "exam_number": 13,
+          "task_type": "trigonometric_equation",
+          "source_label": "SYNTHETIC — not a student work",
+          "statement": {
+            "text": "а) Решите sin x = 0. б) Найдите корни на [0; π].",
+            "format": "plain_latex",
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:statement"
+            },
+            "completeness": "confirmed",
+            "missing": []
+          }
+        },
+        "pages": [
+          {
+            "id": "page-1",
+            "role": "solution",
+            "order": 1,
+            "asset_id": "synthetic-image",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "width": 1000,
+            "height": 1400,
+            "region": null,
+            "selection_note": "Synthetic page; no student photograph exists"
+          }
+        ],
+        "capture": {
+          "pages_complete": "confirmed",
+          "student_attempt": "finished"
+        },
+        "privacy": {
+          "status": "unchecked",
+          "reviewer_ref": null
+        },
+        "provenance": {
+          "source": {
+            "kind": "synthetic",
+            "ref": "fixture:transport"
+          },
+          "dataset_role": "synthetic",
+          "duplicate_group": null
+        }
+      },
+      "result": {
+        "schema_version": "2.0.0",
+        "kind": "result",
+        "id": "synthetic-result",
+        "supersedes": null,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "input_ref": {
+          "id": "synthetic-input",
+          "revision": 1,
+          "sha256": "2e30fcfc2dbb5f5a4b6fc18de1bc483cc5f293d63a462ee301da4faed354c6f1"
+        },
+        "status": "needs_fragment",
+        "run": {
+          "id": "synthetic-run",
+          "mode": "demo",
+          "source_ref": "fixture:transport",
+          "pipeline_version": "m01-examples-2",
+          "configuration_sha256": "e2fa7c3fd08876413c7872b617136d347a402031088edaab8a9af0e889969057",
+          "configuration_ref": "contracts/ege_v1/examples/configuration.json",
+          "calls": [],
+          "cost": {
+            "status": "not_incurred",
+            "rub": "0"
+          },
+          "timing": {
+            "wall_ms": null,
+            "human_active_ms": null
+          }
+        },
+        "units": [
+          {
+            "id": "u1",
+            "kind": "math",
+            "literal": "sin x = 0",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          },
+          {
+            "id": "u2",
+            "kind": "math",
+            "literal": "x = πn, n ∈ Z",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          },
+          {
+            "id": "u3",
+            "kind": "math",
+            "literal": "0 ≤ πn ≤ π ⇒ n ∈ {0;1}; x ∈ {0;π}",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          },
+          {
+            "id": "extra-note",
+            "kind": "text",
+            "literal": null,
+            "reading_status": "ambiguous",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          }
+        ],
+        "corrections": [],
+        "interpretations": [],
+        "facts": [
+          {
+            "id": "fact-a",
+            "unit_ids": [
+              "u1",
+              "u2"
+            ],
+            "interpretation_ids": [],
+            "claim": "Пункт a обоснован.",
+            "method": "human",
+            "status": "supported",
+            "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "main",
+            "assumption_ids": [],
+            "context_unit_ids": [],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; отбор на [0; π]",
+            "basis_sha256": "942fbb52ec576e039d0ef66e38cebc30da7fa9b1b1c1ec0068c4f8e91c78bb51"
+          },
+          {
+            "id": "fact-b",
+            "unit_ids": [
+              "u3"
+            ],
+            "interpretation_ids": [],
+            "claim": "Пункт b обоснован.",
+            "method": "human",
+            "status": "supported",
+            "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "main",
+            "assumption_ids": [],
+            "context_unit_ids": [],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; отбор на [0; π]",
+            "basis_sha256": "942fbb52ec576e039d0ef66e38cebc30da7fa9b1b1c1ec0068c4f8e91c78bb51"
+          }
+        ],
+        "findings": [
+          {
+            "id": "finding-1",
+            "category": "system_uncertainty",
+            "unit_ids": [
+              "extra-note"
+            ],
+            "fact_ids": [],
+            "description": "Синтетическая проблема.",
+            "reason": "Алгебраическое обоснование а/б независимо; сомнение только о дополнительной записи.",
+            "affects_score": "no",
+            "criterion_ids": [],
+            "primary_finding_id": null,
+            "status": "established",
+            "evidence_assertions": [],
+            "requirement_ids": []
+          }
+        ],
+        "clarifications": [
+          {
+            "id": "question-1",
+            "unit_ids": [
+              "extra-note"
+            ],
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "question": "Какой знак написан в этом фрагменте?",
+            "options": [
+              "+",
+              "−"
+            ],
+            "impact": "substantive_feedback",
+            "reason": "Синтетический вопрос о конкретном фрагменте.",
+            "status": "open",
+            "response": null,
+            "actor_ref": null,
+            "ambiguity_group_id": null
+          }
+        ],
+        "criteria": [
+          {
+            "id": "criterion",
+            "package_version": "synthetic-v2",
+            "exam_year": 2026,
+            "exam_number": 13,
+            "source_ref": "fixture:rubric",
+            "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "locator": "Synthetic only",
+            "rule_text": "Синтетическая шкала: обоснованы а и б — 2; только а — 1; иначе 0.",
+            "authority": "synthetic"
+          }
+        ],
+        "score": {
+          "status": "human_confirmed",
+          "value": 2,
+          "max_value": 2,
+          "criterion_ids": [
+            "criterion"
+          ],
+          "rationale": "Синтетический пример: оба пункта обоснованы.",
+          "evidence_unit_ids": [
+            "u1",
+            "u2",
+            "u3"
+          ],
+          "finding_ids": [],
+          "authority": "project_review",
+          "source_ref": "fixture:assessment",
+          "requirement_ids": [
+            "req-a",
+            "req-b"
+          ],
+          "case_check_ids": [],
+          "ambiguity_group_ids": [],
+          "basis_sha256": "5ac88e7b5434e1bfc325abf22da4d97bf59a8f236bb062f69d02be52f2e6c1b5"
+        },
+        "feedback": [
+          {
+            "id": "feedback-1",
+            "finding_ids": [],
+            "unit_ids": [
+              "u3"
+            ],
+            "text": "Границы интервала включены.",
+            "status": "ready",
+            "audience": "student",
+            "kind": "explanation",
+            "basis_sha256": "5ac88e7b5434e1bfc325abf22da4d97bf59a8f236bb062f69d02be52f2e6c1b5"
+          },
+          {
+            "id": "feedback-pending",
+            "finding_ids": [
+              "finding-1"
+            ],
+            "unit_ids": [
+              "extra-note"
+            ],
+            "text": "Дополнительное замечание ещё не установлено.",
+            "status": "pending",
+            "audience": "teacher",
+            "kind": "clarification",
+            "basis_sha256": null
+          }
+        ],
+        "issues": [],
+        "coverage": [
+          {
+            "page_id": "page-1",
+            "status": "partial",
+            "reason": "Синтетическая полная страница.",
+            "score_scope": "accounted",
+            "score_scope_reason": "Все существенные шаги прочитаны; дополнительная подпись не меняет доказанный отбор."
+          }
+        ],
+        "answers": [],
+        "assumptions": [],
+        "branches": [
+          {
+            "id": "main",
+            "parent_id": null,
+            "label": "Полная синтетическая попытка",
+            "unit_ids": [
+              "u1",
+              "u2",
+              "u3",
+              "extra-note"
+            ],
+            "assumption_ids": [],
+            "status": "active"
+          }
+        ],
+        "relations": [],
+        "requirements": [
+          {
+            "id": "req-a",
+            "criterion_id": "criterion",
+            "branch_id": "main",
+            "requirement": "Обосновать пункт a",
+            "status": "fulfilled",
+            "unit_ids": [
+              "u1",
+              "u2"
+            ],
+            "fact_ids": [
+              "fact-a"
+            ],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Указана действующая цепочка."
+          },
+          {
+            "id": "req-b",
+            "criterion_id": "criterion",
+            "branch_id": "main",
+            "requirement": "Обосновать пункт b",
+            "status": "fulfilled",
+            "unit_ids": [
+              "u3"
+            ],
+            "fact_ids": [
+              "fact-b"
+            ],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Указана действующая цепочка."
+          }
+        ],
+        "case_checks": [],
+        "scenarios": [],
+        "ambiguity_groups": [],
+        "human_actions": [],
+        "readiness": {
+          "score": "ready",
+          "feedback": "partial"
+        }
+      }
+    },
+    {
+      "name": "omitted_root",
+      "input": {
+        "schema_version": "2.0.0",
+        "kind": "input",
+        "id": "synthetic-input",
+        "revision": 1,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "task": {
+          "exam_year": 2026,
+          "exam_number": 13,
+          "task_type": "trigonometric_equation",
+          "source_label": "SYNTHETIC — not a student work",
+          "statement": {
+            "text": "а) Решите sin x = 0. б) Найдите корни на [0; π].",
+            "format": "plain_latex",
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:statement"
+            },
+            "completeness": "confirmed",
+            "missing": []
+          }
+        },
+        "pages": [
+          {
+            "id": "page-1",
+            "role": "solution",
+            "order": 1,
+            "asset_id": "synthetic-image",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "width": 1000,
+            "height": 1400,
+            "region": null,
+            "selection_note": "Synthetic page; no student photograph exists"
+          }
+        ],
+        "capture": {
+          "pages_complete": "confirmed",
+          "student_attempt": "finished"
+        },
+        "privacy": {
+          "status": "unchecked",
+          "reviewer_ref": null
+        },
+        "provenance": {
+          "source": {
+            "kind": "synthetic",
+            "ref": "fixture:transport"
+          },
+          "dataset_role": "synthetic",
+          "duplicate_group": null
+        }
+      },
+      "result": {
+        "schema_version": "2.0.0",
+        "kind": "result",
+        "id": "synthetic-result",
+        "supersedes": null,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "input_ref": {
+          "id": "synthetic-input",
+          "revision": 1,
+          "sha256": "2e30fcfc2dbb5f5a4b6fc18de1bc483cc5f293d63a462ee301da4faed354c6f1"
+        },
+        "status": "ready",
+        "run": {
+          "id": "synthetic-run",
+          "mode": "demo",
+          "source_ref": "fixture:transport",
+          "pipeline_version": "m01-examples-2",
+          "configuration_sha256": "e2fa7c3fd08876413c7872b617136d347a402031088edaab8a9af0e889969057",
+          "configuration_ref": "contracts/ege_v1/examples/configuration.json",
+          "calls": [],
+          "cost": {
+            "status": "not_incurred",
+            "rub": "0"
+          },
+          "timing": {
+            "wall_ms": null,
+            "human_active_ms": null
+          }
+        },
+        "units": [
+          {
+            "id": "u1",
+            "kind": "math",
+            "literal": "sin x = 0",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          },
+          {
+            "id": "u2",
+            "kind": "math",
+            "literal": "x = πn, n ∈ Z",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          },
+          {
+            "id": "u3",
+            "kind": "math",
+            "literal": "0 ≤ πn ≤ π ⇒ n = 0; x = 0",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          }
+        ],
+        "corrections": [],
+        "interpretations": [],
+        "facts": [
+          {
+            "id": "fact-a",
+            "unit_ids": [
+              "u1",
+              "u2"
+            ],
+            "interpretation_ids": [],
+            "claim": "Пункт a обоснован.",
+            "method": "human",
+            "status": "supported",
+            "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "main",
+            "assumption_ids": [],
+            "context_unit_ids": [],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; отбор на [0; π]",
+            "basis_sha256": "7ef5c93fa7cb919bb2121e087e4f62e39f5fc729bea3c9c687c60a79472f9717"
+          },
+          {
+            "id": "fact-b",
+            "unit_ids": [
+              "u3"
+            ],
+            "interpretation_ids": [],
+            "claim": "Корень π пропущен в итоговом отборе.",
+            "method": "human",
+            "status": "supported",
+            "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "main",
+            "assumption_ids": [],
+            "context_unit_ids": [],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; отбор на [0; π]",
+            "basis_sha256": "7ef5c93fa7cb919bb2121e087e4f62e39f5fc729bea3c9c687c60a79472f9717"
+          }
+        ],
+        "findings": [
+          {
+            "id": "finding-1",
+            "category": "mathematical_error",
+            "unit_ids": [
+              "u3"
+            ],
+            "fact_ids": [
+              "fact-b"
+            ],
+            "description": "Пропущен корень π.",
+            "reason": "Привязана к проверяемой записи и контексту.",
+            "affects_score": "yes",
+            "criterion_ids": [
+              "criterion"
+            ],
+            "primary_finding_id": null,
+            "status": "established",
+            "evidence_assertions": [
+              {
+                "fact_id": "fact-b",
+                "expected_status": "supported",
+                "connection": "Факт прямо утверждает пропуск требуемого корня."
+              }
+            ],
+            "requirement_ids": [
+              "req-b"
+            ]
+          }
+        ],
+        "clarifications": [],
+        "criteria": [
+          {
+            "id": "criterion",
+            "package_version": "synthetic-v2",
+            "exam_year": 2026,
+            "exam_number": 13,
+            "source_ref": "fixture:rubric",
+            "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "locator": "Synthetic only",
+            "rule_text": "Синтетическая шкала: обоснованы а и б — 2; только а — 1; иначе 0.",
+            "authority": "synthetic"
+          }
+        ],
+        "score": {
+          "status": "human_confirmed",
+          "value": 1,
+          "max_value": 2,
+          "criterion_ids": [
+            "criterion"
+          ],
+          "rationale": "Обоснован а; в б пропущен корень.",
+          "evidence_unit_ids": [
+            "u1",
+            "u2",
+            "u3"
+          ],
+          "finding_ids": [
+            "finding-1"
+          ],
+          "authority": "project_review",
+          "source_ref": "fixture:assessment",
+          "requirement_ids": [
+            "req-a",
+            "req-b"
+          ],
+          "case_check_ids": [],
+          "ambiguity_group_ids": [],
+          "basis_sha256": "2e2477c85f846fa7ec95e4341df9f1150bcdb6140b4799a0a239cff10ddf614e"
+        },
+        "feedback": [
+          {
+            "id": "feedback-1",
+            "finding_ids": [
+              "finding-1"
+            ],
+            "unit_ids": [
+              "u3"
+            ],
+            "text": "Проверь включённую правую границу: π тоже корень.",
+            "status": "ready",
+            "audience": "student",
+            "kind": "explanation",
+            "basis_sha256": "2e2477c85f846fa7ec95e4341df9f1150bcdb6140b4799a0a239cff10ddf614e"
+          }
+        ],
+        "issues": [],
+        "coverage": [
+          {
+            "page_id": "page-1",
+            "status": "complete",
+            "reason": "Синтетическая полная страница.",
+            "score_scope": "accounted",
+            "score_scope_reason": "Весь выбранный объём учтён."
+          }
+        ],
+        "answers": [],
+        "assumptions": [],
+        "branches": [
+          {
+            "id": "main",
+            "parent_id": null,
+            "label": "Полная синтетическая попытка",
+            "unit_ids": [
+              "u1",
+              "u2",
+              "u3"
+            ],
+            "assumption_ids": [],
+            "status": "active"
+          }
+        ],
+        "relations": [],
+        "requirements": [
+          {
+            "id": "req-a",
+            "criterion_id": "criterion",
+            "branch_id": "main",
+            "requirement": "Обосновать пункт a",
+            "status": "fulfilled",
+            "unit_ids": [
+              "u1",
+              "u2"
+            ],
+            "fact_ids": [
+              "fact-a"
+            ],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Указана действующая цепочка."
+          },
+          {
+            "id": "req-b",
+            "criterion_id": "criterion",
+            "branch_id": "main",
+            "requirement": "Обосновать пункт b",
+            "status": "not_fulfilled",
+            "unit_ids": [
+              "u3"
+            ],
+            "fact_ids": [
+              "fact-b"
+            ],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Подтверждён пропуск включённой правой границы."
+          }
+        ],
+        "case_checks": [],
+        "scenarios": [],
+        "ambiguity_groups": [],
+        "human_actions": [],
+        "readiness": {
+          "score": "ready",
+          "feedback": "ready"
+        }
+      }
+    },
+    {
+      "name": "robust_readings",
+      "input": {
+        "schema_version": "2.0.0",
+        "kind": "input",
+        "id": "synthetic-input",
+        "revision": 1,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "task": {
+          "exam_year": 2026,
+          "exam_number": 13,
+          "task_type": "trigonometric_equation",
+          "source_label": "SYNTHETIC — not a student work",
+          "statement": {
+            "text": "а) Решите sin x = 0. б) Найдите корни на [0; π].",
+            "format": "plain_latex",
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:statement"
+            },
+            "completeness": "confirmed",
+            "missing": []
+          }
+        },
+        "pages": [
+          {
+            "id": "page-1",
+            "role": "solution",
+            "order": 1,
+            "asset_id": "synthetic-image",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "width": 1000,
+            "height": 1400,
+            "region": null,
+            "selection_note": "Synthetic page; no student photograph exists"
+          }
+        ],
+        "capture": {
+          "pages_complete": "confirmed",
+          "student_attempt": "finished"
+        },
+        "privacy": {
+          "status": "unchecked",
+          "reviewer_ref": null
+        },
+        "provenance": {
+          "source": {
+            "kind": "synthetic",
+            "ref": "fixture:transport"
+          },
+          "dataset_role": "synthetic",
+          "duplicate_group": null
+        }
+      },
+      "result": {
+        "schema_version": "2.0.0",
+        "kind": "result",
+        "id": "synthetic-result",
+        "supersedes": null,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "input_ref": {
+          "id": "synthetic-input",
+          "revision": 1,
+          "sha256": "2e30fcfc2dbb5f5a4b6fc18de1bc483cc5f293d63a462ee301da4faed354c6f1"
+        },
+        "status": "needs_fragment",
+        "run": {
+          "id": "synthetic-run",
+          "mode": "demo",
+          "source_ref": "fixture:transport",
+          "pipeline_version": "m01-examples-2",
+          "configuration_sha256": "e2fa7c3fd08876413c7872b617136d347a402031088edaab8a9af0e889969057",
+          "configuration_ref": "contracts/ege_v1/examples/configuration.json",
+          "calls": [],
+          "cost": {
+            "status": "not_incurred",
+            "rub": "0"
+          },
+          "timing": {
+            "wall_ms": null,
+            "human_active_ms": null
+          }
+        },
+        "units": [
+          {
+            "id": "u1",
+            "kind": "math",
+            "literal": "sin x = 0",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          },
+          {
+            "id": "u2",
+            "kind": "math",
+            "literal": null,
+            "reading_status": "ambiguous",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          },
+          {
+            "id": "u3",
+            "kind": "math",
+            "literal": "0 ≤ πn ≤ π ⇒ n ∈ {0;1}; x ∈ {0;π}",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          }
+        ],
+        "corrections": [],
+        "interpretations": [],
+        "facts": [
+          {
+            "id": "fact-1",
+            "unit_ids": [
+              "u1",
+              "u2",
+              "u3"
+            ],
+            "interpretation_ids": [],
+            "claim": "В этой версии чтения оба пункта обоснованы.",
+            "method": "human",
+            "status": "supported",
+            "reason": "Написано одно семейство x=πn, n∈Z.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "branch-1",
+            "assumption_ids": [
+              "premise-1"
+            ],
+            "context_unit_ids": [
+              "u1",
+              "u3"
+            ],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; [0;π]",
+            "basis_sha256": "8ea3bb54bee65c26f01777de6c47fc40f87eb5dd8e5d196a9ac42cac4c90cac3"
+          },
+          {
+            "id": "fact-2",
+            "unit_ids": [
+              "u1",
+              "u2",
+              "u3"
+            ],
+            "interpretation_ids": [],
+            "claim": "В этой версии чтения оба пункта обоснованы.",
+            "method": "human",
+            "status": "supported",
+            "reason": "Написаны две серии x=2πk и x=π+2πk.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "branch-2",
+            "assumption_ids": [
+              "premise-2"
+            ],
+            "context_unit_ids": [
+              "u1",
+              "u3"
+            ],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; [0;π]",
+            "basis_sha256": "8ea3bb54bee65c26f01777de6c47fc40f87eb5dd8e5d196a9ac42cac4c90cac3"
+          }
+        ],
+        "findings": [],
+        "clarifications": [
+          {
+            "id": "question-1",
+            "unit_ids": [
+              "u2"
+            ],
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "question": "Какой знак написан в этом фрагменте?",
+            "options": [
+              "+",
+              "−"
+            ],
+            "impact": "score_basis",
+            "reason": "Синтетический вопрос о конкретном фрагменте.",
+            "status": "open",
+            "response": null,
+            "actor_ref": null,
+            "ambiguity_group_id": "readings"
+          }
+        ],
+        "criteria": [
+          {
+            "id": "criterion",
+            "package_version": "synthetic-v2",
+            "exam_year": 2026,
+            "exam_number": 13,
+            "source_ref": "fixture:rubric",
+            "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "locator": "Synthetic only",
+            "rule_text": "Синтетическая шкала: обоснованы а и б — 2; только а — 1; иначе 0.",
+            "authority": "synthetic"
+          }
+        ],
+        "score": {
+          "status": "human_confirmed",
+          "value": 2,
+          "max_value": 2,
+          "criterion_ids": [
+            "criterion"
+          ],
+          "rationale": "При каждом оставшемся чтении 2/2; основания показываются условно.",
+          "evidence_unit_ids": [
+            "u1",
+            "u2",
+            "u3"
+          ],
+          "finding_ids": [],
+          "authority": "project_review",
+          "source_ref": "fixture:assessment",
+          "requirement_ids": [
+            "req-1",
+            "req-2"
+          ],
+          "case_check_ids": [],
+          "ambiguity_group_ids": [
+            "readings"
+          ],
+          "basis_sha256": "3d870cf087aec6af6a5a3c9cdcfb78b6981bce8b8990db21dd39482c498a9c5b"
+        },
+        "feedback": [
+          {
+            "id": "feedback-1",
+            "finding_ids": [],
+            "unit_ids": [
+              "u3"
+            ],
+            "text": "Границы интервала включены.",
+            "status": "ready",
+            "audience": "student",
+            "kind": "explanation",
+            "basis_sha256": "3d870cf087aec6af6a5a3c9cdcfb78b6981bce8b8990db21dd39482c498a9c5b"
+          }
+        ],
+        "issues": [],
+        "coverage": [
+          {
+            "page_id": "page-1",
+            "status": "complete",
+            "reason": "Синтетическая полная страница.",
+            "score_scope": "accounted",
+            "score_scope_reason": "Весь выбранный объём учтён."
+          }
+        ],
+        "answers": [],
+        "assumptions": [
+          {
+            "id": "premise-1",
+            "claim": "Написано одно семейство x=πn, n∈Z.",
+            "origin": "hypothesis",
+            "source_ref": "fixture:reading-1",
+            "status": "conditional",
+            "branch_id": "branch-1"
+          },
+          {
+            "id": "premise-2",
+            "claim": "Написаны две серии x=2πk и x=π+2πk.",
+            "origin": "hypothesis",
+            "source_ref": "fixture:reading-2",
+            "status": "conditional",
+            "branch_id": "branch-2"
+          }
+        ],
+        "branches": [
+          {
+            "id": "main",
+            "parent_id": null,
+            "label": "Полная синтетическая попытка",
+            "unit_ids": [
+              "u1",
+              "u2",
+              "u3"
+            ],
+            "assumption_ids": [],
+            "status": "active"
+          },
+          {
+            "id": "branch-1",
+            "parent_id": "main",
+            "label": "Написано одно семейство x=πn, n∈Z.",
+            "unit_ids": [
+              "u2"
+            ],
+            "assumption_ids": [
+              "premise-1"
+            ],
+            "status": "active"
+          },
+          {
+            "id": "branch-2",
+            "parent_id": "main",
+            "label": "Написаны две серии x=2πk и x=π+2πk.",
+            "unit_ids": [
+              "u2"
+            ],
+            "assumption_ids": [
+              "premise-2"
+            ],
+            "status": "active"
+          }
+        ],
+        "relations": [],
+        "requirements": [
+          {
+            "id": "req-1",
+            "criterion_id": "criterion",
+            "branch_id": "branch-1",
+            "requirement": "Обоснованы оба пункта при этом чтении.",
+            "status": "fulfilled",
+            "unit_ids": [
+              "u1",
+              "u2",
+              "u3"
+            ],
+            "fact_ids": [
+              "fact-1"
+            ],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Написано одно семейство x=πn, n∈Z."
+          },
+          {
+            "id": "req-2",
+            "criterion_id": "criterion",
+            "branch_id": "branch-2",
+            "requirement": "Обоснованы оба пункта при этом чтении.",
+            "status": "fulfilled",
+            "unit_ids": [
+              "u1",
+              "u2",
+              "u3"
+            ],
+            "fact_ids": [
+              "fact-2"
+            ],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Написаны две серии x=2πk и x=π+2πk."
+          }
+        ],
+        "case_checks": [],
+        "scenarios": [
+          {
+            "id": "scenario-1",
+            "branch_id": "branch-1",
+            "unit_ids": [
+              "u2"
+            ],
+            "condition": "Написано одно семейство x=πn, n∈Z.",
+            "status": "established",
+            "score_value": 2,
+            "requirement_ids": [
+              "req-1"
+            ],
+            "criterion_ids": [
+              "criterion"
+            ],
+            "rationale": "Написано одно семейство x=πn, n∈Z. Отбор 0 и π обоснован."
+          },
+          {
+            "id": "scenario-2",
+            "branch_id": "branch-2",
+            "unit_ids": [
+              "u2"
+            ],
+            "condition": "Написаны две серии x=2πk и x=π+2πk.",
+            "status": "established",
+            "score_value": 2,
+            "requirement_ids": [
+              "req-2"
+            ],
+            "criterion_ids": [
+              "criterion"
+            ],
+            "rationale": "Написаны две серии x=2πk и x=π+2πk. Отбор 0 и π обоснован."
+          }
+        ],
+        "ambiguity_groups": [
+          {
+            "id": "readings",
+            "unit_ids": [
+              "u2"
+            ],
+            "scenario_ids": [
+              "scenario-1",
+              "scenario-2"
+            ],
+            "exhaustive": true,
+            "reason": "В синтетическом сценарии остаются ровно два указанных чтения; это декларация проверяющего, не вывод валидатора."
+          }
+        ],
+        "human_actions": [],
+        "readiness": {
+          "score": "ready",
+          "feedback": "ready"
+        }
+      }
+    },
+    {
+      "name": "blank",
+      "input": {
+        "schema_version": "2.0.0",
+        "kind": "input",
+        "id": "synthetic-input",
+        "revision": 1,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "task": {
+          "exam_year": 2026,
+          "exam_number": 13,
+          "task_type": "trigonometric_equation",
+          "source_label": "SYNTHETIC — not a student work",
+          "statement": {
+            "text": "а) Решите sin x = 0. б) Найдите корни на [0; π].",
+            "format": "plain_latex",
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:statement"
+            },
+            "completeness": "confirmed",
+            "missing": []
+          }
+        },
+        "pages": [
+          {
+            "id": "page-1",
+            "role": "solution",
+            "order": 1,
+            "asset_id": "synthetic-image",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "width": 1000,
+            "height": 1400,
+            "region": null,
+            "selection_note": "Synthetic page; no student photograph exists"
+          }
+        ],
+        "capture": {
+          "pages_complete": "confirmed",
+          "student_attempt": "blank"
+        },
+        "privacy": {
+          "status": "unchecked",
+          "reviewer_ref": null
+        },
+        "provenance": {
+          "source": {
+            "kind": "synthetic",
+            "ref": "fixture:transport"
+          },
+          "dataset_role": "synthetic",
+          "duplicate_group": null
+        }
+      },
+      "result": {
+        "schema_version": "2.0.0",
+        "kind": "result",
+        "id": "synthetic-result",
+        "supersedes": null,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "input_ref": {
+          "id": "synthetic-input",
+          "revision": 1,
+          "sha256": "51b10b00949b540dcb20c9030c5810697043797e8bc56ff2e13959c86a600d26"
+        },
+        "status": "ready",
+        "run": {
+          "id": "synthetic-run",
+          "mode": "demo",
+          "source_ref": "fixture:transport",
+          "pipeline_version": "m01-examples-2",
+          "configuration_sha256": "e2fa7c3fd08876413c7872b617136d347a402031088edaab8a9af0e889969057",
+          "configuration_ref": "contracts/ege_v1/examples/configuration.json",
+          "calls": [],
+          "cost": {
+            "status": "not_incurred",
+            "rub": "0"
+          },
+          "timing": {
+            "wall_ms": null,
+            "human_active_ms": null
+          }
+        },
+        "units": [],
+        "corrections": [],
+        "interpretations": [],
+        "facts": [],
+        "findings": [],
+        "clarifications": [],
+        "criteria": [
+          {
+            "id": "criterion",
+            "package_version": "synthetic-v2",
+            "exam_year": 2026,
+            "exam_number": 13,
+            "source_ref": "fixture:rubric",
+            "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "locator": "Synthetic only",
+            "rule_text": "Синтетическая шкала: обоснованы а и б — 2; только а — 1; иначе 0.",
+            "authority": "synthetic"
+          }
+        ],
+        "score": {
+          "status": "human_confirmed",
+          "value": 0,
+          "max_value": 2,
+          "criterion_ids": [
+            "criterion"
+          ],
+          "rationale": "Полное условие и все страницы; решение отсутствует.",
+          "evidence_unit_ids": [],
+          "finding_ids": [],
+          "authority": "project_review",
+          "source_ref": "fixture:assessment",
+          "requirement_ids": [
+            "req-a",
+            "req-b"
+          ],
+          "case_check_ids": [],
+          "ambiguity_group_ids": [],
+          "basis_sha256": "d6525332898aa1e7482c0d3f8adc9f4d1d086a4c0101d2fddd1eb2f72ea5bfde"
+        },
+        "feedback": [],
+        "issues": [],
+        "coverage": [
+          {
+            "page_id": "page-1",
+            "status": "complete",
+            "reason": "Синтетическая полная страница.",
+            "score_scope": "accounted",
+            "score_scope_reason": "Весь выбранный объём учтён."
+          }
+        ],
+        "answers": [],
+        "assumptions": [],
+        "branches": [
+          {
+            "id": "main",
+            "parent_id": null,
+            "label": "Полная синтетическая попытка",
+            "unit_ids": [],
+            "assumption_ids": [],
+            "status": "active"
+          }
+        ],
+        "relations": [],
+        "requirements": [
+          {
+            "id": "req-a",
+            "criterion_id": "criterion",
+            "branch_id": "main",
+            "requirement": "Обосновать пункт a",
+            "status": "not_fulfilled",
+            "unit_ids": [],
+            "fact_ids": [],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Полный представленный лист осмотрен: решение отсутствует."
+          },
+          {
+            "id": "req-b",
+            "criterion_id": "criterion",
+            "branch_id": "main",
+            "requirement": "Обосновать пункт b",
+            "status": "not_fulfilled",
+            "unit_ids": [],
+            "fact_ids": [],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Полный представленный лист осмотрен: решение отсутствует."
+          }
+        ],
+        "case_checks": [],
+        "scenarios": [],
+        "ambiguity_groups": [],
+        "human_actions": [],
+        "readiness": {
+          "score": "ready",
+          "feedback": "ready"
+        }
+      }
+    },
+    {
+      "name": "joined_cases",
+      "input": {
+        "schema_version": "2.0.0",
+        "kind": "input",
+        "id": "synthetic-input",
+        "revision": 1,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "task": {
+          "exam_year": 2026,
+          "exam_number": 13,
+          "task_type": "trigonometric_equation",
+          "source_label": "SYNTHETIC — not a student work",
+          "statement": {
+            "text": "а) Решите sin x = 0. б) Найдите корни на [0; π].",
+            "format": "plain_latex",
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:statement"
+            },
+            "completeness": "confirmed",
+            "missing": []
+          }
+        },
+        "pages": [
+          {
+            "id": "page-1",
+            "role": "solution",
+            "order": 1,
+            "asset_id": "synthetic-image",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "width": 1000,
+            "height": 1400,
+            "region": null,
+            "selection_note": "Synthetic page; no student photograph exists"
+          }
+        ],
+        "capture": {
+          "pages_complete": "confirmed",
+          "student_attempt": "finished"
+        },
+        "privacy": {
+          "status": "unchecked",
+          "reviewer_ref": null
+        },
+        "provenance": {
+          "source": {
+            "kind": "synthetic",
+            "ref": "fixture:transport"
+          },
+          "dataset_role": "synthetic",
+          "duplicate_group": null
+        }
+      },
+      "result": {
+        "schema_version": "2.0.0",
+        "kind": "result",
+        "id": "synthetic-result",
+        "supersedes": null,
+        "created_at": "2026-10-07T00:00:00+03:00",
+        "input_ref": {
+          "id": "synthetic-input",
+          "revision": 1,
+          "sha256": "2e30fcfc2dbb5f5a4b6fc18de1bc483cc5f293d63a462ee301da4faed354c6f1"
+        },
+        "status": "ready",
+        "run": {
+          "id": "synthetic-run",
+          "mode": "demo",
+          "source_ref": "fixture:transport",
+          "pipeline_version": "m01-examples-2",
+          "configuration_sha256": "e2fa7c3fd08876413c7872b617136d347a402031088edaab8a9af0e889969057",
+          "configuration_ref": "contracts/ege_v1/examples/configuration.json",
+          "calls": [],
+          "cost": {
+            "status": "not_incurred",
+            "rub": "0"
+          },
+          "timing": {
+            "wall_ms": null,
+            "human_active_ms": null
+          }
+        },
+        "units": [
+          {
+            "id": "u1",
+            "kind": "math",
+            "literal": "случай 1: x > 0; случай 2: x ≤ 0",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          },
+          {
+            "id": "u2",
+            "kind": "math",
+            "literal": "x = πn, n ∈ Z",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          },
+          {
+            "id": "u3",
+            "kind": "math",
+            "literal": "0 ≤ πn ≤ π ⇒ n ∈ {0;1}; x ∈ {0;π}",
+            "reading_status": "clear",
+            "activity": "active",
+            "anchors": [
+              {
+                "page_id": "page-1",
+                "box": null
+              }
+            ],
+            "source": {
+              "kind": "synthetic",
+              "ref": "fixture:literal"
+            },
+            "author": "student"
+          }
+        ],
+        "corrections": [],
+        "interpretations": [],
+        "facts": [
+          {
+            "id": "fact-a",
+            "unit_ids": [
+              "u1",
+              "u2"
+            ],
+            "interpretation_ids": [],
+            "claim": "Пункт a обоснован.",
+            "method": "human",
+            "status": "supported",
+            "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+            "tool_version": null,
+            "depends_on_fact_ids": [
+              "case-coverage",
+              "case-fact-1",
+              "case-fact-2"
+            ],
+            "branch_id": "main",
+            "assumption_ids": [],
+            "context_unit_ids": [],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; отбор на [0; π]",
+            "basis_sha256": "2d7925777de52912d0bff0a0e6ef86a7aef3cd66d2a34912666815e80941bdb2",
+            "branch_join": {
+              "branch_ids": [
+                "case-1",
+                "case-2"
+              ],
+              "coverage_fact_id": "case-coverage"
+            }
+          },
+          {
+            "id": "fact-b",
+            "unit_ids": [
+              "u3"
+            ],
+            "interpretation_ids": [],
+            "claim": "Пункт b обоснован.",
+            "method": "human",
+            "status": "supported",
+            "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "main",
+            "assumption_ids": [],
+            "context_unit_ids": [],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; отбор на [0; π]",
+            "basis_sha256": "2d7925777de52912d0bff0a0e6ef86a7aef3cd66d2a34912666815e80941bdb2"
+          },
+          {
+            "id": "case-fact-1",
+            "unit_ids": [
+              "u1",
+              "u2"
+            ],
+            "interpretation_ids": [],
+            "claim": "Установлен результат внутри случая x > 0",
+            "method": "human",
+            "status": "supported",
+            "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "case-1",
+            "assumption_ids": [
+              "case-assumption-1"
+            ],
+            "context_unit_ids": [],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; отбор на [0; π]",
+            "basis_sha256": "2d7925777de52912d0bff0a0e6ef86a7aef3cd66d2a34912666815e80941bdb2"
+          },
+          {
+            "id": "case-fact-2",
+            "unit_ids": [
+              "u1",
+              "u2"
+            ],
+            "interpretation_ids": [],
+            "claim": "Установлен результат внутри случая x ≤ 0",
+            "method": "human",
+            "status": "supported",
+            "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "case-2",
+            "assumption_ids": [
+              "case-assumption-2"
+            ],
+            "context_unit_ids": [],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; отбор на [0; π]",
+            "basis_sha256": "2d7925777de52912d0bff0a0e6ef86a7aef3cd66d2a34912666815e80941bdb2"
+          },
+          {
+            "id": "case-coverage",
+            "unit_ids": [
+              "u1",
+              "u2"
+            ],
+            "interpretation_ids": [],
+            "claim": "x>0 и x≤0 исчерпывают действительную область.",
+            "method": "human",
+            "status": "supported",
+            "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+            "tool_version": null,
+            "depends_on_fact_ids": [],
+            "branch_id": "main",
+            "assumption_ids": [],
+            "context_unit_ids": [],
+            "claim_kind": "completeness",
+            "domain": "x ∈ R; отбор на [0; π]",
+            "basis_sha256": "2d7925777de52912d0bff0a0e6ef86a7aef3cd66d2a34912666815e80941bdb2"
+          }
+        ],
+        "findings": [],
+        "clarifications": [],
+        "criteria": [
+          {
+            "id": "criterion",
+            "package_version": "synthetic-v2",
+            "exam_year": 2026,
+            "exam_number": 13,
+            "source_ref": "fixture:rubric",
+            "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "locator": "Synthetic only",
+            "rule_text": "Синтетическая шкала: обоснованы а и б — 2; только а — 1; иначе 0.",
+            "authority": "synthetic"
+          }
+        ],
+        "score": {
+          "status": "human_confirmed",
+          "value": 2,
+          "max_value": 2,
+          "criterion_ids": [
+            "criterion"
+          ],
+          "rationale": "Синтетический пример: оба пункта обоснованы.",
+          "evidence_unit_ids": [
+            "u1",
+            "u2",
+            "u3"
+          ],
+          "finding_ids": [],
+          "authority": "project_review",
+          "source_ref": "fixture:assessment",
+          "requirement_ids": [
+            "req-a",
+            "req-b"
+          ],
+          "case_check_ids": [],
+          "ambiguity_group_ids": [],
+          "basis_sha256": "e7eaf8315dc98fde3da2822621ef4347331e754103a218c8a3cbb4cb0d9beb3c"
+        },
+        "feedback": [
+          {
+            "id": "feedback-1",
+            "finding_ids": [],
+            "unit_ids": [
+              "u3"
+            ],
+            "text": "Границы интервала включены.",
+            "status": "ready",
+            "audience": "student",
+            "kind": "explanation",
+            "basis_sha256": "e7eaf8315dc98fde3da2822621ef4347331e754103a218c8a3cbb4cb0d9beb3c"
+          }
+        ],
+        "issues": [],
+        "coverage": [
+          {
+            "page_id": "page-1",
+            "status": "complete",
+            "reason": "Синтетическая полная страница.",
+            "score_scope": "accounted",
+            "score_scope_reason": "Весь выбранный объём учтён."
+          }
+        ],
+        "answers": [],
+        "assumptions": [
+          {
+            "id": "case-assumption-1",
+            "claim": "x > 0",
+            "origin": "student_unit",
+            "source_ref": "u1",
+            "status": "conditional",
+            "branch_id": "case-1"
+          },
+          {
+            "id": "case-assumption-2",
+            "claim": "x ≤ 0",
+            "origin": "student_unit",
+            "source_ref": "u1",
+            "status": "conditional",
+            "branch_id": "case-2"
+          }
+        ],
+        "branches": [
+          {
+            "id": "main",
+            "parent_id": null,
+            "label": "Полная синтетическая попытка",
+            "unit_ids": [
+              "u1",
+              "u2",
+              "u3"
+            ],
+            "assumption_ids": [],
+            "status": "active"
+          },
+          {
+            "id": "case-1",
+            "parent_id": "main",
+            "label": "x > 0",
+            "unit_ids": [
+              "u1"
+            ],
+            "assumption_ids": [
+              "case-assumption-1"
+            ],
+            "status": "active"
+          },
+          {
+            "id": "case-2",
+            "parent_id": "main",
+            "label": "x ≤ 0",
+            "unit_ids": [
+              "u1"
+            ],
+            "assumption_ids": [
+              "case-assumption-2"
+            ],
+            "status": "active"
+          }
+        ],
+        "relations": [],
+        "requirements": [
+          {
+            "id": "req-a",
+            "criterion_id": "criterion",
+            "branch_id": "main",
+            "requirement": "Обосновать пункт a",
+            "status": "fulfilled",
+            "unit_ids": [
+              "u1",
+              "u2"
+            ],
+            "fact_ids": [
+              "fact-a"
+            ],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Указана действующая цепочка."
+          },
+          {
+            "id": "req-b",
+            "criterion_id": "criterion",
+            "branch_id": "main",
+            "requirement": "Обосновать пункт b",
+            "status": "fulfilled",
+            "unit_ids": [
+              "u3"
+            ],
+            "fact_ids": [
+              "fact-b"
+            ],
+            "coverage_page_ids": [
+              "page-1"
+            ],
+            "reason": "Указана действующая цепочка."
+          }
+        ],
+        "case_checks": [],
+        "scenarios": [],
+        "ambiguity_groups": [],
+        "human_actions": [],
+        "readiness": {
+          "score": "ready",
+          "feedback": "ready"
+        }
+      }
+    }
+  ]
+}

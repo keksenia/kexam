@@ -1,0 +1,254 @@
+{
+  "schema_version": "2.0.0",
+  "kind": "result",
+  "id": "synthetic-result",
+  "supersedes": null,
+  "created_at": "2026-10-07T00:00:00+03:00",
+  "input_ref": {
+    "id": "synthetic-input",
+    "revision": 1,
+    "sha256": "2e30fcfc2dbb5f5a4b6fc18de1bc483cc5f293d63a462ee301da4faed354c6f1"
+  },
+  "status": "ready",
+  "run": {
+    "id": "synthetic-run",
+    "mode": "demo",
+    "source_ref": "fixture:transport",
+    "pipeline_version": "m01-examples-2",
+    "configuration_sha256": "e2fa7c3fd08876413c7872b617136d347a402031088edaab8a9af0e889969057",
+    "configuration_ref": "contracts/ege_v1/examples/configuration.json",
+    "calls": [],
+    "cost": {
+      "status": "not_incurred",
+      "rub": "0"
+    },
+    "timing": {
+      "wall_ms": null,
+      "human_active_ms": null
+    }
+  },
+  "units": [
+    {
+      "id": "u1",
+      "kind": "math",
+      "literal": "sin x = 0",
+      "reading_status": "clear",
+      "activity": "active",
+      "anchors": [
+        {
+          "page_id": "page-1",
+          "box": null
+        }
+      ],
+      "source": {
+        "kind": "synthetic",
+        "ref": "fixture:literal"
+      },
+      "author": "student"
+    },
+    {
+      "id": "u2",
+      "kind": "math",
+      "literal": "x = πn, n ∈ Z",
+      "reading_status": "clear",
+      "activity": "active",
+      "anchors": [
+        {
+          "page_id": "page-1",
+          "box": null
+        }
+      ],
+      "source": {
+        "kind": "synthetic",
+        "ref": "fixture:literal"
+      },
+      "author": "student"
+    },
+    {
+      "id": "u3",
+      "kind": "math",
+      "literal": "0 ≤ πn ≤ π ⇒ n ∈ {0;1}; x ∈ {0;π}",
+      "reading_status": "clear",
+      "activity": "active",
+      "anchors": [
+        {
+          "page_id": "page-1",
+          "box": null
+        }
+      ],
+      "source": {
+        "kind": "synthetic",
+        "ref": "fixture:literal"
+      },
+      "author": "student"
+    }
+  ],
+  "corrections": [],
+  "interpretations": [],
+  "facts": [
+    {
+      "id": "fact-a",
+      "unit_ids": [
+        "u1",
+        "u2"
+      ],
+      "interpretation_ids": [],
+      "claim": "Пункт a обоснован.",
+      "method": "human",
+      "status": "supported",
+      "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+      "tool_version": null,
+      "depends_on_fact_ids": [],
+      "branch_id": "main",
+      "assumption_ids": [],
+      "context_unit_ids": [],
+      "claim_kind": "completeness",
+      "domain": "x ∈ R; отбор на [0; π]",
+      "basis_sha256": "626de2e5956e7998e42f7e6b784570a713a26b6136e02c9ea2cbe61792ee6c42"
+    },
+    {
+      "id": "fact-b",
+      "unit_ids": [
+        "u3"
+      ],
+      "interpretation_ids": [],
+      "claim": "Пункт b обоснован.",
+      "method": "human",
+      "status": "supported",
+      "reason": "Синтетическое утверждение для проверки формата, не реальная оценка.",
+      "tool_version": null,
+      "depends_on_fact_ids": [],
+      "branch_id": "main",
+      "assumption_ids": [],
+      "context_unit_ids": [],
+      "claim_kind": "completeness",
+      "domain": "x ∈ R; отбор на [0; π]",
+      "basis_sha256": "626de2e5956e7998e42f7e6b784570a713a26b6136e02c9ea2cbe61792ee6c42"
+    }
+  ],
+  "findings": [],
+  "clarifications": [],
+  "criteria": [
+    {
+      "id": "criterion",
+      "package_version": "synthetic-v2",
+      "exam_year": 2026,
+      "exam_number": 13,
+      "source_ref": "fixture:rubric",
+      "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "locator": "Synthetic only",
+      "rule_text": "Синтетическая шкала: обоснованы а и б — 2; только а — 1; иначе 0.",
+      "authority": "synthetic"
+    }
+  ],
+  "score": {
+    "status": "human_confirmed",
+    "value": 2,
+    "max_value": 2,
+    "criterion_ids": [
+      "criterion"
+    ],
+    "rationale": "Синтетический пример: оба пункта обоснованы.",
+    "evidence_unit_ids": [
+      "u1",
+      "u2",
+      "u3"
+    ],
+    "finding_ids": [],
+    "authority": "project_review",
+    "source_ref": "fixture:assessment",
+    "requirement_ids": [
+      "req-a",
+      "req-b"
+    ],
+    "case_check_ids": [],
+    "ambiguity_group_ids": [],
+    "basis_sha256": "8bda6913616a03d7b8e726d9bdec4c3ae4f207b3af6b1e4e152b4e489d5d4e37"
+  },
+  "feedback": [
+    {
+      "id": "feedback-1",
+      "finding_ids": [],
+      "unit_ids": [
+        "u3"
+      ],
+      "text": "Границы интервала включены.",
+      "status": "ready",
+      "audience": "student",
+      "kind": "explanation",
+      "basis_sha256": "8bda6913616a03d7b8e726d9bdec4c3ae4f207b3af6b1e4e152b4e489d5d4e37"
+    }
+  ],
+  "issues": [],
+  "coverage": [
+    {
+      "page_id": "page-1",
+      "status": "complete",
+      "reason": "Синтетическая полная страница.",
+      "score_scope": "accounted",
+      "score_scope_reason": "Весь выбранный объём учтён."
+    }
+  ],
+  "answers": [],
+  "assumptions": [],
+  "branches": [
+    {
+      "id": "main",
+      "parent_id": null,
+      "label": "Полная синтетическая попытка",
+      "unit_ids": [
+        "u1",
+        "u2",
+        "u3"
+      ],
+      "assumption_ids": [],
+      "status": "active"
+    }
+  ],
+  "relations": [],
+  "requirements": [
+    {
+      "id": "req-a",
+      "criterion_id": "criterion",
+      "branch_id": "main",
+      "requirement": "Обосновать пункт a",
+      "status": "fulfilled",
+      "unit_ids": [
+        "u1",
+        "u2"
+      ],
+      "fact_ids": [
+        "fact-a"
+      ],
+      "coverage_page_ids": [
+        "page-1"
+      ],
+      "reason": "Указана действующая цепочка."
+    },
+    {
+      "id": "req-b",
+      "criterion_id": "criterion",
+      "branch_id": "main",
+      "requirement": "Обосновать пункт b",
+      "status": "fulfilled",
+      "unit_ids": [
+        "u3"
+      ],
+      "fact_ids": [
+        "fact-b"
+      ],
+      "coverage_page_ids": [
+        "page-1"
+      ],
+      "reason": "Указана действующая цепочка."
+    }
+  ],
+  "case_checks": [],
+  "scenarios": [],
+  "ambiguity_groups": [],
+  "human_actions": [],
+  "readiness": {
+    "score": "ready",
+    "feedback": "ready"
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "label": "Synthetic saved response. No model/OCR/math evaluation performed.",
+  "task_type": "inequality",
+  "statement": "Решите x - 1 > 0.",
+  "reading": {
+    "units": [
+      {
+        "id": "solution-1-u1",
+        "kind": "math",
+        "literal": "x - 1 > 0",
+        "reading_status": "clear",
+        "activity": "active",
+        "anchors": [
+          {
+            "page_id": "solution-1",
+            "box": null
+          }
+        ],
+        "author": "student"
+      },
+      {
+        "id": "solution-1-u2",
+        "kind": "math",
+        "literal": "x > 1",
+        "reading_status": "clear",
+        "activity": "active",
+        "anchors": [
+          {
+            "page_id": "solution-1",
+            "box": null
+          }
+        ],
+        "author": "student"
+      }
+    ],
+    "interpretations": [],
+    "features": [
+      "inequality",
+      "unknown_method"
+    ],
+    "coverage": {
+      "page_id": "solution-1",
+      "status": "complete",
+      "reason": "Заранее заданная синтетическая страница; OCR не выполнялся.",
+      "score_scope": "accounted",
+      "score_scope_reason": "Полный искусственный сценарий задан автором теста."
+    }
+  },
+  "assessment": {
+    "facts": [
+      {
+        "id": "fixture-fact",
+        "unit_ids": [
+          "solution-1-u1",
+          "solution-1-u2"
+        ],
+        "interpretation_ids": [],
+        "claim": "Все требования искусственного сценария выполнены.",
+        "method": "model",
+        "status": "supported",
+        "reason": "Фиктивный заранее заданный ответ; не проверка математики.",
+        "tool_version": null,
+        "depends_on_fact_ids": [],
+        "branch_id": "main",
+        "assumption_ids": [],
+        "context_unit_ids": [],
+        "claim_kind": "completeness",
+        "domain": "Искусственный пример целиком"
+      }
+    ],
+    "requirements": [
+      {
+        "id": "fixture-requirement",
+        "criterion_id": "fixture-criterion",
+        "branch_id": "main",
+        "requirement": "Полностью решить искусственное задание.",
+        "status": "fulfilled",
+        "unit_ids": [
+          "solution-1-u1",
+          "solution-1-u2"
+        ],
+        "fact_ids": [
+          "fixture-fact"
+        ],
+        "coverage_page_ids": [
+          "solution-1"
+        ],
+        "reason": "Заранее заданное условие диагностического сценария."
+      }
+    ],
+    "score": {
+      "status": "proposed",
+      "value": 2,
+      "criterion_ids": [
+        "fixture-criterion"
+      ],
+      "evidence_unit_ids": [
+        "solution-1-u1",
+        "solution-1-u2"
+      ],
+      "finding_ids": [],
+      "requirement_ids": [
+        "fixture-requirement"
+      ],
+      "case_check_ids": [],
+      "ambiguity_group_ids": [],
+      "rationale": "2/2 — фиктивный ответ для проверки каркаса; не результат чтения или математического оценивания."
+    },
+    "feedback": [
+      {
+        "id": "fixture-feedback",
+        "finding_ids": [],
+        "unit_ids": [
+          "solution-1-u1",
+          "solution-1-u2"
+        ],
+        "text": "Диагностический пример: передача результата работает.",
+        "status": "ready",
+        "audience": "teacher",
+        "kind": "explanation"
+      }
+    ],
+    "issues": [],
+    "findings": [],
+    "clarifications": [],
+    "case_checks": [],
+    "scenarios": [],
+    "ambiguity_groups": []
+  },
+  "criterion": {
+    "id": "fixture-criterion",
+    "package_version": "m04-synthetic-1",
+    "exam_year": 2026,
+    "exam_number": 15,
+    "source_ref": "m04:synthetic-fixture",
+    "source_sha256": "870c7c20aa571c919acf206427f4856517610541429b5b7c094289144f10be65",
+    "locator": "Explicit synthetic fixture",
+    "rule_text": "Искусственная шкала для проверки передачи: заданный полный ответ получает 2. Не критерий ФИПИ.",
+    "authority": "synthetic"
+  }
+}

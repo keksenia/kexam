@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-05",
+  "command": "python scripts/check.py",
+  "python": "3.14.7",
+  "platform": "macOS",
+  "tests_discovered": 768,
+  "tests_passed": 748,
+  "tests_skipped": 20,
+  "failures": 0,
+  "errors": 0,
+  "external_model_calls": 0,
+  "skip_scope": "Historical real examples, private photos, exact private authorizations and their runner",
+  "synthetic_spending_controls": true,
+  "mathematical_model_accuracy_measured": false,
+  "dependencies": {
+    "Pillow": "12.2.0",
+    "jsonschema": "4.26.0"
+  },
+  "symbolic_worker": {
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0"
+  }
+}

@@ -1,0 +1,253 @@
+{
+  "version": "l04-2026-1.0.0",
+  "artifact_kind": "design_not_runtime_authorization",
+  "paid_calls_authorized": false,
+  "inference_calls_performed": 0,
+  "provider_base_url": "https://api.hubris.pw/v1",
+  "provider_evidence": "planning/b01/candidates.json",
+  "provider_evidence_date": "2026-10-07",
+  "profiles": [
+    {
+      "id": "G-ocr",
+      "provider": "hubris",
+      "model": "google/gemini-3.8-flash",
+      "role": "ocr",
+      "requested_parameters": {
+        "reasoning_effort": "low",
+        "max_tokens": 6000,
+        "response_format": {
+          "type": "json_object"
+        }
+      },
+      "omitted_parameters": [
+        "temperature",
+        "top_p",
+        "seed",
+        "tools",
+        "tool_choice",
+        "include_reasoning"
+      ],
+      "transport_timeout_seconds": 120,
+      "max_http_body_bytes": 8388608,
+      "sdk_automatic_retries": 0,
+      "request_image_detail": "omitted_provider_default",
+      "output_validation": "M05 frozen stage schema and M01 semantic-link validator when applicable; invalid is failed, no silent repair",
+      "provider_compatibility": "unverified",
+      "hard_output_bound_including_reasoning_verified": false,
+      "mode_rationale": "G low is B01 advertised fast effort; historical minimal is not advertised there. D high retains the L01 historical reference; low is optional cost hypothesis."
+    },
+    {
+      "id": "G-checker",
+      "provider": "hubris",
+      "model": "google/gemini-3.8-flash",
+      "role": "checker",
+      "requested_parameters": {
+        "reasoning_effort": "low",
+        "max_tokens": 12000,
+        "response_format": {
+          "type": "json_object"
+        }
+      },
+      "omitted_parameters": [
+        "temperature",
+        "top_p",
+        "seed",
+        "tools",
+        "tool_choice",
+        "include_reasoning"
+      ],
+      "transport_timeout_seconds": 180,
+      "max_http_body_bytes": 8388608,
+      "sdk_automatic_retries": 0,
+      "request_image_detail": "omitted_provider_default",
+      "output_validation": "M05 frozen stage schema and M01 semantic-link validator when applicable; invalid is failed, no silent repair",
+      "provider_compatibility": "unverified",
+      "hard_output_bound_including_reasoning_verified": false,
+      "mode_rationale": "G low is B01 advertised fast effort; historical minimal is not advertised there. D high retains the L01 historical reference; low is optional cost hypothesis."
+    },
+    {
+      "id": "D-ocr",
+      "provider": "hubris",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "role": "ocr",
+      "requested_parameters": {
+        "reasoning_effort": "high",
+        "max_tokens": 6000,
+        "response_format": {
+          "type": "json_object"
+        }
+      },
+      "omitted_parameters": [
+        "temperature",
+        "top_p",
+        "seed",
+        "tools",
+        "tool_choice",
+        "include_reasoning"
+      ],
+      "transport_timeout_seconds": 120,
+      "max_http_body_bytes": 8388608,
+      "sdk_automatic_retries": 0,
+      "request_image_detail": "omitted_provider_default",
+      "output_validation": "M05 frozen stage schema and M01 semantic-link validator when applicable; invalid is failed, no silent repair",
+      "provider_compatibility": "unverified",
+      "hard_output_bound_including_reasoning_verified": false,
+      "mode_rationale": "G low is B01 advertised fast effort; historical minimal is not advertised there. D high retains the L01 historical reference; low is optional cost hypothesis."
+    },
+    {
+      "id": "D-checker",
+      "provider": "hubris",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "role": "checker",
+      "requested_parameters": {
+        "reasoning_effort": "high",
+        "max_tokens": 12000,
+        "response_format": {
+          "type": "json_object"
+        }
+      },
+      "omitted_parameters": [
+        "temperature",
+        "top_p",
+        "seed",
+        "tools",
+        "tool_choice",
+        "include_reasoning"
+      ],
+      "transport_timeout_seconds": 180,
+      "max_http_body_bytes": 8388608,
+      "sdk_automatic_retries": 0,
+      "request_image_detail": "omitted_provider_default",
+      "output_validation": "M05 frozen stage schema and M01 semantic-link validator when applicable; invalid is failed, no silent repair",
+      "provider_compatibility": "unverified",
+      "hard_output_bound_including_reasoning_verified": false,
+      "mode_rationale": "G low is B01 advertised fast effort; historical minimal is not advertised there. D high retains the L01 historical reference; low is optional cost hypothesis."
+    },
+    {
+      "id": "D-checker-low",
+      "provider": "hubris",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "role": "checker",
+      "requested_parameters": {
+        "reasoning_effort": "low",
+        "max_tokens": 12000,
+        "response_format": {
+          "type": "json_object"
+        }
+      },
+      "omitted_parameters": [
+        "temperature",
+        "top_p",
+        "seed",
+        "tools",
+        "tool_choice",
+        "include_reasoning"
+      ],
+      "transport_timeout_seconds": 180,
+      "max_http_body_bytes": 8388608,
+      "sdk_automatic_retries": 0,
+      "request_image_detail": "omitted_provider_default",
+      "output_validation": "M05 frozen stage schema and M01 semantic-link validator when applicable; invalid is failed, no silent repair",
+      "provider_compatibility": "unverified",
+      "hard_output_bound_including_reasoning_verified": false,
+      "mode_rationale": "G low is B01 advertised fast effort; historical minimal is not advertised there. D high retains the L01 historical reference; low is optional cost hypothesis."
+    }
+  ],
+  "parallel_requests": 1,
+  "comparison_claim": "Configurations, not causal model-brand effect: reasoning differs and provider may interpret it differently.",
+  "base_variants": [
+    {
+      "id": "two_ocr",
+      "ocr_profiles": [
+        "G-ocr",
+        "D-ocr"
+      ],
+      "checker_profiles": [
+        "G-checker",
+        "D-checker"
+      ],
+      "primary_requests": 16,
+      "proposed_retry_reserve": 4,
+      "maximum_attempts_if_reserve_approved": 20
+    },
+    {
+      "id": "one_ocr_economy",
+      "ocr_profiles": [
+        "G-ocr"
+      ],
+      "checker_profiles": [
+        "G-checker",
+        "D-checker"
+      ],
+      "primary_requests": 12,
+      "proposed_retry_reserve": 4,
+      "maximum_attempts_if_reserve_approved": 16,
+      "consequence": "No OCR model comparison; G is technical historical baseline, not proven winner."
+    }
+  ],
+  "selected_base_variant": null,
+  "base_variant_requires_L05_freeze": true,
+  "technical_retry_policy": {
+    "max_per_primary": 1,
+    "max_for_entire_authorized_experiment": 4,
+    "reserve_is_optional_and_unapproved": true,
+    "count_failure_in_primary_results": true,
+    "retry_wait_seconds": 5,
+    "honor_retry_after_seconds_max": 30,
+    "eligible": [
+      "explicit transient 429/5xx with reconciled final accounting and closed transport",
+      "connection failure proven before request transmission"
+    ],
+    "ineligible": [
+      "unknown usage or price",
+      "timeout after transmission",
+      "mathematical disagreement",
+      "malformed/truncated output",
+      "unsupported reasoning/response_format",
+      "model/route mismatch",
+      "budget/reserve breach"
+    ],
+    "rule": "Only M14 after a closed attempt, reconciled charge and explicit reserved retry. Never resend an uncertain in-flight call. No auto schema fallback, larger cap, mode change or new ledger."
+  },
+  "launch_gates": [
+    {
+      "id": "g1",
+      "owner": "M05",
+      "state": "missing",
+      "requires": "Actual common OCR/checker prompts, renderer, output schema and validators frozen with SHA-256; no provider-specific substantive hints."
+    },
+    {
+      "id": "g2",
+      "owner": "M05/L04 runner",
+      "state": "missing",
+      "requires": "Same per-case key and applicable M02/M03 rubric payload, independently checked mathematical key, no pupil-specific labels or expected facts; hashes and reviewer evidence frozen."
+    },
+    {
+      "id": "g3",
+      "owner": "L05/transport",
+      "state": "missing",
+      "requires": "Provider route/parameter/schema acceptance plan, proven billable input and total-output bounds incl reasoning, route price ceiling and explicit total budget/expiry; mere advertised parameters do not suffice."
+    },
+    {
+      "id": "g4",
+      "owner": "L05",
+      "state": "missing",
+      "requires": "User authorizes exact base variant, optional group IDs and retry reserve plus external transmission; same M14 ledger throughout."
+    },
+    {
+      "id": "g5",
+      "owner": "B03 runner",
+      "state": "missing",
+      "requires": "Actual immutable request bodies or approved finite M14 ceiling_rules, input hashes, transport with SDK retries disabled, private payload/response storage and accounting integration."
+    },
+    {
+      "id": "g6",
+      "owner": "B03 runner",
+      "state": "required_preflight",
+      "requires": "No concurrent edits; no evaluation-only material in payload; all local verifier checks pass; reviewer assignment and blinded A/B mapping recorded."
+    }
+  ],
+  "launch_ready": false,
+  "compatibility_probe_policy": "No extra unlisted API probes. After documented price/output safety gates and L05 approval, first assigned request also checks advertised parameter/format acceptance; rejection remains its failed primary outcome and stops the affected profile. Never label compatibility verified merely from B01.",
+  "parameter_rejection_policy": "Record unsupported as outcome, stop affected profile, freeze a new version and budget before any replacement call. Preserve all failures and compare only matching versions."
+}

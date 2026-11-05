@@ -1,0 +1,3 @@
+# Dedicated condition worker; install into data_local/live_runtime only.
+sympy==1.14.0
+mpmath==1.3.0

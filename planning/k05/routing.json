@@ -1,0 +1,765 @@
+{
+  "package_version": "k05-2026-1.0.0",
+  "status": "proposed_for_M05_K03",
+  "mandatory_core": [
+    "k05.core.provenance",
+    "k05.core.constraints",
+    "k05.core.completeness",
+    "k05.core.consistency"
+  ],
+  "feature_vocabulary": [
+    {
+      "id": "algebraic_transition",
+      "meaning": "Алгебра, формулы и арифметика",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "angle_change",
+      "meaning": "Замена и обратный переход",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "arithmetic",
+      "meaning": "Алгебра, формулы и арифметика",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "cancellation",
+      "meaning": "Деление и сокращение",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "circle",
+      "meaning": "Окружность и обороты",
+      "origin": "existing",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "division",
+      "meaning": "Деление и сокращение",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "explicit_interval",
+      "meaning": "Отбор корней",
+      "origin": "existing",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "explicit_root_list",
+      "meaning": "Отбор корней",
+      "origin": "existing",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "explicit_set",
+      "meaning": "Интервалы, знаки и множества",
+      "origin": "existing",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "exponential",
+      "meaning": "Логарифмы и показатели",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "factorization",
+      "meaning": "Алгебра, формулы и арифметика",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "inequality",
+      "meaning": "Интервалы, знаки и множества",
+      "origin": "existing",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "logarithm",
+      "meaning": "Логарифмы и показатели",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "pi_families",
+      "meaning": "Тригонометрия и семейства",
+      "origin": "existing",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "power",
+      "meaning": "Степень и корень",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "radical",
+      "meaning": "Степень и корень",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "rational_fraction",
+      "meaning": "Деление и сокращение",
+      "origin": "existing",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "rationalization",
+      "meaning": "Логарифмы и показатели",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "sign_chart",
+      "meaning": "Интервалы, знаки и множества",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "substitution",
+      "meaning": "Замена и обратный переход",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "trigonometry",
+      "meaning": "Тригонометрия и семейства",
+      "origin": "proposed",
+      "owner": "M05/K03"
+    },
+    {
+      "id": "unknown_method",
+      "meaning": "Общий путь неизвестного способа",
+      "origin": "existing",
+      "owner": "M05/K03"
+    }
+  ],
+  "rules": [
+    {
+      "id": "ROUTE.CORE",
+      "priority": 0,
+      "when": {
+        "always": true
+      },
+      "container_ids": [
+        "k05.core.provenance",
+        "k05.core.constraints",
+        "k05.core.completeness",
+        "k05.core.consistency"
+      ],
+      "mechanism_ids": [
+        "MECH.CORE.READING_UNCERTAIN",
+        "MECH.CORE.SUPERSEDED_SOURCE",
+        "MECH.CORE.STALE_FACT",
+        "MECH.CORE.HIDDEN_PREMISE",
+        "MECH.CORE.BRANCH_LEAK",
+        "MECH.CORE.DOMAIN_SYSTEM_WRONG",
+        "MECH.CORE.MISSING_JUSTIFICATION",
+        "MECH.CORE.ANSWER_CHAIN_MISMATCH",
+        "MECH.CORE.SCORE_FEEDBACK_COUPLED"
+      ],
+      "operation_ids": [],
+      "requires": [
+        "Выбранный комплект страниц и актуальная версия"
+      ],
+      "unknown_if": [
+        "Неизвестный признак не отменяет правило"
+      ],
+      "invalidates": [
+        "Любая существенная правка основания"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        }
+      ]
+    },
+    {
+      "id": "ROUTE.UNKNOWN",
+      "priority": 10,
+      "when": {
+        "any_feature": [
+          "unknown_method"
+        ],
+        "uncertain_feature_policy": "include_candidate_plus_general_method"
+      },
+      "container_ids": [
+        "k05.core.general_method"
+      ],
+      "mechanism_ids": [
+        "MECH.CORE.UNKNOWN_METHOD"
+      ],
+      "operation_ids": [],
+      "requires": [
+        "Проверить применимость каждой операции отдельно по K01; вызов не следует автоматически из выбора контейнера."
+      ],
+      "unknown_if": [
+        "Неразрешённая существенная предпосылка",
+        "Несовместимая переменная или ветвь",
+        "Нет точного поддержанного представления"
+      ],
+      "invalidates": [
+        "Чтение/интерпретация/область/ветвь/версия источника или кода изменены"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "ROUTE.DIV",
+      "priority": 10,
+      "when": {
+        "any_feature": [
+          "division",
+          "cancellation",
+          "rational_fraction"
+        ],
+        "uncertain_feature_policy": "include_candidate_plus_general_method"
+      },
+      "container_ids": [
+        "k05.div"
+      ],
+      "mechanism_ids": [
+        "MECH.DIV.DIVISOR_ZERO_BRANCH_LOST",
+        "MECH.DIV.CANCELLED_HOLE_RESTORED",
+        "MECH.DIV.INEQUALITY_SIGN_LOST"
+      ],
+      "operation_ids": [
+        "m07.denominator_nonzero"
+      ],
+      "requires": [
+        "Проверить применимость каждой операции отдельно по K01; вызов не следует автоматически из выбора контейнера."
+      ],
+      "unknown_if": [
+        "Неразрешённая существенная предпосылка",
+        "Несовместимая переменная или ветвь",
+        "Нет точного поддержанного представления"
+      ],
+      "invalidates": [
+        "Чтение/интерпретация/область/ветвь/версия источника или кода изменены"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "ROUTE.POW",
+      "priority": 10,
+      "when": {
+        "any_feature": [
+          "power",
+          "radical"
+        ],
+        "uncertain_feature_policy": "include_candidate_plus_general_method"
+      },
+      "container_ids": [
+        "k05.pow_root"
+      ],
+      "mechanism_ids": [
+        "MECH.POW.SQUARING_EXTRANEOUS",
+        "MECH.POW.ROOT_BRANCH_LOST",
+        "MECH.POW.DOMAIN_IGNORED"
+      ],
+      "operation_ids": [],
+      "requires": [
+        "Проверить применимость каждой операции отдельно по K01; вызов не следует автоматически из выбора контейнера."
+      ],
+      "unknown_if": [
+        "Неразрешённая существенная предпосылка",
+        "Несовместимая переменная или ветвь",
+        "Нет точного поддержанного представления"
+      ],
+      "invalidates": [
+        "Чтение/интерпретация/область/ветвь/версия источника или кода изменены"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "ROUTE.LOG",
+      "priority": 10,
+      "when": {
+        "any_feature": [
+          "logarithm",
+          "exponential",
+          "rationalization"
+        ],
+        "uncertain_feature_policy": "include_candidate_plus_general_method"
+      },
+      "container_ids": [
+        "k05.log_exp"
+      ],
+      "mechanism_ids": [
+        "MECH.LOG.DOMAIN_EXPANDED",
+        "MECH.LOG.BASE_MONOTONICITY",
+        "MECH.LOG.RATIONALIZATION_AS_IDENTITY"
+      ],
+      "operation_ids": [],
+      "requires": [
+        "Проверить применимость каждой операции отдельно по K01; вызов не следует автоматически из выбора контейнера."
+      ],
+      "unknown_if": [
+        "Неразрешённая существенная предпосылка",
+        "Несовместимая переменная или ветвь",
+        "Нет точного поддержанного представления"
+      ],
+      "invalidates": [
+        "Чтение/интерпретация/область/ветвь/версия источника или кода изменены"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "ROUTE.SUBST",
+      "priority": 10,
+      "when": {
+        "any_feature": [
+          "substitution",
+          "angle_change"
+        ],
+        "uncertain_feature_policy": "include_candidate_plus_general_method"
+      },
+      "container_ids": [
+        "k05.subst"
+      ],
+      "mechanism_ids": [
+        "MECH.SUBST.RANGE_IGNORED",
+        "MECH.SUBST.PREIMAGE_INCOMPLETE",
+        "MECH.SUBST.VARIABLE_MIXED"
+      ],
+      "operation_ids": [],
+      "requires": [
+        "Проверить применимость каждой операции отдельно по K01; вызов не следует автоматически из выбора контейнера."
+      ],
+      "unknown_if": [
+        "Неразрешённая существенная предпосылка",
+        "Несовместимая переменная или ветвь",
+        "Нет точного поддержанного представления"
+      ],
+      "invalidates": [
+        "Чтение/интерпретация/область/ветвь/версия источника или кода изменены"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "ROUTE.INTERVALS",
+      "priority": 10,
+      "when": {
+        "any_feature": [
+          "inequality",
+          "explicit_set",
+          "sign_chart"
+        ],
+        "uncertain_feature_policy": "include_candidate_plus_general_method"
+      },
+      "container_ids": [
+        "k05.intervals"
+      ],
+      "mechanism_ids": [
+        "MECH.INT.SIGN_WRONG",
+        "MECH.INT.MULTIPLICITY_WRONG",
+        "MECH.INT.ENDPOINT_WRONG",
+        "MECH.INT.SET_LOGIC_WRONG"
+      ],
+      "operation_ids": [
+        "m07.set_union",
+        "m07.set_intersection",
+        "m07.set_membership",
+        "m07.set_equal",
+        "m07.denominator_nonzero"
+      ],
+      "requires": [
+        "Проверить применимость каждой операции отдельно по K01; вызов не следует автоматически из выбора контейнера."
+      ],
+      "unknown_if": [
+        "Неразрешённая существенная предпосылка",
+        "Несовместимая переменная или ветвь",
+        "Нет точного поддержанного представления"
+      ],
+      "invalidates": [
+        "Чтение/интерпретация/область/ветвь/версия источника или кода изменены"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "ROUTE.TRIG",
+      "priority": 10,
+      "when": {
+        "any_feature": [
+          "trigonometry",
+          "pi_families"
+        ],
+        "uncertain_feature_policy": "include_candidate_plus_general_method"
+      },
+      "container_ids": [
+        "k05.trig"
+      ],
+      "mechanism_ids": [
+        "MECH.TRIG.PERIOD_WRONG",
+        "MECH.TRIG.PRODUCT_BRANCH_LOST",
+        "MECH.TRIG.INDEX_LOGIC_WRONG",
+        "MECH.TRIG.INVERSE_BRANCH"
+      ],
+      "operation_ids": [],
+      "requires": [
+        "Проверить применимость каждой операции отдельно по K01; вызов не следует автоматически из выбора контейнера."
+      ],
+      "unknown_if": [
+        "Неразрешённая существенная предпосылка",
+        "Несовместимая переменная или ветвь",
+        "Нет точного поддержанного представления"
+      ],
+      "invalidates": [
+        "Чтение/интерпретация/область/ветвь/версия источника или кода изменены"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "ROUTE.SELECTION",
+      "priority": 10,
+      "when": {
+        "any_feature": [
+          "pi_families",
+          "explicit_interval",
+          "explicit_root_list"
+        ],
+        "uncertain_feature_policy": "include_candidate_plus_general_method"
+      },
+      "container_ids": [
+        "k05.selection"
+      ],
+      "mechanism_ids": [
+        "MECH.SEL.INDEX_RANGE_WRONG",
+        "MECH.SEL.SERIES_OMITTED",
+        "MECH.SEL.ENDPOINT_WRONG",
+        "MECH.SEL.SELECTION_UNJUSTIFIED"
+      ],
+      "operation_ids": [
+        "m06.pi_interval_membership",
+        "m06.select_pi_roots"
+      ],
+      "requires": [
+        "Проверить применимость каждой операции отдельно по K01; вызов не следует автоматически из выбора контейнера."
+      ],
+      "unknown_if": [
+        "Неразрешённая существенная предпосылка",
+        "Несовместимая переменная или ветвь",
+        "Нет точного поддержанного представления"
+      ],
+      "invalidates": [
+        "Чтение/интерпретация/область/ветвь/версия источника или кода изменены"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "ROUTE.CIRCLE",
+      "priority": 10,
+      "when": {
+        "any_feature": [
+          "circle"
+        ],
+        "uncertain_feature_policy": "include_candidate_plus_general_method"
+      },
+      "container_ids": [
+        "k05.circle"
+      ],
+      "mechanism_ids": [
+        "MECH.CIRC.RESIDUE_AS_REAL",
+        "MECH.CIRC.MULTITURN_LOSS",
+        "MECH.CIRC.ANGLE_VARIABLE",
+        "MECH.CIRC.PERIOD_PROJECTION",
+        "MECH.CIRC.SELF_CONFIRMATION",
+        "MECH.CIRC.LINK_MISSING"
+      ],
+      "operation_ids": [
+        "m06.circle_point_equal",
+        "m06.pi_interval_membership",
+        "m06.select_pi_roots"
+      ],
+      "requires": [
+        "Проверить применимость каждой операции отдельно по K01; вызов не следует автоматически из выбора контейнера."
+      ],
+      "unknown_if": [
+        "Неразрешённая существенная предпосылка",
+        "Несовместимая переменная или ветвь",
+        "Нет точного поддержанного представления"
+      ],
+      "invalidates": [
+        "Чтение/интерпретация/область/ветвь/версия источника или кода изменены"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    },
+    {
+      "id": "ROUTE.ALGEBRA",
+      "priority": 10,
+      "when": {
+        "any_feature": [
+          "algebraic_transition",
+          "factorization",
+          "arithmetic"
+        ],
+        "uncertain_feature_policy": "include_candidate_plus_general_method"
+      },
+      "container_ids": [
+        "k05.algebra"
+      ],
+      "mechanism_ids": [
+        "MECH.ALG.CALCULATION",
+        "MECH.ALG.FORMULA_WRONG"
+      ],
+      "operation_ids": [],
+      "requires": [
+        "Проверить применимость каждой операции отдельно по K01; вызов не следует автоматически из выбора контейнера."
+      ],
+      "unknown_if": [
+        "Неразрешённая существенная предпосылка",
+        "Несовместимая переменная или ветвь",
+        "Нет точного поддержанного представления"
+      ],
+      "invalidates": [
+        "Чтение/интерпретация/область/ветвь/версия источника или кода изменены"
+      ],
+      "sources": [
+        {
+          "path": "../CHECKING_PRINCIPLES.md",
+          "locator": "U01–U12; §§2–5"
+        },
+        {
+          "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+          "locator": "До реального оценивания; Планирование проверок"
+        }
+      ]
+    }
+  ],
+  "combination": "Объединить mandatory_core и все подходящие контейнеры. При unknown/missing/conflicting features добавить k05.core.general_method. Неверный ранний ярлык не исключает общие требования и повторное уточнение маршрута по новым свидетельствам. Сам неизвестный ярлык не создаёт finding: сначала содержательный разбор; если все требования доказаны альтернативным способом, проблемы нет.",
+  "execution": {
+    "model_calls": "Один собранный набор инструкций на этап, без отдельного вызова на ярлык.",
+    "sequence": [
+      "прочитать и выбрать действующие units/interpretations",
+      "собрать исходные ограничения и области ветвей",
+      "проверить семантику каждого аргумента и предпосылки",
+      "выполнить готовые узкие запросы в порядке зависимостей",
+      "валидировать результат K01/M01 и применимость в следующем запросе",
+      "проверить итоговое множество и ученическое обоснование",
+      "сопоставить требования M02/M03, затем применимые case_checks"
+    ],
+    "dynamic_planner_status": "proposed K03: текущий M04 принимает статичный список; не объявлять автоматическую цепочку уже работающей",
+    "dependency_key": [
+      "reading_version",
+      "context_digest",
+      "variable_id",
+      "branch_id",
+      "operation_id",
+      "operation_version",
+      "typed_arguments",
+      "transitive_dependencies",
+      "assumption_states"
+    ],
+    "on_unknown": "Не запускать зависимую математику с выдуманным аргументом; независимые проверки продолжаются.",
+    "branch_join": "В родительскую ветвь переносить вывод только с M01 fact.branch_join и доказанным покрытием; объединение множеств само не доказывает полноту ветвей."
+  },
+  "operations": [
+    {
+      "id": "m06.pi_interval_membership",
+      "version": "1.0.0",
+      "status": "executable",
+      "implementation": "exact-checks-1.1.0",
+      "owner": "M06",
+      "safe_entry": "Pipeline(operations=all_operations())",
+      "limits_source": "../k01/registry.json",
+      "source": {
+        "path": "../k01/registry.json",
+        "locator": "m06.pi_interval_membership"
+      }
+    },
+    {
+      "id": "m06.select_pi_roots",
+      "version": "1.0.0",
+      "status": "executable",
+      "implementation": "exact-checks-1.1.0",
+      "owner": "M06",
+      "safe_entry": "Pipeline(operations=all_operations())",
+      "limits_source": "../k01/registry.json",
+      "source": {
+        "path": "../k01/registry.json",
+        "locator": "m06.select_pi_roots"
+      }
+    },
+    {
+      "id": "m06.circle_point_equal",
+      "version": "1.0.0",
+      "status": "executable",
+      "implementation": "exact-checks-1.1.0",
+      "owner": "M06",
+      "safe_entry": "Pipeline(operations=all_operations())",
+      "limits_source": "../k01/registry.json",
+      "source": {
+        "path": "../k01/registry.json",
+        "locator": "m06.circle_point_equal"
+      }
+    },
+    {
+      "id": "m07.set_union",
+      "version": "1.0.0",
+      "status": "executable",
+      "implementation": "exact-checks-1.1.0",
+      "owner": "M07",
+      "safe_entry": "Pipeline(operations=all_operations())",
+      "limits_source": "../k01/registry.json",
+      "source": {
+        "path": "../k01/registry.json",
+        "locator": "m07.set_union"
+      }
+    },
+    {
+      "id": "m07.set_intersection",
+      "version": "1.0.0",
+      "status": "executable",
+      "implementation": "exact-checks-1.1.0",
+      "owner": "M07",
+      "safe_entry": "Pipeline(operations=all_operations())",
+      "limits_source": "../k01/registry.json",
+      "source": {
+        "path": "../k01/registry.json",
+        "locator": "m07.set_intersection"
+      }
+    },
+    {
+      "id": "m07.set_membership",
+      "version": "1.0.0",
+      "status": "executable",
+      "implementation": "exact-checks-1.1.0",
+      "owner": "M07",
+      "safe_entry": "Pipeline(operations=all_operations())",
+      "limits_source": "../k01/registry.json",
+      "source": {
+        "path": "../k01/registry.json",
+        "locator": "m07.set_membership"
+      }
+    },
+    {
+      "id": "m07.set_equal",
+      "version": "1.0.0",
+      "status": "executable",
+      "implementation": "exact-checks-1.1.0",
+      "owner": "M07",
+      "safe_entry": "Pipeline(operations=all_operations())",
+      "limits_source": "../k01/registry.json",
+      "source": {
+        "path": "../k01/registry.json",
+        "locator": "m07.set_equal"
+      }
+    },
+    {
+      "id": "m07.denominator_nonzero",
+      "version": "1.0.0",
+      "status": "executable",
+      "implementation": "exact-checks-1.1.0",
+      "owner": "M07",
+      "safe_entry": "Pipeline(operations=all_operations())",
+      "limits_source": "../k01/registry.json",
+      "source": {
+        "path": "../k01/registry.json",
+        "locator": "m07.denominator_nonzero"
+      }
+    }
+  ],
+  "revision_policy": {
+    "mathematical_change": "Старые зависимые выводы непригодны. До проверенной карты зависимостей повторить оценивание сохранённого актуального чтения целиком; OCR неизменённых изображений переиспользовать.",
+    "feedback_wording_only": "Не меняет чтение/математический digest; переоформление без нового OCR.",
+    "cache_scope": "M04 дедуплицирует одинаковый запрос в запуске; автоматического межзапускового OCR-кэша нет."
+  },
+  "sources": [
+    {
+      "path": "../CHECKING_PRINCIPLES.md",
+      "locator": "U01–U12; §§2–5"
+    },
+    {
+      "path": "../m06_m07_fixes_2026-10-07/HANDOFF.md",
+      "locator": "До реального оценивания; Планирование проверок"
+    }
+  ]
+}
